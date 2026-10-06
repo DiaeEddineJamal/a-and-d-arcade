@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/cuphead@c9ff1b6b16f9d402b78a42fc2200e1c076c0ab6e/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Cuphead</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Browser wrapper: web-ports/cuphead, 08a62227c742d74092f739b168ee4be1993f8ba5. -->
+    <style>
+      body {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      #gameContainer {
+        width: 100vw !important;
+        height: 100vh !important;
+      }
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    </style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · BROWSER EDITION</p>
+      <h1>CUPHEAD</h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <div id="gameContainer"></div>
+    <script src="Build/UnityLoader.js" onerror="document.getElementById('loading-text').className='failed';document.getElementById('loading-status').textContent='The game loader could not be downloaded. Use Reload to try again.'"></script>
+    <script>
+var loadingText = document.querySelector("#loading-text");
+    var loadingBar = document.querySelector("#loading-bar");
+    var loadingStatus = document.querySelector("#loading-status");
+    let totalBytes = 0;
+    let loadedBytes = 0;
+    function showLoadError(error) {
+      loadingText.className = 'failed';
+      loadingStatus.textContent = 'Game could not load. Use Reload to try again. ' + error.message;
+    }
+
+    async function fetchWithProgress(url) {
+      const response = await fetch(url);
+      if (!response.ok || !response.body) throw new Error('Download failed: HTTP ' + response.status);
+      const reader = response.body.getReader();
+      let chunks = [];
+      let received = 0;
+      while (true) {
+        const {
+          done,
+          value
+        } = await reader.read();
+        if (done) break;
+        received += value.length;
+        loadedBytes += value.length;
+        chunks.push(value);
+        let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+        let mbTotal = 2101.31;
+        loadingBar.value = Math.min(loadedBytes / (mbTotal * 1024 * 1024), 1);
+        loadingStatus.textContent = `LOADING ${mbDone} / ${mbTotal} MB`;
+      }
+      return new Blob(chunks);
+    }
+
+    async function mergeFiles(fileParts, cacheKey) {
+      const type = cacheKey.includes('.wasm') ? 'application/wasm' : 'application/octet-stream';
+      // ponytail: cache is optional; unavailable storage downloads again on next launch.
+      const cache = await caches.open("cuphead-cache").catch(() => null);
+      const cachedResponse = await cache?.match(cacheKey).catch(() => null);
+      if (cachedResponse) {
+        const blob = new Blob([await cachedResponse.blob()], { type });
+        return URL.createObjectURL(blob);
+      }
+      const buffers = await Promise.all(
+        fileParts.map(part => fetchWithProgress(part))
+      );
+      const mergedBlob = new Blob(buffers, { type });
+      const response = new Response(mergedBlob);
+      await cache?.put(cacheKey, response).catch(() => {});
+      return URL.createObjectURL(mergedBlob);
+    }
+
+    function getParts(file, start, end) {
+      let parts = [];
+      for (let i = start; i <= end; i++) {
+        parts.push(file + ".part" + i);
+      }
+      return parts;
+    }
+    (async () => {
+      const [dataUrl, wasmUrl, asmUrl] = await Promise.all([
+        mergeFiles(getParts("Build/CupheadPort.data.unityweb", 1, 103), "CupheadPort.data.unityweb"),
+        mergeFiles(getParts("Build/CupheadPort.wasm.code.unityweb", 1, 2), "CupheadPort.wasm.code.unityweb"),
+        mergeFiles(getParts("Build/CupheadPort.asm.code.unityweb", 1, 3), "CupheadPort.asm.code.unityweb"),
+      ]);
+
+      const originalOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+          if (url.includes("CupheadPort.data.unityweb")) {
+              url = dataUrl;
+          } else if (url.includes("CupheadPort.wasm.code.unityweb")) {
+              url = wasmUrl;
+          } else if (url.includes("CupheadPort.asm.code.unityweb")) {
+              url = asmUrl;
+          }
+          return originalOpen.call(this, method, url, ...rest);
+      };
+      loadingStatus.textContent = "STARTING ENGINE";
+      UnityLoader.instantiate("gameContainer", "Build/CupheadPort.json", {
+        onProgress: (instance, progress) => {
+          loadingBar.value = progress;
+          if (progress === 1) loadingText.remove();
+        },
+      });
+    })().catch(showLoadError);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,902 @@
+{
+  "tool": "built-in image_gen",
+  "sourceDocument": "docs/CHATGPT_ASSET_PROMPTS.md",
+  "style": "A&D ARCADE STYLE GUIDE — follow it for every image in this chat.\r\nWorld: a late-1990s PC games collector's archive. Every image must look like a real, physical, printed object or a real period graphic — never like modern digital art, a 3D render or a mockup.\r\nBox packaging language (match the attached cover exactly): a cream, slightly yellowed paper frame around a hand-painted illustration; a top band reading “A&D ARCADE” between small diamond ornaments in a dark ink serif; a tiny “PC / BROWSER EDITION” mark in the top-right corner; a bottom band reading “THE A&D COLLECTION” between thin rules; big chunky retro title lettering with a dark outline and drop shadow, copied from the cover.\r\nPrint and finish: offset-printed cardboard seen in a flatbed scan — flat even light, no glare, true colours, faint halftone dots, soft scuffs and creases, rubbed edges and corners, a little ink wear. Slightly warm, aged, but clean and legible.\r\nPalette: take the colours from the attached cover; neutrals are paper cream #ECE8DA / #DDD9C8 and ink #1A1A1A.\r\nTypography: chunky title lettering from the cover; secondary text in a classic bookish serif (like Fraunces or Times); small print in a typewriter-style mono (like IBM Plex Mono). Keep text short and spelled exactly as given.\r\nNever: perspective, 3D box mockups, hands, tables, backgrounds around the artwork, glossy plastic, lens flares, neon purple, modern UI, gradients that look digital, real company logos, ESRB/PEGI marks, watermarks, copyright notices.\r\n",
+  "assets": [
+    {
+      "path": "public/wallpapers/arcade.png",
+      "game": null,
+      "cover": null,
+      "prompt": "A flat graphic desktop wallpaper in the style of 1970s–80s retro stripe posters, 1536×1024 landscape. Background: warm cream paper #ECE8DA with a very fine paper grain and faint print mottling. From the bottom-left corner, five thick parallel stripe bands — signal red #E8432E, amber #F5B800, phosphor green #5BD25B, teal #008080 and ink #1A1A1A — sweep upward in one smooth wide arc that curves to the right across the lower third and ends just past the centre in a single bold five-pointed star outlined in the same stripes. The stripes have a soft glow at their edges as if lit like neon tubes, and a slight print misregistration. Everything else is empty cream paper: keep the left 10% above the stripes, the whole top half and the bottom 12% calm and empty because desktop icons and a dock sit there. Flat 2D graphic, no text, no letters, no logos, no objects, no 3D.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-d848a513-4f17-4322-8689-96033ae9c58e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/wallpapers/paper.png",
+      "game": null,
+      "cover": null,
+      "prompt": "A flat, faded 1970s graphic desktop wallpaper, 1536×1024 landscape, printed on aged cream paper with soft foxing, grain and darker worn edges. A minimal landscape made only of flat stripes and simple shapes in a muted palette of dusty teal #6F9C99, faded amber #D9A845, sage green #A9B48E and warm brown #9A6A3E: a large pale half-circle sun sitting on the horizon on the left, horizontal stripe bands for the sea across the lower third, and on the right a wide road of three parallel stripes rising in a smooth S-curve like a race track bending over a hill. Muted, quiet, low contrast, lots of empty paper in the upper two thirds. Flat 2D print, no text, no logos, no people, no vehicles, no 3D.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-5d41c05c-abc4-4fa9-b24c-ddd248762dc1.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/wallpapers/midnight.png",
+      "game": null,
+      "cover": null,
+      "prompt": "A pixel-art blueprint desktop wallpaper, 1536×1024 landscape, chunky visible pixels like a 1990s VGA screen. Deep navy background #0B1240 with a faint pixel grid. In the centre, a top-down floor plan of a small arcade hall drawn in glowing blue-violet pixel lines inside a large octagonal frame: rows of tiny arcade cabinets, a counter, a prize shelf, two player stations facing each other marked “P1” and “P2”, connected by dotted routes and small circular nodes. Around it, scattered phosphor-green #5BD25B pixel annotations: small boxed notes, tiny charts, a radar circle, arrows, coordinates and short unreadable labels, with one small label reading “A&D ARCADE — FLOOR PLAN”. A few salmon-pink accent dots. Calm, dense, technical, low brightness overall. Flat 2D pixel art, no 3D, no photos.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-e52b3b52-76a2-497a-a20d-c9e28a4aba2a.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-back.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “A&D PONG” at the top in the cover's exact lettering, smaller; under it the line “Thunder serves under a travelling storm.” in italic serif; three small framed screenshots of the game (versus paddle duel), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “CPU with three levels”, “Private four-letter rooms”, “Film Frenzy wind storms”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1–2 PLAYERS” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-1357299d-c8d9-4e33-92a6-cc8af9a53088.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-spine.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “A&D PONG” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “01”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-a00d66ee-8e06-488b-acdc-d67fb288e029.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-photo-1.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the CD-ROM for the game whose cover is attached, sitting in an open clear jewel case: a silver disc with a printed label using a crop of the cover art, the title “A&D PONG” in the cover lettering and “A&D ARCADE · DISC 1” in small mono text. Plain warm off-white background, flat scanner light, faint scratches on the case. No hands, no table, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-55e37eae-6ea4-4131-9f57-47bb3fc57e22.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-photo-2.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the slim printed manual for the game whose cover is attached, opened flat to a double page: left page a hand-drawn controls diagram showing “W/S · ↑/↓ · drag on touch”, right page short columns of “How to play” text with small spot illustrations in the cover's style; yellowed paper, staple in the middle, page numbers. Plain warm off-white background, flat scanner light. Only the headings need to be readable.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-230d0b85-6ea8-44e7-a04c-c94df71d862c.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-photo-3.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the paper inserts that came in the box of the game whose cover is attached: a folded fold-out poster of the cover illustration, a small registration card with tick boxes, and a cream “A&D ARCADE” sticker sheet with the A&D arc-and-star mark, arranged neatly and slightly overlapping on a plain warm off-white background. Flat scanner light, slight paper curl and wear.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-77c6fc94-f867-47c9-8d88-2efec10bbb61.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/pong-photo-4.png",
+      "game": "### 01 · A&D PONG  (`pong`)",
+      "cover": "public/pong-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the front cover attached, scanned flat as a physical box face: the whole cover centred with a narrow margin of plain warm off-white scanner background around it, showing real cardboard wear — rubbed corners, a small crease, a faded price sticker in the top corner reading “$29.99”. Flat light, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-a4beec7f-c3f9-4a29-90b1-fc29fe12a92a.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/kart-back.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “A&D KART” at the top in the cover's exact lettering, smaller; under it the line “Dust clouds, sharp corners, one more lap.” in italic serif; three small framed screenshots of the game (party kart racer), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Room codes for friends”, “Items and drift boosts”, “Leaderboards per track”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1–8 PLAYERS” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-2705981c-645b-483a-9685-86a2ee41c93d.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/kart-spine.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “A&D KART” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “02”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-e0f8108b-735d-42fc-9607-0fec6b8e3c5e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/kart-photo-1.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the CD-ROM for the game whose cover is attached, sitting in an open clear jewel case: a silver disc with a printed label using a crop of the cover art, the title “A&D KART” in the cover lettering and “A&D ARCADE · DISC 1” in small mono text. Plain warm off-white background, flat scanner light, faint scratches on the case. No hands, no table, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/kart-photo-2.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the slim printed manual for the game whose cover is attached, opened flat to a double page: left page a hand-drawn controls diagram showing “Keyboard · gamepad · touch”, right page short columns of “How to play” text with small spot illustrations in the cover's style; yellowed paper, staple in the middle, page numbers. Plain warm off-white background, flat scanner light. Only the headings need to be readable.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/kart-photo-3.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the paper inserts that came in the box of the game whose cover is attached: a folded fold-out poster of the cover illustration, a small registration card with tick boxes, and a cream “A&D ARCADE” sticker sheet with the A&D arc-and-star mark, arranged neatly and slightly overlapping on a plain warm off-white background. Flat scanner light, slight paper curl and wear.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/kart-photo-4.png",
+      "game": "### 02 · A&D KART  (`kart`)",
+      "cover": "public/kart-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the front cover attached, scanned flat as a physical box face: the whole cover centred with a narrow margin of plain warm off-white scanner background around it, showing real cardboard wear — rubbed corners, a small crease, a faded price sticker in the top corner reading “$29.99”. Flat light, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/puck-back.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “A&D PUCK” at the top in the cover's exact lettering, smaller; under it the line “One puck, two mallets, no mercy at the crease.” in italic serif; three small framed screenshots of the game (air hockey duel), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “CPU with three levels”, “Hits resolved on your side”, “Plays on phones”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1–2 PLAYERS” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-2b7271d8-234e-4e8b-b631-6a4c30702644.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/puck-spine.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “A&D PUCK” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “03”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-f61a2c5e-8a20-4714-8d4d-58defc55d4b6.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/puck-photo-1.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the CD-ROM for the game whose cover is attached, sitting in an open clear jewel case: a silver disc with a printed label using a crop of the cover art, the title “A&D PUCK” in the cover lettering and “A&D ARCADE · DISC 1” in small mono text. Plain warm off-white background, flat scanner light, faint scratches on the case. No hands, no table, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/puck-photo-2.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the slim printed manual for the game whose cover is attached, opened flat to a double page: left page a hand-drawn controls diagram showing “Mouse · finger · WASD / arrows”, right page short columns of “How to play” text with small spot illustrations in the cover's style; yellowed paper, staple in the middle, page numbers. Plain warm off-white background, flat scanner light. Only the headings need to be readable.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/puck-photo-3.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the paper inserts that came in the box of the game whose cover is attached: a folded fold-out poster of the cover illustration, a small registration card with tick boxes, and a cream “A&D ARCADE” sticker sheet with the A&D arc-and-star mark, arranged neatly and slightly overlapping on a plain warm off-white background. Flat scanner light, slight paper curl and wear.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/puck-photo-4.png",
+      "game": "### 03 · A&D PUCK  (`puck`)",
+      "cover": "public/puck-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the front cover attached, scanned flat as a physical box face: the whole cover centred with a narrow margin of plain warm off-white scanner background around it, showing real cardboard wear — rubbed corners, a small crease, a faded price sticker in the top corner reading “$29.99”. Flat light, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/chefs-back.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “A&D CHEFS” at the top in the cover's exact lettering, smaller; under it the line “Two chefs, one kitchen, orders stacking up.” in italic serif; three small framed screenshots of the game (co-op cooking rush), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Four recipes”, “A CPU chef that helps”, “Shared online kitchen”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1–2 PLAYERS” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-12157589-cb5c-406a-a7dc-00c78174a2bf.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/chefs-spine.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “A&D CHEFS” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “04”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-40b49213-0d2f-4957-b207-5c713e9a63b6.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/chefs-photo-1.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the CD-ROM for the game whose cover is attached, sitting in an open clear jewel case: a silver disc with a printed label using a crop of the cover art, the title “A&D CHEFS” in the cover lettering and “A&D ARCADE · DISC 1” in small mono text. Plain warm off-white background, flat scanner light, faint scratches on the case. No hands, no table, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/chefs-photo-2.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the slim printed manual for the game whose cover is attached, opened flat to a double page: left page a hand-drawn controls diagram showing “WASD / arrows · grab · chop”, right page short columns of “How to play” text with small spot illustrations in the cover's style; yellowed paper, staple in the middle, page numbers. Plain warm off-white background, flat scanner light. Only the headings need to be readable.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/chefs-photo-3.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the paper inserts that came in the box of the game whose cover is attached: a folded fold-out poster of the cover illustration, a small registration card with tick boxes, and a cream “A&D ARCADE” sticker sheet with the A&D arc-and-star mark, arranged neatly and slightly overlapping on a plain warm off-white background. Flat scanner light, slight paper curl and wear.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/chefs-photo-4.png",
+      "game": "### 04 · A&D CHEFS  (`chefs`)",
+      "cover": "public/chefs-cover-box-art.png",
+      "prompt": "Following the style guide, a flatbed scan, 1536×1024 landscape, of the front cover attached, scanned flat as a physical box face: the whole cover centred with a narrow margin of plain warm off-white scanner background around it, showing real cardboard wear — rubbed corners, a small crease, a faded price sticker in the top corner reading “$29.99”. Flat light, no perspective.",
+      "size": [
+        1536,
+        1024
+      ],
+      "status": "pending"
+    },
+    {
+      "path": "public/box-art/cuphead-back.png",
+      "game": "### 05 · CUPHEAD  (`cuphead`)",
+      "cover": "public/cuphead-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “CUPHEAD” at the top in the cover's exact lettering, smaller; under it the line “Don't deal with the devil.” in italic serif; three small framed screenshots of the game (run-and-gun platformer), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Hand-drawn animation”, “Boss battles”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1–2 PLAYERS” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-1ea9e0d9-a479-41eb-ae9e-927c780f41af.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/cuphead-spine.png",
+      "game": "### 05 · CUPHEAD  (`cuphead`)",
+      "cover": "public/cuphead-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “CUPHEAD” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “05”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-ebef4071-6e6a-4b88-a36f-bfc7c2ae1183.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/20-minutes-till-dawn-back.png",
+      "game": "### 06 · 20 MINUTES TILL DAWN  (`20-minutes-till-dawn`)",
+      "cover": "public/20-minutes-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “20 MINUTES TILL DAWN” at the top in the cover's exact lettering, smaller; under it the line “Survive the night. Build something devastating.” in italic serif; three small framed screenshots of the game (survival roguelite), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Upgrade combinations”, “Eldritch hordes”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-e521b8dc-178a-4893-adbc-fa642895540e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/20-minutes-till-dawn-spine.png",
+      "game": "### 06 · 20 MINUTES TILL DAWN  (`20-minutes-till-dawn`)",
+      "cover": "public/20-minutes-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “20 MINUTES TILL DAWN” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “06”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-d931e5e2-964f-4246-acb2-2000bc28999d.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hollow-knight-back.png",
+      "game": "### 07 · HOLLOW KNIGHT  (`hollow-knight`)",
+      "cover": "public/hollow-knight-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOLLOW KNIGHT” at the top in the cover's exact lettering, smaller; under it the line “Descend into the ruined kingdom of Hallownest.” in italic serif; three small framed screenshots of the game (metroidvania), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Hand-drawn kingdom”, “Tough-as-nails bosses”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-46bd4c41-afe9-4779-95d5-7a44b9d108ea.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hollow-knight-spine.png",
+      "game": "### 07 · HOLLOW KNIGHT  (`hollow-knight`)",
+      "cover": "public/hollow-knight-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOLLOW KNIGHT” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “07”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-6ecbae16-4a44-49b2-be75-61616129552e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-chrome-back.png",
+      "game": "### 08 · ANGRY BIRDS  (`angry-birds-chrome`)",
+      "cover": "public/angry-birds-chrome-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS” at the top in the cover's exact lettering, smaller; under it the line “Pull back. Let fly. Topple the pigs.” in italic serif; three small framed screenshots of the game (physics puzzler), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Classic episodes”, “Chrome-exclusive levels”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-bf68037a-3066-4fdf-a63a-6f859abbb286.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-chrome-spine.png",
+      "game": "### 08 · ANGRY BIRDS  (`angry-birds-chrome`)",
+      "cover": "public/angry-birds-chrome-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “08”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-a029ce95-289f-4183-83d2-25f4c6545798.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-epic-back.png",
+      "game": "### 09 · ANGRY BIRDS EPIC  (`angry-birds-epic`)",
+      "cover": "public/angry-birds-epic-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS EPIC” at the top in the cover's exact lettering, smaller; under it the line “Swords, spatulas and pigs that need a beating.” in italic serif; three small framed screenshots of the game (turn-based rpg), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Turn-based battles”, “Crafting and gear”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-aef9d826-7e52-4ba8-8151-c1ee5e46d492.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-epic-spine.png",
+      "game": "### 09 · ANGRY BIRDS EPIC  (`angry-birds-epic`)",
+      "cover": "public/angry-birds-epic-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS EPIC” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “09”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-95d74d09-6215-46fe-abb1-7af08016b60b.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-hatchery-island-back.png",
+      "game": "### 10 · ANGRY BIRDS HATCHERY  (`angry-birds-hatchery-island`)",
+      "cover": "public/angry-birds-hatchery-island-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS HATCHERY” at the top in the cover's exact lettering, smaller; under it the line “Hatch a flock. Then launch it.” in italic serif; three small framed screenshots of the game (island builder + slingshot), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Unreleased prototype”, “Hatch your own birds”, “325 recovered levels”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-aa51c323-a7d3-4e29-8c22-3596f00272fe.png",
+      "correction": "Corrected Pentium 168 MHz to Pentium 166 MHz.",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-hatchery-island-spine.png",
+      "game": "### 10 · ANGRY BIRDS HATCHERY  (`angry-birds-hatchery-island`)",
+      "cover": "public/angry-birds-hatchery-island-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS HATCHERY” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “10”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-91a6f15d-069f-4b8a-80ef-c129601b07c2.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-chrome-flash-back.png",
+      "game": "### 11 · ANGRY BIRDS CLASSIC  (`angry-birds-chrome-flash`)",
+      "cover": "public/angry-birds-chrome-flash-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS CLASSIC” at the top in the cover's exact lettering, smaller; under it the line “The original slingshot, in Flash.” in italic serif; three small framed screenshots of the game (physics puzzler), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Classic levels”, “Flash classic”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-f8c1f72b-20fc-48cc-a1d6-66c708a061d2.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-chrome-flash-spine.png",
+      "game": "### 11 · ANGRY BIRDS CLASSIC  (`angry-birds-chrome-flash`)",
+      "cover": "public/angry-birds-chrome-flash-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS CLASSIC” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “11”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-340bb4cb-fc4b-4934-82b1-3fc203c9318b.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-space-back.png",
+      "game": "### 12 · ANGRY BIRDS SPACE  (`angry-birds-space`)",
+      "cover": "public/angry-birds-space-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS SPACE” at the top in the cover's exact lettering, smaller; under it the line “Fling birds through zero gravity.” in italic serif; three small framed screenshots of the game (gravity puzzler), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Gravity shots”, “Timed levels”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-211b307c-d187-43e7-910e-344be381e37f.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-space-spine.png",
+      "game": "### 12 · ANGRY BIRDS SPACE  (`angry-birds-space`)",
+      "cover": "public/angry-birds-space-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS SPACE” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “12”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-cb6723b1-ce2a-46da-a06f-f19c8b14c61f.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-halloween-back.png",
+      "game": "### 13 · ANGRY BIRDS HALLOWEEN  (`angry-birds-halloween`)",
+      "cover": "public/angry-birds-halloween-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ANGRY BIRDS HALLOWEEN” at the top in the cover's exact lettering, smaller; under it the line “Pumpkins, full moons and pigs hiding in graveyards.” in italic serif; three small framed screenshots of the game (physics puzzler), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Halloween levels”, “Three bird types”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-e8b244f1-8c23-4e68-9089-30438b3c7d4b.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/angry-birds-halloween-spine.png",
+      "game": "### 13 · ANGRY BIRDS HALLOWEEN  (`angry-birds-halloween`)",
+      "cover": "public/angry-birds-halloween-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ANGRY BIRDS HALLOWEEN” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “13”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-f3a6da36-88ba-489c-92d7-d6c258e2a89a.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/cut-the-rope-back.png",
+      "game": "### 14 · CUT THE ROPE  (`cut-the-rope`)",
+      "cover": "public/cut-the-rope-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “CUT THE ROPE” at the top in the cover's exact lettering, smaller; under it the line “Feed Om Nom the candy. Cut the right rope.” in italic serif; three small framed screenshots of the game (physics puzzler), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Every box, Cardboard to Mechanical”, “Stars and progress saved”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-d8ba29b8-c820-4793-9136-77e9671713fd.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/cut-the-rope-spine.png",
+      "game": "### 14 · CUT THE ROPE  (`cut-the-rope`)",
+      "cover": "public/cut-the-rope-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “CUT THE ROPE” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “14”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-00e35f76-47a6-45d6-9621-31fd72f6ae98.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/helltaker-back.png",
+      "game": "### 15 · HELLTAKER  (`helltaker`)",
+      "cover": "public/helltaker-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HELLTAKER” at the top in the cover's exact lettering, smaller; under it the line “A short game about sharply dressed demon girls.” in italic serif; three small framed screenshots of the game (puzzle adventure), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Chapters I–X + EX”, “Chapter select”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-e62b6675-1913-42d5-a64c-d02a88ef6f81.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/helltaker-spine.png",
+      "game": "### 15 · HELLTAKER  (`helltaker`)",
+      "cover": "public/helltaker-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HELLTAKER” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “15”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-c02cf464-001b-47d7-a371-8833e4f6d797.png",
+      "recovered": true,
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/zuma-the-lost-treasure-back.png",
+      "game": "### 16 · ZUMA LOST TREASURE  (`zuma-the-lost-treasure`)",
+      "cover": "public/zuma-the-lost-treasure-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ZUMA LOST TREASURE” at the top in the cover's exact lettering, smaller; under it the line “Stop the chain before it reaches the skull.” in italic serif; three small framed screenshots of the game (marble shooter), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Classic Zuma chains”, “Power-up balls”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-257d32c7-96b3-4713-bf1c-f1a57b0c6624.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/zuma-the-lost-treasure-spine.png",
+      "game": "### 16 · ZUMA LOST TREASURE  (`zuma-the-lost-treasure`)",
+      "cover": "public/zuma-the-lost-treasure-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ZUMA LOST TREASURE” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “16”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-5b6186fb-d87b-4878-b064-7b3eaaef73af.png",
+      "recovered": true,
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hill-climb-racing-back.png",
+      "game": "### 17 · HILL CLIMB RACING  (`hill-climb-racing`)",
+      "cover": "public/hill-climb-racing-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HILL CLIMB RACING” at the top in the cover's exact lettering, smaller; under it the line “Gas, brake, and try not to land on your head.” in italic serif; three small framed screenshots of the game (physics driving), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Every vehicle and stage”, “Upgrades and coins”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-c4fc9a8a-724f-4025-b5de-42c4fc75272e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hill-climb-racing-spine.png",
+      "game": "### 17 · HILL CLIMB RACING  (`hill-climb-racing`)",
+      "cover": "public/hill-climb-racing-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HILL CLIMB RACING” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “17”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-5a8a2c44-9969-4991-92c9-0ec143c9a2b7.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/sonic-4-episode-1-back.png",
+      "game": "### 18 · SONIC THE HEDGEHOG 4 EPISODE I  (`sonic-4-episode-1`)",
+      "cover": "public/sonic-4-episode-1-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “SONIC THE HEDGEHOG 4 EPISODE I” at the top in the cover's exact lettering, smaller; under it the line “Picks up right where Sonic & Knuckles left off.” in italic serif; three small framed screenshots of the game (platformer), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “All four zones + final boss”, “Spin Dash and Homing Attack”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-6bd33db7-7c13-47d3-beaa-4d95e8a8350a.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/sonic-4-episode-1-spine.png",
+      "game": "### 18 · SONIC THE HEDGEHOG 4 EPISODE I  (`sonic-4-episode-1`)",
+      "cover": "public/sonic-4-episode-1-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “SONIC THE HEDGEHOG 4 EPISODE I” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “18”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-d8e0af40-dea7-41a0-822b-b5c5354094ea.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-back.png",
+      "game": "### 19 · ESCAPE ROAD  (`escape-road`)",
+      "cover": "public/escape-road-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ESCAPE ROAD” at the top in the cover's exact lettering, smaller; under it the line “Steal a car. Lose the cops.” in italic serif; three small framed screenshots of the game (police chase), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Endless police chase”, “Unlockable cars”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-65cfea02-398e-4651-adc3-aca0f73eed4a.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-spine.png",
+      "game": "### 19 · ESCAPE ROAD  (`escape-road`)",
+      "cover": "public/escape-road-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ESCAPE ROAD” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “19”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-a51b254a-b288-4c4a-88d6-c7212248658c.png",
+      "recovered": true,
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-2-back.png",
+      "game": "### 20 · ESCAPE ROAD 2  (`escape-road-2`)",
+      "cover": "public/escape-road-2-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ESCAPE ROAD 2” at the top in the cover's exact lettering, smaller; under it the line “Bigger maps, angrier police.” in italic serif; three small framed screenshots of the game (police chase), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Endless police chase”, “Unlockable cars”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-830f8ada-7503-481d-8c21-fc878fbda048.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-2-spine.png",
+      "game": "### 20 · ESCAPE ROAD 2  (`escape-road-2`)",
+      "cover": "public/escape-road-2-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ESCAPE ROAD 2” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “20”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-3c5267f8-0c76-498d-9a13-2fedb83b3b66.png",
+      "recovered": true,
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-3-back.png",
+      "game": "### 21 · ESCAPE ROAD 3  (`escape-road-3`)",
+      "cover": "public/escape-road-3-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “ESCAPE ROAD 3” at the top in the cover's exact lettering, smaller; under it the line “The chase goes further.” in italic serif; three small framed screenshots of the game (police chase), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Endless police chase”, “Unlockable cars”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-aac03cd7-0bb6-4fc6-9047-1aa5720580cd.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/escape-road-3-spine.png",
+      "game": "### 21 · ESCAPE ROAD 3  (`escape-road-3`)",
+      "cover": "public/escape-road-3-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “ESCAPE ROAD 3” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “21”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:/Users/PC/.codex/generated_images/01a11329-ccfb-7482-9cf0-69ffedebe2fb/exec-7e78b036-65ad-45fd-94b5-e84ff6650d04.png",
+      "recovered": true,
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-1-back.png",
+      "game": "### 22 · HOBO  (`hobo-1`)",
+      "cover": "public/hobo-1-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO” at the top in the cover's exact lettering, smaller; under it the line “Brawl through the city as the filthiest fighter alive.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-602fdaaf-d477-4c75-b161-b0c1c5bc4f79.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-1-spine.png",
+      "game": "### 22 · HOBO  (`hobo-1`)",
+      "cover": "public/hobo-1-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “22”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-18df2550-f7da-4a69-905a-81019eb156c4.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-2-back.png",
+      "game": "### 23 · HOBO 2 PRISON BRAWL  (`hobo-2`)",
+      "cover": "public/hobo-2-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 2 PRISON BRAWL” at the top in the cover's exact lettering, smaller; under it the line “Locked up. Fighting out.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-269c4dda-402d-4a97-9a5f-314c6accce7c.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-2-spine.png",
+      "game": "### 23 · HOBO 2 PRISON BRAWL  (`hobo-2`)",
+      "cover": "public/hobo-2-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 2 PRISON BRAWL” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “23”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-6dfd7f5f-2796-4713-a4a0-2ed7b88a7616.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-3-back.png",
+      "game": "### 24 · HOBO 3 WANTED  (`hobo-3`)",
+      "cover": "public/hobo-3-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 3 WANTED” at the top in the cover's exact lettering, smaller; under it the line “The whole city wants him gone.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-419ebad8-34de-464a-aead-da8f8c40029f.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-3-spine.png",
+      "game": "### 24 · HOBO 3 WANTED  (`hobo-3`)",
+      "cover": "public/hobo-3-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 3 WANTED” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “24”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-28dd985a-97d6-4173-9f61-4ac8a40c56f9.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-4-back.png",
+      "game": "### 25 · HOBO 4 TOTAL WAR  (`hobo-4`)",
+      "cover": "public/hobo-4-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 4 TOTAL WAR” at the top in the cover's exact lettering, smaller; under it the line “Hobo takes on the army.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-5f559b8a-f3f5-49bb-bd63-fe1876fc09cf.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-4-spine.png",
+      "game": "### 25 · HOBO 4 TOTAL WAR  (`hobo-4`)",
+      "cover": "public/hobo-4-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 4 TOTAL WAR” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “25”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-547d86c4-6572-40ac-8a31-f92221e9675b.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-5-back.png",
+      "game": "### 26 · HOBO 5 SPACE BRAWLS  (`hobo-5`)",
+      "cover": "public/hobo-5-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 5 SPACE BRAWLS” at the top in the cover's exact lettering, smaller; under it the line “Abducted, and furious about it.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-3d0981b1-a3ec-49fc-82ad-3404cd3ec77b.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-5-spine.png",
+      "game": "### 26 · HOBO 5 SPACE BRAWLS  (`hobo-5`)",
+      "cover": "public/hobo-5-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 5 SPACE BRAWLS” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “26”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-f7200123-56e7-46ff-9c36-4c0c6eafcd4e.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-6-back.png",
+      "game": "### 27 · HOBO 6 HELL  (`hobo-6`)",
+      "cover": "public/hobo-6-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 6 HELL” at the top in the cover's exact lettering, smaller; under it the line “Fighting through the underworld.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-8ce46e1a-18c0-483e-ac6d-d6fa9bf35c20.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-6-spine.png",
+      "game": "### 27 · HOBO 6 HELL  (`hobo-6`)",
+      "cover": "public/hobo-6-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 6 HELL” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “27”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-c160d7f8-3849-480e-96fd-b7460af1de8c.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-7-back.png",
+      "game": "### 28 · HOBO 7 HEAVEN  (`hobo-7`)",
+      "cover": "public/hobo-7-cover-box-art.png",
+      "prompt": "Following the style guide, create the BACK PANEL of the big box whose front cover is attached, as a flat, straight-on flatbed scan of the printed cardboard, filling the 1024×1536 canvas edge to edge. Same cream paper frame as the front: top band “A&D ARCADE” with diamond ornaments, bottom band “THE A&D COLLECTION”. Inside the frame, a classic 1996 big-box back layout on the cover's palette: the title “HOBO 7 HEAVEN” at the top in the cover's exact lettering, smaller; under it the line “The final brawl at the pearly gates.” in italic serif; three small framed screenshots of the game (beat 'em up), painted in the same illustration style as the cover, each with a thin cream border and a tiny caption; a short paragraph of blurb; three bullet points with small diamond bullets reading “Full original game”, “Gross-out special moves”, “Full-screen player”; a small boxed “SYSTEM REQUIREMENTS” panel in mono type reading “Windows 95/98 · Pentium 166 MHz · 16 MB RAM · Any modern browser”; at the bottom a white barcode label, a small square badge reading “1 PLAYER” and the line “PC / BROWSER EDITION”. Scanner-flat lighting, faint halftone, soft wear on the corners. No perspective, no mockup, no real logos or rating marks.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-72198c17-f76b-4d22-9cbb-852c3360d752.png",
+      "status": "saved"
+    },
+    {
+      "path": "public/box-art/hobo-7-spine.png",
+      "game": "### 28 · HOBO 7 HEAVEN  (`hobo-7`)",
+      "cover": "public/hobo-7-cover-box-art.png",
+      "prompt": "Following the style guide, create the SPINE (the narrow side panel) of the big box whose front cover is attached, as a flat flatbed scan. Canvas 1024×1536 portrait: the spine occupies ONLY a centred vertical strip 330 pixels wide running the full height; everything to the left and right of the strip is flat pure black #000000. Inside the strip, top to bottom: the cream paper frame continues as a thin border; a small cream block with “A&D” in italic dark serif; the cover's background illustration wrapping around the corner; the title “HOBO 7 HEAVEN” running vertically (reading top to bottom) in the cover's exact chunky lettering with its outline and shadow; and at the bottom a small cream box with the number “28”. Scanner-flat lighting, rubbed edges, faint halftone. No perspective, no mockup, nothing outside the strip.",
+      "size": [
+        1024,
+        1536
+      ],
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-922973f7-8328-4ddc-bb2b-5d31d93398e0.png",
+      "status": "saved"
+    }
+  ],
+  "failures": []
+}

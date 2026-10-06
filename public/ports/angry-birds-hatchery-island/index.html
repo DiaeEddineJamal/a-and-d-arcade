@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angry Birds: Hatchery Island</title>
+    <!-- Browser wrapper: tonygamer1515/angry-birds-hatchery-island-web (GitHub Pages), preservation port of the unreleased 2011 iPad prototype. -->
+    <style>
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #game { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+    </style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · BROWSER EDITION</p>
+      <h1>HATCHERY ISLAND</h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <iframe id="game" src="https://tonygamer1515.github.io/angry-birds-hatchery-island-web/" title="Angry Birds: Hatchery Island" allow="autoplay; fullscreen; gamepad"></iframe>
+    <script>
+    // ponytail: cross-origin page, so no byte progress; the bar stays indeterminate until the page loads.
+    document.querySelector("#game").addEventListener("load", (event) => {
+      document.querySelector("#loading-text").remove();
+      event.target.focus();
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Angry Birds Epic</title>
+    <!-- Browser wrapper: DarkTerraYT/EpicWeb (GitHub Pages, CORS *), Unity WebGL build of Angry Birds Epic 3.0.1. -->
+    <style>
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #unity-canvas { position: fixed; inset: 0; width: 100% !important; height: 100% !important; }
+    </style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · BROWSER EDITION</p>
+      <h1>ANGRY BIRDS EPIC</h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <script>
+    var loadingText = document.querySelector("#loading-text");
+    var loadingBar = document.querySelector("#loading-bar");
+    var loadingStatus = document.querySelector("#loading-status");
+    var buildUrl = "https://darkterrayt.github.io/EpicWeb/Build";
+    function showLoadError(error) {
+      loadingText.className = "failed";
+      loadingStatus.textContent = "Game could not load. Use Reload to try again. " + (error.message || error);
+    }
+    var script = document.createElement("script");
+    script.src = buildUrl + "/EpicWeb.loader.js";
+    script.onload = () => {
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: buildUrl + "/EpicWeb.data",
+        frameworkUrl: buildUrl + "/EpicWeb.framework.js",
+        codeUrl: buildUrl + "/EpicWeb.wasm",
+        streamingAssetsUrl: "https://darkterrayt.github.io/EpicWeb/StreamingAssets",
+        companyName: "Rovio Entertainment Ltd.",
+        productName: "Epic",
+        productVersion: "3.0.1",
+        showBanner: () => {},
+      }, (progress) => {
+        loadingBar.value = progress;
+        loadingStatus.textContent = `LOADING ${Math.round(progress * 100)}%`;
+      }).then(() => loadingText.remove()).catch(showLoadError);
+    };
+    script.onerror = () => showLoadError(new Error("The game loader could not be downloaded."));
+    document.body.appendChild(script);
+    </script>
+  </body>
+</html>

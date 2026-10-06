@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024">
+  <!-- Stand-in cover for Mangolian Puck; replace with puck-cover-box-art.png -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#4f8a82"/><stop offset="1" stop-color="#1f3a37"/></radialGradient>
+    <pattern id="holes" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="2.4" fill="#f2e8ca" opacity=".16"/></pattern>
+    <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.4" fill="#201b16" opacity=".18"/></pattern>
+  </defs>
+  <rect width="1536" height="1024" fill="#e6d8b7"/>
+  <g transform="translate(768 560) rotate(-8)">
+    <rect x="-720" y="-360" width="1440" height="720" rx="60" fill="#201b16"/>
+    <rect x="-690" y="-330" width="1380" height="660" rx="44" fill="url(#glow)"/>
+    <rect x="-690" y="-330" width="1380" height="660" rx="44" fill="url(#holes)"/>
+    <rect x="-690" y="-330" width="1380" height="660" rx="44" fill="none" stroke="#c3973a" stroke-width="12"/>
+    <line x1="0" y1="-330" x2="0" y2="330" stroke="#f2e8ca" stroke-width="10" opacity=".6"/>
+    <circle r="120" fill="none" stroke="#f2e8ca" stroke-width="10" opacity=".6"/>
+    <rect x="-700" y="-120" width="26" height="240" fill="#a44f39"/>
+    <rect x="674" y="-120" width="26" height="240" fill="#a44f39"/>
+    <!-- motion streak -->
+    <path d="M-520 180 C -300 120, -80 40, 150 -40" stroke="#c3973a" stroke-width="46" stroke-linecap="round" fill="none" opacity=".35"/>
+    <path d="M-470 190 C -260 130, -60 50, 150 -40" stroke="#f2e8ca" stroke-width="14" stroke-linecap="round" fill="none" opacity=".55"/>
+    <!-- puck -->
+    <ellipse cx="190" cy="-30" rx="78" ry="70" fill="#0f0d0b" opacity=".4"/>
+    <circle cx="170" cy="-58" r="74" fill="#1c1814"/>
+    <circle cx="170" cy="-58" r="52" fill="none" stroke="#c3973a" stroke-width="12"/>
+    <!-- teal mallet -->
+    <ellipse cx="-470" cy="236" rx="130" ry="118" fill="#0f0d0b" opacity=".35"/>
+    <circle cx="-500" cy="200" r="130" fill="#3f5f5c"/>
+    <circle cx="-500" cy="200" r="104" fill="#8fc4bb"/>
+    <circle cx="-500" cy="200" r="52" fill="#567b78"/>
+    <circle cx="-520" cy="176" r="20" fill="#fbf6ea" opacity=".6"/>
+    <!-- brick mallet -->
+    <circle cx="480" cy="-170" r="118" fill="#80392a"/>
+    <circle cx="480" cy="-170" r="94" fill="#dc7a5c"/>
+    <circle cx="480" cy="-170" r="46" fill="#a44f39"/>
+  </g>
+  <rect width="1536" height="1024" fill="url(#dots)"/>
+  <!-- burst -->
+  <g fill="#c3973a" opacity=".85">
+    <path d="M930 420 l40 -110 l14 118 z"/><path d="M1010 470 l110 -44 l-92 76 z"/><path d="M880 400 l-18 -118 l52 106 z"/>
+  </g>
+</svg>

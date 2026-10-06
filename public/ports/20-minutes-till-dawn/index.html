@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/20-minutes@e82366ecffd3ed46f804da050d02a44422986204/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | 20 Minutes Till Dawn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Browser wrapper: web-ports/20-minutes, e82366ecffd3ed46f804da050d02a44422986204. -->
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#000; }
+      #unity-container, #unity-canvas { width:100% !important; height:100% !important; }
+      #unity-container { position:absolute; inset:0; }
+          </style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · BROWSER EDITION</p>
+      <h1>20 MINUTES TILL DAWN</h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+    </div>
+    <script>
+
+var loadingText = document.querySelector("#loading-text");
+    var loadingBar = document.querySelector("#loading-bar");
+    var loadingStatus = document.querySelector("#loading-status");
+    let totalBytes = 0;
+    let loadedBytes = 0;
+    function showLoadError(error) {
+      loadingText.className = 'failed';
+      loadingStatus.textContent = 'Game could not load. Use Reload to try again. ' + (error.message || error);
+    }
+
+    async function fetchWithProgress(url) {
+      const response = await fetch(url);
+      if (!response.ok || !response.body) throw new Error('Download failed: HTTP ' + response.status);
+      const reader = response.body.getReader();
+      let chunks = [];
+      let received = 0;
+      while (true) {
+        const {
+          done,
+          value
+        } = await reader.read();
+        if (done) break;
+        received += value.length;
+        loadedBytes += value.length;
+        chunks.push(value);
+        let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+        let mbTotal = 48.02;
+        loadingBar.value = Math.min(loadedBytes / (mbTotal * 1024 * 1024), 1);
+        loadingStatus.textContent = `LOADING ${mbDone} / ${mbTotal} MB`;
+      }
+      return new Blob(chunks);
+    }
+
+    async function mergeFiles(fileParts, cacheKey) {
+      const type = cacheKey.includes('.wasm') ? 'application/wasm' : 'application/octet-stream';
+      // ponytail: cache is optional; unavailable storage downloads again on next launch.
+      const cache = await caches.open("20mins-cache").catch(() => null);
+      const cachedResponse = await cache?.match(cacheKey).catch(() => null);
+      if (cachedResponse) {
+        const blob = new Blob([await cachedResponse.blob()], { type });
+        return URL.createObjectURL(blob);
+      }
+      const buffers = await Promise.all(
+        fileParts.map(part => fetchWithProgress(part))
+      );
+      const mergedBlob = new Blob(buffers, { type });
+      const response = new Response(mergedBlob);
+      await cache?.put(cacheKey, response).catch(() => {});
+      return URL.createObjectURL(mergedBlob);
+    }
+
+    function getParts(file, start, end) {
+      let parts = [];
+      for (let i = start; i <= end; i++) {
+        parts.push(file + ".part" + i);
+      }
+      return parts;
+    }
+    (async () => {
+      const [dataUrl, wasmUrl] = await Promise.all([
+        mergeFiles(getParts("Build/20minutes.data", 1, 2), "20minutes.data"),
+        mergeFiles(getParts("Build/20minutes.wasm", 1, 2), "20minutes.wasm"),
+      ]);
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function unityShowBanner(msg, type) {
+
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/20minutes.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: dataUrl,
+        frameworkUrl: buildUrl + "/20minutes.framework.js",
+        codeUrl: wasmUrl,
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Flanne",
+        productName: "MinutesTillDawn",
+        productVersion: "0.6.6",
+        showBanner: unityShowBanner,
+        // errorHandler: function(err, url, line) {
+        //    alert("error " + err + " occurred at line " + line);
+        //    // Return 'true' if you handled this error and don't want Unity
+        //    // to process it further, 'false' otherwise.
+        //    return true;
+        // },
+      };
+
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+      }
+
+
+      loadingStatus.textContent = "STARTING ENGINE";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          loadingBar.value = progress;
+        }).then((unityInstance) => {
+          loadingText.remove();
+        }).catch((message) => {
+          showLoadError(message);
+        });
+      };
+      script.onerror = () => showLoadError(new Error('The game loader could not be downloaded.'));
+      document.body.appendChild(script);
+    })().catch(showLoadError);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flash Player</title>
+    <!-- Flash wrapper: SWFs from angrybirdsswf/Angry-Birds-Chrome, zerrocredit (Hobo) and the Internet Archive, played with Ruffle 0.6.0. Pick one with ?game=<key>. -->
+    <style>
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      ruffle-player { position: fixed; inset: 0; width: 100%; height: 100%; }
+    </style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · FLASH EDITION</p>
+      <h1></h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <script>
+    const SWF_BASE = "https://cdn.jsdelivr.net/gh/angrybirdsswf/Angry-Birds-Chrome@2c616f2ccff5395297e015e0beeedae5459a21af/";
+    const GAMES = {
+      "angry-birds-space": ["ANGRY BIRDS SPACE", SWF_BASE + "angry-birds-space.swf"],
+      "angry-birds-halloween": ["ANGRY BIRDS HALLOWEEN", SWF_BASE + "angry-birds-halloween-hd.swf"],
+      "angry-birds-chrome-flash": ["ANGRY BIRDS CHROME", SWF_BASE + "angry-birds-chrome.swf"],
+      // Hobo 1-7 (Seethru), pinned SWFs from zerrocredit's repos.
+      "hobo-1": ["HOBO", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo1@5687306d925fc4cf62ca42b73d44f108f891ede0/hobo1.swf"],
+      "hobo-2": ["HOBO 2: PRISON BRAWL", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo2-@bff90e49307a27d0d9d7df1718ba79669c0a8015/Hobo2.swf"],
+      "hobo-3": ["HOBO 3: WANTED", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo3@4d403134e11ff6a9ea7c57eb30be1e994c4862ee/hobo%203%20-%20wanted.swf"],
+      "hobo-4": ["HOBO 4: TOTAL WAR", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo4@28f7cfe99cbd1f2709631c52b5f77fb85b4be626/Hobo4.swf"],
+      "hobo-5": ["HOBO 5: SPACE BRAWLS", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo5@f5a679caaa0087ab87203c0a68598be047ccbd1a/Hobo5.swf"],
+      "hobo-6": ["HOBO 6: HELL", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo6@c749e1fcae013cdb233192828f105c3dec971010/Hobo6.swf"],
+      "hobo-7": ["HOBO 7: HEAVEN", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo7@89acbff5567a3c489f4af88bb31deb9881fc6b2a/Hobo7.swf"],
+      // Proxied through src/app/swf/[file]/route.ts: the Internet Archive serves this file without CORS.
+      "zuma-the-lost-treasure": ["ZUMA: THE LOST TREASURE", "/swf/zuma-the-lost-treasure.swf"],
+    };
+    const loadingText = document.querySelector("#loading-text");
+    const loadingStatus = document.querySelector("#loading-status");
+    const game = GAMES[new URLSearchParams(location.search).get("game")];
+    function showLoadError(error) {
+      loadingText.className = "failed";
+      loadingStatus.textContent = "Game could not load. Use Reload to try again. " + (error.message || error);
+    }
+    if (!game) showLoadError(new Error("Unknown game."));
+    else {
+      document.title = document.querySelector("h1").textContent = game[0];
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.6.0/ruffle.js";
+      script.onload = () => {
+        const player = window.RufflePlayer.newest().createPlayer();
+        document.body.append(player);
+        player.addEventListener("loadeddata", () => { loadingText.remove(); player.focus(); });
+        player.ruffle().load({ url: game[1], autoplay: "on", unmuteOverlay: "hidden", splashScreen: false, letterbox: "on", contextMenu: "rightClickOnly" }).catch(showLoadError);
+      };
+      script.onerror = () => showLoadError(new Error("The Flash player could not be downloaded."));
+      document.body.append(script);
+    }
+    </script>
+  </body>
+</html>
