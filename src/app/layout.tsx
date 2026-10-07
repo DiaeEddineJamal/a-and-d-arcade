@@ -4,7 +4,7 @@ import "./globals.css";
 import ArcadeDesktop from "./arcade-desktop";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { devicePhotos, games, wallpaperArt } from "./catalog";
+import { devicePhotos, deviceTracks, games, wallpaperArt } from "./catalog";
 
 const serif = Fraunces({ subsets: ["latin"], axes: ["opsz"], variable: "--font-serif", display: "swap" });
 const plex = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex", display: "swap" });
@@ -21,6 +21,6 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, view
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${serif.variable} ${plex.variable} ${term.variable} ${pixel.variable}`}><body><ArcadeDesktop games={games} wallpaperArt={wallpaperArt} devicePhotos={devicePhotos}>{children}</ArcadeDesktop></body></html>
+    <html lang="en" className={`${serif.variable} ${plex.variable} ${term.variable} ${pixel.variable}`}><body><ArcadeDesktop games={games} wallpaperArt={wallpaperArt} devicePhotos={devicePhotos()} deviceTracks={deviceTracks()}>{children}</ArcadeDesktop></body></html>
   );
 }

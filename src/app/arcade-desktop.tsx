@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChefHat, CircleDot, Columns2, Disc3, FileText, Flag, Folder, Gamepad2, HardDrive,
-  House, ImageIcon, Info, Laptop, Menu, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
+  House, ImageIcon, Info, Laptop, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
@@ -14,6 +14,7 @@ import BootScreen from "./boot-screen";
 import BoxViewer from "./box-viewer";
 import CrtOverlay from "./crt-overlay";
 import DeviceLock from "./device-lock";
+import MusicPlayer, { trackName } from "./music-player";
 import { devices, type Device } from "./devices";
 import { gameSupport } from "./game-support.mjs";
 
@@ -42,12 +43,14 @@ function CloseButton({ label = "Close window" }: { label?: string }) {
   return <Link href="/" className="win-btn win-close" aria-label={label}><X /></Link>;
 }
 
-export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, children }: { games: Game[]; wallpaperArt: Record<string, string>; devicePhotos: Record<string, string[]>; children: ReactNode }) {
+export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, deviceTracks, children }: { games: Game[]; wallpaperArt: Record<string, string>; devicePhotos: Record<string, string[]>; deviceTracks: Record<string, string[]>; children: ReactNode }) {
   // locked drives in Files: A answers their questions to open them; the unlock is remembered on her browser
   const [drive, setDrive] = useState<Device | null>(null);
   const [locking, setLocking] = useState<Device | null>(null);
   const [unlocked, setUnlocked] = useState<string[]>([]);
   const [note, setNote] = useState<Device | null>(null);
+  // the Walkman floats above every window, so a song keeps playing while she browses
+  const [song, setSong] = useState<{ device: Device; index: number } | null>(null);
   const deviceIcons = { drive: HardDrive, disc: Disc3, floppy: Save };
   const openDevice = (device: Device) => { setNote(null); if (unlocked.includes(device.id)) setDrive(device); else setLocking(device); };
   const unlock = (device: Device) => {
@@ -212,6 +215,8 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, child
     return () => removeEventListener("keydown", keyboard);
   });
   useEffect(() => { terminalEnd.current?.scrollIntoView({ block: "end" }); }, [termLines]);
+  // on phones the places are one swipeable row: keep the open one in view
+  useEffect(() => { document.querySelector(".files-sidebar [aria-pressed=\"true\"]")?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }, [drive, category, pathname]);
   useEffect(() => { if (pathname === "/terminal" && !mobile) terminalInput.current?.focus({ preventScroll: true }); }, [pathname, mobile, booting]);
 
   const visibleGames = games.filter(game => (category === "all" || (category === "originals" ? !game.source : !!game.source)) && `${title(game)} ${game.genre}`.toLowerCase().includes(query.toLowerCase()));
@@ -378,10 +383,11 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, child
           <thead><tr><th>Name</th><th className="col-date">Date Modified</th><th className="col-type">Type</th><th className="col-size">Size</th></tr></thead>
           <tbody>
             <tr onClick={() => setNote(drive)}><td><button onClick={event => { event.stopPropagation(); setNote(drive); }}><FileText />{drive.note.name}</button></td><td className="col-date">for A, always</td><td className="col-type">Text Document</td><td className="col-size">♥ KB</td></tr>
-            {devicePhotos[drive.id]?.map(src => <tr key={src} onClick={() => setPhoto(src)}><td><button onClick={event => { event.stopPropagation(); setPhoto(src); }}><ImageIcon />{src.split("/").pop()}</button></td><td className="col-date">our camera roll</td><td className="col-type">Image</td><td className="col-size">—</td></tr>)}
+            {deviceTracks[drive.id]?.map((src, index) => <tr key={src} onClick={() => setSong({ device: drive, index })}><td><button onClick={event => { event.stopPropagation(); setSong({ device: drive, index }); }}><Music />{trackName(src).title}</button></td><td className="col-date">{trackName(src).artist || "her favourites"}</td><td className="col-type">Audio</td><td className="col-size">♪</td></tr>)}
+            {devicePhotos[drive.id]?.map(src => <tr key={src} onClick={() => setPhoto(src)}><td><button onClick={event => { event.stopPropagation(); setPhoto(src); }}><ImageIcon />{decodeURIComponent(src.split("/").pop() ?? "")}</button></td><td className="col-date">our camera roll</td><td className="col-type">Image</td><td className="col-size">—</td></tr>)}
           </tbody>
         </table>
-        {!devicePhotos[drive.id]?.length && <p className="files-empty">No photos on this drive yet.</p>}
+        {!devicePhotos[drive.id]?.length && !deviceTracks[drive.id]?.length && <p className="files-empty">No photos or songs on this drive yet.</p>}
       </div> : <div className="files-list">
         <label className="field files-search"><Search /><input aria-label="Search files" placeholder="Search" value={query} onChange={event => setQuery(event.target.value)} /></label>
         <table>
@@ -397,7 +403,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, child
     {note && <article className="note-view" aria-labelledby="note-title"><header><FileText /><span>{note.note.name} — Notepad</span><button className="win-btn" onClick={() => setNote(null)} aria-label="Close note"><X /></button></header><div><h2 id="note-title">{note.note.title}</h2>{note.note.body.map((line, index) => <p key={index}>{line}</p>)}</div></article>}
     {photo && pathname === "/files" && <div className="photo-view" onClick={() => setPhoto(null)}><Image src={photo} alt="A photo from our drive" width={1600} height={1200} sizes="80vw" /><button className="win-btn" aria-label="Close photo"><X /></button></div>}
     {locking && <DeviceLock device={locking} onUnlock={() => unlock(locking)} onClose={() => setLocking(null)} />}
-    <footer className="files-status"><span>{drive ? `${1 + (devicePhotos[drive.id]?.length ?? 0)} items` : `${visibleGames.length} items`}</span><span>{drive ? `${drive.label} · ${drive.path}` : "A&D GAME ARCHIVE · 2.1 GB free"}</span></footer>
+    <footer className="files-status"><span>{drive ? `${1 + (devicePhotos[drive.id]?.length ?? 0) + (deviceTracks[drive.id]?.length ?? 0)} items` : `${visibleGames.length} items`}</span><span>{drive ? `${drive.label} · ${drive.path}` : "A&D GAME ARCHIVE · 2.1 GB free"}</span></footer>
   </section>;
 
   if (pathname === "/terminal") windowContent = <section className="window terminal-window" aria-label="Terminal" onClick={() => { if (!getSelection()?.toString()) terminalInput.current?.focus({ preventScroll: true }); }}>
@@ -448,6 +454,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, child
         {(detail || (windowContent && pathname !== "/")) && <div className={`window-layer layer-${detail ? "detail" : pathname.slice(1)}`} key={windowKey}>{detailWindow ?? windowContent}</div>}
         {!screens.includes(pathname) && <div className="window-layer layer-page">{children}</div>}
       </main>
+      {song && <MusicPlayer key={`${song.device.id}:${song.index}`} tracks={deviceTracks[song.device.id]} start={song.index} label={song.device.label} onClose={() => setSong(null)} />}
       {menu && <nav className="start-menu" aria-label="Start menu">
         <div className="menu-head"><div>{clock}</div><button className="win-btn win-close" onClick={() => setMenu(false)} aria-label="Close menu"><X /></button></div>
         <p>Apps</p>

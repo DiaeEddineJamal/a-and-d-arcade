@@ -1,7 +1,8 @@
 import { checks } from "./answers.mjs";
 
 // The three drives in Files. Each one opens for A, and only A, after she answers its questions.
-// Edit the notes freely; photos go in public/devices/<id>/ (any .jpg, .png or .webp) and show up on their own.
+// Edit the notes freely. Photos (.jpg, .png, .webp) and songs (.mp3, .m4a, .ogg, .wav, .flac) go in public/devices/<id>/
+// and show up on their own; name songs "01 - Artist - Title.mp3" so the player shows the artist and keeps the order.
 export type Question = { id: keyof typeof checks; ask: string; hint: string };
 /** What Diae calls her; one is picked at random when a drive opens. */
 export const petNames = ["hobiii", "lmbizla diali", "hyati", "tassano", "l kbida diali", "honey", "sweetie pie"];

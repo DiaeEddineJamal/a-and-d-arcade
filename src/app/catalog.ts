@@ -30,11 +30,13 @@ export type Game = {
 };
 
 const art = (path: string) => existsSync(join(process.cwd(), "public", path)) ? `/${path}` : undefined;
-/** Photos A finds inside each unlocked drive: public/devices/<id>/*.jpg|png|webp */
-export const devicePhotos: Record<string, string[]> = Object.fromEntries(["archive", "cdrom", "floppy"].map(id => {
+/** What A finds inside each unlocked drive: the photos and songs in public/devices/<id>/, read on every render so new files show up without a restart */
+const driveFiles = (pattern: RegExp): Record<string, string[]> => Object.fromEntries(["archive", "cdrom", "floppy"].map(id => {
   const folder = join(process.cwd(), "public", "devices", id);
-  return [id, existsSync(folder) ? readdirSync(folder).filter(file => /\.(jpe?g|png|webp)$/i.test(file)).sort().map(file => `/devices/${id}/${file}`) : []];
+  return [id, existsSync(folder) ? readdirSync(folder).filter(file => pattern.test(file)).sort().map(file => `/devices/${id}/${encodeURIComponent(file)}`) : []];
 }));
+export const devicePhotos = () => driveFiles(/\.(jpe?g|png|webp)$/i);
+export const deviceTracks = () => driveFiles(/\.(mp3|m4a|aac|ogg|opus|wav|flac)$/i);
 /** Image wallpapers dropped into public/wallpapers replace the flat colours. */
 export const wallpaperArt: Record<string, string> = Object.fromEntries(["arcade", "paper", "midnight"].flatMap(id => { const url = art(`wallpapers/${id}.png`); return url ? [[id, url]] : []; }));
 

@@ -7,13 +7,14 @@
       "path": "public/wallpapers/arcade.png",
       "game": null,
       "cover": null,
-      "prompt": "A flat graphic desktop wallpaper in the style of 1970s–80s retro stripe posters, 1536×1024 landscape. Background: warm cream paper #ECE8DA with a very fine paper grain and faint print mottling. From the bottom-left corner, five thick parallel stripe bands — signal red #E8432E, amber #F5B800, phosphor green #5BD25B, teal #008080 and ink #1A1A1A — sweep upward in one smooth wide arc that curves to the right across the lower third and ends just past the centre in a single bold five-pointed star outlined in the same stripes. The stripes have a soft glow at their edges as if lit like neon tubes, and a slight print misregistration. Everything else is empty cream paper: keep the left 10% above the stripes, the whole top half and the bottom 12% calm and empty because desktop icons and a dock sit there. Flat 2D graphic, no text, no letters, no logos, no objects, no 3D.",
+      "prompt": "Use case: style-transfer / stylized-concept.\nAsset: replacement A&D Arcade desktop wallpaper, exactly 1536x1024 landscape PNG.\nRedesign the attached wallpaper into a much more refined, restrained late-1970s printed graphic. Preserve the warm ivory paper aesthetic and plentiful empty space for desktop icons, but completely remove the rainbow and every multicoloured stripe. Use ONLY one muted deep teal ink (#245F59) on warm paper cream (#ECE8DA), with subtle tonal variation of that SAME teal only. Create a single beautifully proportioned broad curved arc rising smoothly from the lower-left edge, sweeping across the lower third and terminating in one sharp five-pointed star just right of centre. This should be a bold, elegant original screen-printed graphic, not a recoloured set of rainbow bands. One continuous teal shape, no parallel stripes, no rainbow-like nested outlines. Crisp graceful geometry with a very subtle realistic ink texture; clean creamy paper with fine grain, no dirty stains, no heavy distressed edges. Keep the upper 60% and bottom 10% calm and almost entirely empty cream; the graphic sits comfortably between them. Sophisticated collector's archive wallpaper, understated and balanced, beautifully flat 2D printing. No text, no letters, no red, yellow, orange, bright green, purple or spectrum colours; no neon glow, no digital gradients, no glossy effects, no 3D objects, no watermark.",
       "size": [
         1536,
         1024
       ],
-      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-d848a513-4f17-4322-8689-96033ae9c58e.png",
-      "status": "saved"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-cdb798bb-5836-49d7-bea0-f8382815cd68.png",
+      "status": "saved",
+      "revision": "2026-10-07: user requested improved wallpaper without rainbow; single teal arc and star on cream paper."
     },
     {
       "path": "public/wallpapers/paper.png",
@@ -144,7 +145,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-9595d153-7807-426e-b2af-4bb061b806c0.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/kart-photo-2.png",
@@ -155,7 +157,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-21dd8e72-f9b2-499c-8a64-529e56ba3dab.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/kart-photo-3.png",
@@ -166,7 +169,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-1fd9fe4b-fee1-45d5-bef2-35f2cd6da06f.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/kart-photo-4.png",
@@ -177,7 +181,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-5831855a-44ff-4bf8-bb90-8fbe6f498560.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/puck-back.png",
@@ -212,7 +217,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-d0248250-66e9-43f0-8903-b10b015bc0e5.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/puck-photo-2.png",
@@ -223,7 +229,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-cbfcdc35-e22f-4bf1-b7bb-e7a724afbd8f.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/puck-photo-3.png",
@@ -234,7 +241,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-c9ff5b30-e702-4a6b-a28e-53c25bd09f3d.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/puck-photo-4.png",
@@ -245,7 +253,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-1f5a1d35-48d9-495a-b85b-3af99931648c.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/chefs-back.png",
@@ -280,7 +289,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-b3a552a0-3198-4600-b294-22f0988f3743.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/chefs-photo-2.png",
@@ -291,7 +301,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-be64f11a-970b-4027-8769-73c7fc08ab10.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/chefs-photo-3.png",
@@ -302,7 +313,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-dd4f4914-61fa-4cb7-9eec-00909a37e9fb.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/chefs-photo-4.png",
@@ -313,7 +325,8 @@
         1536,
         1024
       ],
-      "status": "pending"
+      "source": "C:\\Users\\PC\\.codex\\generated_images\\01a11329-ccfb-7482-9cf0-69ffedebe2fb\\exec-2c0af821-c52a-41b0-a982-fd92c8cbeb21.png",
+      "status": "saved"
     },
     {
       "path": "public/box-art/cuphead-back.png",
@@ -898,5 +911,1016 @@
       "status": "saved"
     }
   ],
-  "failures": []
+  "failures": [],
+  "verification": {
+    "assetsPresent": 75,
+    "pngAndCanvasSizes": "passed",
+    "missing": [],
+    "invalid": [],
+    "spineGeometry": "Generated strip widths are approximate; exact 330-pixel normalization has not been applied.",
+    "checks": [
+      {
+        "path": "public/box-art/20-minutes-till-dawn-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3303425,
+        "sha256": "56f4d2c828a0b73491eb4a6a6536c48d642f0822068749813b06243d1188b860"
+      },
+      {
+        "path": "public/box-art/20-minutes-till-dawn-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1187895,
+        "sha256": "15ea2baae85ab8c829b6d1f47cbb56e60c9624ac9951d437bf5721690e909519",
+        "printedStripBounds": [
+          378,
+          0,
+          646,
+          1536
+        ],
+        "printedStripWidth": 268,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-chrome-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3313679,
+        "sha256": "68eef0b53c2b59a5fdcc99bcb5a24121c1084451b5dd74b09c05d9a4e626cae7"
+      },
+      {
+        "path": "public/box-art/angry-birds-chrome-flash-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3303487,
+        "sha256": "2f3d24d82d1f580b7aeb2b228f03f88e56ee6ea4168849000746f3a1da831f0b"
+      },
+      {
+        "path": "public/box-art/angry-birds-chrome-flash-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1335805,
+        "sha256": "e640de1c8d4cbfe352d9157e93032a59a34eafe7482d80e861943337c01f71a6",
+        "printedStripBounds": [
+          363,
+          0,
+          661,
+          1536
+        ],
+        "printedStripWidth": 298,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-chrome-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1480853,
+        "sha256": "5389dcf00d14454a0324eb9250e6bb218f02b9d800e13bf4763559c42ae594ea",
+        "printedStripBounds": [
+          340,
+          0,
+          684,
+          1536
+        ],
+        "printedStripWidth": 344,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-epic-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3496546,
+        "sha256": "8176f2cb421e8a6b8f01140196d87bdcc265103e68b558e1a957923db1eb4dc1"
+      },
+      {
+        "path": "public/box-art/angry-birds-epic-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1446360,
+        "sha256": "c2e7002f5ff7ff21a4c4565fcd8eff3fdbbd036917e19c9d16641228cd772dc7",
+        "printedStripBounds": [
+          354,
+          0,
+          670,
+          1536
+        ],
+        "printedStripWidth": 316,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-halloween-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3279421,
+        "sha256": "5c5a8dc4f2c80fd66acb5319258eaf6562934b0bcd2c4ce389429a315fefd40e"
+      },
+      {
+        "path": "public/box-art/angry-birds-halloween-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1349861,
+        "sha256": "42f742a51166a223acc087a89a4882109d0e0e6fd2dcf91a61d407c2d3c2c99c",
+        "printedStripBounds": [
+          367,
+          0,
+          656,
+          1536
+        ],
+        "printedStripWidth": 289,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-hatchery-island-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3084666,
+        "sha256": "8adb65da575a94077fd33383e555ad6342a67ec7c0fabe8611c14e1d67bae08c"
+      },
+      {
+        "path": "public/box-art/angry-birds-hatchery-island-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1469357,
+        "sha256": "8510cb7bc5d5237af6d187ab4929cd72ef18881ced4983e7075486b678154d21",
+        "printedStripBounds": [
+          346,
+          0,
+          678,
+          1536
+        ],
+        "printedStripWidth": 332,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/angry-birds-space-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3296722,
+        "sha256": "dcc2fc13630f0e4d30bdd0c8aece178e3c309a688509ef2c8052af5b63f018e1"
+      },
+      {
+        "path": "public/box-art/angry-birds-space-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1370751,
+        "sha256": "914e70405d81f6c9c4a5790a3911347be69b6d418b9b06f10a0873ab54cacba3",
+        "printedStripBounds": [
+          358,
+          0,
+          667,
+          1536
+        ],
+        "printedStripWidth": 309,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/chefs-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3473566,
+        "sha256": "18ce738a68f2d22dbb76846efda65a021bb36f01f87659bb2907a2258f69e9ef"
+      },
+      {
+        "path": "public/box-art/chefs-photo-1.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3175117,
+        "sha256": "80ecafb874d0ba3d6b879622bbd539c4556fd25422c11da0410ad609ac61b271"
+      },
+      {
+        "path": "public/box-art/chefs-photo-2.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3248318,
+        "sha256": "b33aa4fad9b8869af397ee1fa43b41f34a951d95d84805c5316c63789abe40ff"
+      },
+      {
+        "path": "public/box-art/chefs-photo-3.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3164548,
+        "sha256": "1884629b96279af22984064555f9947b9414e04871d045f1a0d0856c165fa96e"
+      },
+      {
+        "path": "public/box-art/chefs-photo-4.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2762059,
+        "sha256": "057200fdd8b046ed7541727c21c00c302f102dbfb102d2d6a1341ccb6bbbdabd"
+      },
+      {
+        "path": "public/box-art/chefs-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1270671,
+        "sha256": "5d163572bc9739873c2cafed78eeed732c991723e3317a4b05345ada27669edd",
+        "printedStripBounds": [
+          355,
+          0,
+          669,
+          1536
+        ],
+        "printedStripWidth": 314,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/cuphead-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3208257,
+        "sha256": "f6c0f9f7420683e6fdc68926addbb090eb16eb7727a6e2b73c58917a0e4caa83"
+      },
+      {
+        "path": "public/box-art/cuphead-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1369925,
+        "sha256": "20996203d2b97872a7d3800d58ce5405c0f4c3d6ed27a5fad6faef9598e944a6",
+        "printedStripBounds": [
+          351,
+          0,
+          672,
+          1536
+        ],
+        "printedStripWidth": 321,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/cut-the-rope-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3153077,
+        "sha256": "fd15240e81c4b550fd9db6065b22dddcd18649d66acdd7d9f95f0768d0107f1f"
+      },
+      {
+        "path": "public/box-art/cut-the-rope-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1287785,
+        "sha256": "0bf08b4836b580f79d722dcaaba771b5a9455d83272272094d8322be2e08c9c8",
+        "printedStripBounds": [
+          356,
+          0,
+          668,
+          1536
+        ],
+        "printedStripWidth": 312,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/escape-road-2-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3438074,
+        "sha256": "381d71996d64839cea3c88048703cf7ed02128428cdbcd606bd0d2024552e898"
+      },
+      {
+        "path": "public/box-art/escape-road-2-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1336875,
+        "sha256": "c2f14a9c00ffe937cfd300b87a4304d55878aeae25bc1fdcb2b600b26d98c886",
+        "printedStripBounds": [
+          363,
+          0,
+          660,
+          1536
+        ],
+        "printedStripWidth": 297,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/escape-road-3-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3359693,
+        "sha256": "1ef57cb21a13dc827534df40a31d130c3405ffc88d85a56220c5bc46d3096279"
+      },
+      {
+        "path": "public/box-art/escape-road-3-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1411492,
+        "sha256": "9aae44d0cbd52ed97b91064f483a25579eab0af4ccff17d65234ff6644375f57",
+        "printedStripBounds": [
+          352,
+          0,
+          671,
+          1536
+        ],
+        "printedStripWidth": 319,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/escape-road-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3646801,
+        "sha256": "4c50be4d6bfc172660bf20c4b9b34ff62696446b09c92a4613e6551afb2ef1c5"
+      },
+      {
+        "path": "public/box-art/escape-road-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1270040,
+        "sha256": "d220e6bbf44427ea6bfb0cf69420b60192231d8bbb526a674e78233b652e4c1f",
+        "printedStripBounds": [
+          379,
+          0,
+          645,
+          1536
+        ],
+        "printedStripWidth": 266,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/helltaker-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3056739,
+        "sha256": "9e52de7bd00d147ada6255416986cdbfb375578fda65746b3e5037b63a8fd8ec"
+      },
+      {
+        "path": "public/box-art/helltaker-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1363981,
+        "sha256": "7712e1742414e0d4f9581b814d706f32a5b866e9c52a55625a80d1433bf621a4",
+        "printedStripBounds": [
+          334,
+          0,
+          690,
+          1536
+        ],
+        "printedStripWidth": 356,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hill-climb-racing-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3372699,
+        "sha256": "10c0456d842bb42611dfb4f6ad98a01a94519c9ff124dcc2cf31f5faa31adf1c"
+      },
+      {
+        "path": "public/box-art/hill-climb-racing-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1347260,
+        "sha256": "6ebebdd02f6af0eb132557a5585fcbc8c1cd73335e053944440c3310473b0b7d",
+        "printedStripBounds": [
+          366,
+          0,
+          658,
+          1536
+        ],
+        "printedStripWidth": 292,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-1-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3349786,
+        "sha256": "7dbb006ede2b42bbc2482583176eaaab7b4490296c08b213a6d0d794b497c955"
+      },
+      {
+        "path": "public/box-art/hobo-1-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1337830,
+        "sha256": "74ca53bcb8aaacbc5831c199298ec81579fbfefb8e8f625a40edccdcc020fa4e",
+        "printedStripBounds": [
+          358,
+          0,
+          667,
+          1536
+        ],
+        "printedStripWidth": 309,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-2-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3471005,
+        "sha256": "f93a7b1f0cac4725011d2d6ee227f9162bfbd661dec1adc4be285070b3fb807b"
+      },
+      {
+        "path": "public/box-art/hobo-2-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1391682,
+        "sha256": "ee103d93da916d52f877b68bc32239cf7307a5c472ad925e0cec52f345e4d71e",
+        "printedStripBounds": [
+          353,
+          0,
+          671,
+          1536
+        ],
+        "printedStripWidth": 318,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-3-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3417557,
+        "sha256": "ec4719821ee8fdc3ad44b27e26a593e42b2fb867ff4b93457b78b6fe931bcf21"
+      },
+      {
+        "path": "public/box-art/hobo-3-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1422243,
+        "sha256": "3a334eb77af4a1c2ae6aaa34a7c6599dda693ac7bbd2b2ec7c86e54b99b93d1d",
+        "printedStripBounds": [
+          356,
+          0,
+          668,
+          1536
+        ],
+        "printedStripWidth": 312,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-4-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3462467,
+        "sha256": "0ae35fc3fc0129e00a19d4de8982eedd6bef77a6496ae3a59226e952e2699aff"
+      },
+      {
+        "path": "public/box-art/hobo-4-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1234167,
+        "sha256": "a0a27fc7b4afd17ebe70ccbe498ccd254f48303d01b6641fec75b7c927575241",
+        "printedStripBounds": [
+          387,
+          0,
+          637,
+          1536
+        ],
+        "printedStripWidth": 250,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-5-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3343207,
+        "sha256": "8fe87519cfa833c9a724168c241dd9ad628004fa7d11b3051b50a8457d490089"
+      },
+      {
+        "path": "public/box-art/hobo-5-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1353840,
+        "sha256": "f6db3ecf245f0b5abf2e29b156a504ad03b8a5e1d49693b7988a63346000951f",
+        "printedStripBounds": [
+          366,
+          0,
+          658,
+          1536
+        ],
+        "printedStripWidth": 292,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-6-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3358616,
+        "sha256": "bcf3d9d5fb7e21dbc73094710779c214234f9fd00f57370f7b4b3a5cfad4a3c8"
+      },
+      {
+        "path": "public/box-art/hobo-6-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1266188,
+        "sha256": "d844a02f2daaebf2c300e37a1b26add11a8326ee4c5db890ed2192e210ee28b8",
+        "printedStripBounds": [
+          379,
+          0,
+          645,
+          1536
+        ],
+        "printedStripWidth": 266,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hobo-7-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3222675,
+        "sha256": "05370df5f49c241758918f9beac29995bbe934c30f03035c630aa6b9d9285981"
+      },
+      {
+        "path": "public/box-art/hobo-7-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1093931,
+        "sha256": "5364bf4b1dd2a2a3abb3aeb86ddac795282fb6020a3cd8f344ef5961923f3af5",
+        "printedStripBounds": [
+          391,
+          0,
+          633,
+          1536
+        ],
+        "printedStripWidth": 242,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/hollow-knight-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3205647,
+        "sha256": "8afdee4fe395b644023c2b9cbbacae9d089b202718ad8c4251c40e8b82749c63"
+      },
+      {
+        "path": "public/box-art/hollow-knight-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1280950,
+        "sha256": "03af40c8494abef238459767b380e117e1f08b4017db73b1bc90760c71601015",
+        "printedStripBounds": [
+          364,
+          0,
+          660,
+          1536
+        ],
+        "printedStripWidth": 296,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/kart-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3425992,
+        "sha256": "d4700fb7b9461979c97cfd0675154a8ee86264769fe4175a9e00511cd320552d"
+      },
+      {
+        "path": "public/box-art/kart-photo-1.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3414393,
+        "sha256": "6194689f15af2157b597fa145295aea3df1618ff7d012d61e68505b36d331513"
+      },
+      {
+        "path": "public/box-art/kart-photo-2.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3502617,
+        "sha256": "b081e348fa4ced2dfeb3c2f6654e774cea281bdcd1c2e8952794a31f0fa7a3c5"
+      },
+      {
+        "path": "public/box-art/kart-photo-3.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3432465,
+        "sha256": "006dec465c3f3dedeebb605eed52999299673059bf57d1f6829fb2bba1e55f44"
+      },
+      {
+        "path": "public/box-art/kart-photo-4.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2881869,
+        "sha256": "dbdd534c1132185f0947b52ae7f9ab8ee1e24f13695b6b07f0f3083495b36875"
+      },
+      {
+        "path": "public/box-art/kart-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1397344,
+        "sha256": "f6193d30dcd5f27f3817596ed6fff3d572f71a219e123e74c42f1eabdd36d9fd",
+        "printedStripBounds": [
+          362,
+          0,
+          661,
+          1536
+        ],
+        "printedStripWidth": 299,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/pong-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3340610,
+        "sha256": "25b8c824352834092e626e7b05d56b42d43c16fd8f907cfdee0432278da7e939"
+      },
+      {
+        "path": "public/box-art/pong-photo-1.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3395446,
+        "sha256": "ff96abf51dcadf5378f4da113f7b432a0a90ab49bfeaada1ea14604eb2d07947"
+      },
+      {
+        "path": "public/box-art/pong-photo-2.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3346996,
+        "sha256": "5627f1920f26d91cad8565cc17f93659933c9d304dc907fbe7fe670a396ffb81"
+      },
+      {
+        "path": "public/box-art/pong-photo-3.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3212276,
+        "sha256": "fcfbffb88dbaf032ebd7af33afe68bafca430e007da01fe53b9711071982e60c"
+      },
+      {
+        "path": "public/box-art/pong-photo-4.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2769591,
+        "sha256": "1313cc91e0b1af4d360bb0397297d2ce5cf140284dbcbf794a9c2ab29dad48fa"
+      },
+      {
+        "path": "public/box-art/pong-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1361160,
+        "sha256": "7f4021ab98380c2790450a903099e5e8dee02f3e3691ee552f21ee255750bc4f",
+        "printedStripBounds": [
+          365,
+          0,
+          658,
+          1536
+        ],
+        "printedStripWidth": 293,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/puck-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3353203,
+        "sha256": "226430936532e99a795ad9c993e1cbaf566c2bacc5994afec2fb610e16aa6765"
+      },
+      {
+        "path": "public/box-art/puck-photo-1.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3222062,
+        "sha256": "9d799122e2c9539087785491048cefa001505ee810715018871c98ec41efc791"
+      },
+      {
+        "path": "public/box-art/puck-photo-2.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3402305,
+        "sha256": "724e1b61a2df8136e995066101cc7abe031817dbe0e526498222ed805e4c8679"
+      },
+      {
+        "path": "public/box-art/puck-photo-3.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 3366047,
+        "sha256": "0106c344d2b3505f934f8534e3e1d68911d84fa292a0803758f8ce5707b053a1"
+      },
+      {
+        "path": "public/box-art/puck-photo-4.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2881293,
+        "sha256": "5761281ca1827767feb71b94ffdc7daae0e8084b41c12a0ba8e7b01aeb79d2bd"
+      },
+      {
+        "path": "public/box-art/puck-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1414632,
+        "sha256": "7d32ac0a65a37b3af0374c3ab856205f085d21c224660fa21104cffaf65aa0de",
+        "printedStripBounds": [
+          349,
+          0,
+          674,
+          1536
+        ],
+        "printedStripWidth": 325,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/sonic-4-episode-1-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3481500,
+        "sha256": "c83316fbcc63f67f5d900c43d950aed2ea880a8a38d266853cb3c37ab07d7ec2"
+      },
+      {
+        "path": "public/box-art/sonic-4-episode-1-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1375657,
+        "sha256": "967ff6b2a54b35fb4324202a945208b7cd679765cd47fad565ab36034aa0b082",
+        "printedStripBounds": [
+          356,
+          0,
+          668,
+          1536
+        ],
+        "printedStripWidth": 312,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/box-art/zuma-the-lost-treasure-back.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 3637530,
+        "sha256": "6cb850f29120e36840bec1d3296ed1f7c7bdb2b786c01952d44a8b5370d8ea8f"
+      },
+      {
+        "path": "public/box-art/zuma-the-lost-treasure-spine.png",
+        "png": true,
+        "size": [
+          1024,
+          1536
+        ],
+        "bytes": 1494336,
+        "sha256": "378ed638c190d080b2b2c11a529c5fe2347fd1ec9e451bdaf289b71df23ded48",
+        "printedStripBounds": [
+          364,
+          0,
+          660,
+          1536
+        ],
+        "printedStripWidth": 296,
+        "exact330pxStrip": false,
+        "pureBlackSides": false
+      },
+      {
+        "path": "public/wallpapers/arcade.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2219418,
+        "sha256": "72af4bd17be04b552bf22be5ff582d277ead6e327fcc1c0d239d9451cf5b1675"
+      },
+      {
+        "path": "public/wallpapers/midnight.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2314545,
+        "sha256": "ba04bccdba06f0a11fed9efa1482b71cc2c283f8bbe7a0f95e6189b32acdcbfa"
+      },
+      {
+        "path": "public/wallpapers/paper.png",
+        "png": true,
+        "size": [
+          1536,
+          1024
+        ],
+        "bytes": 2958708,
+        "sha256": "2d474cc1885b29ce36a8494af6f4951c0eb49aca6d9c5a9ba0e78255aed95988"
+      }
+    ]
+  }
 }
