@@ -136,7 +136,28 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     if (!booting) document.documentElement.dataset.crt = mobile ? "handheld-home" : "desktop";
     // the colour under the screen edge, which the CRT shader paints itself (see crt-overlay)
     document.documentElement.dataset.wall = booting ? (mobile ? "#93a87f" : "#050505") : mobile && wallpaper === "teal" ? "#0e4c49" : walls[wallpaper];
-  }, [booting, mobile, wallpaper]);
+    // a picture wallpaper: paint the rim with the average colour of the picture's own border, or the edge looks torn
+    const art = wallpaperArt[wallpaper];
+    if (booting || !art) return;
+    let live = true;
+    const image = new window.Image();
+    image.onload = () => {
+      const canvas = document.createElement("canvas"), g = canvas.getContext("2d", { willReadFrequently: true });
+      if (!live || !g) return;
+      canvas.width = canvas.height = 32;
+      g.drawImage(image, 0, 0, 32, 32);
+      const px = g.getImageData(0, 0, 32, 32).data, sum = [0, 0, 0];
+      let n = 0;
+      for (let i = 0; i < 32 * 32; i++) {
+        const x = i % 32, y = (i / 32) | 0;
+        if (x > 1 && x < 30 && y > 1 && y < 30) continue;
+        sum[0] += px[i * 4]; sum[1] += px[i * 4 + 1]; sum[2] += px[i * 4 + 2]; n++;
+      }
+      document.documentElement.dataset.wall = "#" + sum.map(value => Math.round(value / n).toString(16).padStart(2, "0")).join("");
+    };
+    image.src = art;
+    return () => { live = false; };
+  }, [booting, mobile, wallpaper, wallpaperArt]);
 
   // ---------- preferences, device class, clock, deep links
   useEffect(() => {
