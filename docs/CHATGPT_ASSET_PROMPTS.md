@@ -12,7 +12,7 @@ All files are optional — the site uses each one automatically as soon as it ex
 1. **Start one ChatGPT chat per game.** First paste the **Style guide** below on its own, then attach that game's
    front cover (path given) **and** `public/kart-cover-box-art.png` as the house-style reference.
 2. Then paste the asset prompts for that game one at a time, re-attaching the cover each time.
-3. Pick the size written on each prompt. Download PNG, save under the exact file name in `lmogolyan-arcade/public/`.
+3. Pick the size written on each prompt. Download PNG, save under the exact file name in `a-and-d-arcade/public/`.
 4. If a result shows a 3D box, a hand, a table, or misspelled text, reply: *“Redo it as a flat, straight-on flatbed scan of the printed panel only, edge to edge, and spell the text exactly as given.”*
 5. Tell me when they're in; I'll compress them for the web.
 
