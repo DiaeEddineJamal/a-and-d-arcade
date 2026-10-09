@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChefHat, CircleDot, Columns2, Disc3, FileText, Flag, Folder, Gamepad2, HardDrive,
+  ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Gamepad2, HardDrive,
   House, ImageIcon, Info, Laptop, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
+import { canDownload, megabytes, totalBytes } from "./offline";
 import BootScreen from "./boot-screen";
 import BoxViewer from "./box-viewer";
 import CrtOverlay from "./crt-overlay";
@@ -186,6 +187,8 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       const game = games.find(game => game.id === id);
       if (game) setDetail(game);
       setNow(new Date());
+      // offline: keep this page and the scripts it already loaded (before the worker took over) in the shell cache
+      navigator.serviceWorker?.register("/sw.js").then(() => caches.open("shell")).then(cache => cache.addAll([location.pathname, ...performance.getEntriesByType("resource").map(entry => entry.name).filter(name => name.startsWith(`${location.origin}/_next/static/`))])).catch(() => {});
     }, 0);
     query.addEventListener("change", update);
     const tick = setInterval(() => setNow(new Date()), 10_000);
@@ -333,6 +336,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         <ul className="feature-chips">{detail.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
         {!!detail.photos?.length && <div className="photo-strip">{detail.photos.map((src, index) => <button key={src} onClick={() => setPhoto(src)} aria-label={`Open box photo ${index + 1}`}><Image src={src} alt="" width={240} height={180} sizes="160px" /></button>)}</div>}
         <div className="detail-actions">
+          {canDownload(detail.id) && <p className="device-line is-download"><Download /><span><b>Downloadable to your PC</b> · download it once ({megabytes(totalBytes(detail.id))}) and play it offline, no internet needed</span></p>}
           <p className="device-line">{gameSupport(detail).devices === "both" ? <Smartphone /> : <Laptop />}<span><b>{gameSupport(detail).label}</b> · {gameSupport(detail).note}</span></p>
           <a className="play-button" href={detail.href} onClick={click}><Gamepad2 />{detail.cta}<ArrowRight className="nudge" /></a>
         </div>
@@ -374,6 +378,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
           <button className="big-box" style={{ "--i": index } as React.CSSProperties} onClick={() => { click(); openDetail(game); }} aria-label={`Open ${title(game)}`}>
             <span className="big-box-spine" />
             <span className="big-box-face"><Image src={`${game.cover}?v=ad1996`} alt="" width={240} height={360} sizes="(max-width: 700px) 30vw, 130px" draggable={false} /></span>
+            {canDownload(game.id) && <span className="download-sticker" title="Can be downloaded to your PC and played offline"><Download aria-hidden="true" />DOWNLOADABLE</span>}
           </button>
         </div>)}{Array.from({ length: (columns - visibleGames.length % columns) % columns + columns * Math.max(0, 4 - Math.ceil(visibleGames.length / columns)) }, (_, index) => <div className="shelf-slot is-empty" key={`empty-${index}`} aria-hidden="true" />)}</div>
         {!visibleGames.length && <p className="shelf-empty">No boxes match “{query}”.</p>}

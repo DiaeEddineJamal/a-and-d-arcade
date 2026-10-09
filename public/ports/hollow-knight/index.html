@@ -82,7 +82,8 @@ var loadingText = document.querySelector("#loading-text");
       );
       const mergedBlob = new Blob(buffers, { type });
       const response = new Response(mergedBlob);
-      await cache?.put(cacheKey, response).catch(() => {});
+      // downloaded for offline: the service worker already keeps the parts, so skip a second copy
+      if (!await caches.has("offline:hollow-knight").catch(() => false)) await cache?.put(cacheKey, response).catch(() => {});
       return URL.createObjectURL(mergedBlob);
     }
 

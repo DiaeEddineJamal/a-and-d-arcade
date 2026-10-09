@@ -9,7 +9,7 @@ for (const id of ["cuphead", "20-minutes-till-dawn", "hollow-knight", "helltaker
   const context = vm.createContext({
     document: { querySelector: () => ({}) }, URL, Blob, Response,
     fetch: async () => new Response("missing", { status: 404 }),
-    caches: { open: async () => { throw new Error("Storage disabled"); } },
+    caches: { open: async () => { throw new Error("Storage disabled"); }, has: async () => false },
   });
   vm.runInContext(script, context);
   assert.deepEqual(Array.from(context.getParts("build", 1, 2)), ["build.part1", "build.part2"]);

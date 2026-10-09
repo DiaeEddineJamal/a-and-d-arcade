@@ -30,6 +30,14 @@ Add future browser titles to `src/app/ported-games.ts` with a local wrapper path
 The dynamic player route only accepts registered game IDs; it does not take an arbitrary URL.
 Run `npm run check:ports`, `npm run lint` and `npm run build` after changes.
 
+### Download to this device
+
+Ports whose files the portal can fetch (not the ones embedded from another site) have a
+"Download to this device" button. `src/app/offline.ts` downloads every file listed in
+`src/app/offline-files.json` into browser storage on disk, resuming where it stopped, and
+`public/sw.js` serves those files before the network, so the game plays without internet.
+After changing a port's source revision run `node tools/offline-manifests.mjs` to regenerate the list.
+
 Local verification (2026-10-06): portal lint, TypeScript, production build and loader checks passed.
 20 Minutes Till Dawn reached its title menu, character/weapon selection and an active survival
 session; Full Screen, Escape and Reload were exercised. Cuphead downloaded and reached Unity
