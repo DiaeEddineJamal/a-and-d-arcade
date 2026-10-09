@@ -146,7 +146,7 @@ svg { flex-shrink: 0; }
 .intro-close, .shelf-buttons { display: none; }
 
 .shelf-frame { position: relative; min-height: 0; padding: 14px; border-radius: 10px; background: linear-gradient(90deg, #5d3517, #8b5629 7%, #7a4a22 30%, #86532a 70%, #8b5629 93%, #5d3517); box-shadow: inset 0 0 0 1px #3a200b, inset 0 2px 0 #ffd9a840, inset 0 -3px 0 #00000040, 0 2px 0 #00000030, 0 12px 28px #00000055; }
-.shelf { height: 100%; overflow: auto; overscroll-behavior: contain; border-radius: 3px; background: repeating-linear-gradient(90deg, #ffffff05 0 2px, transparent 2px 9px), linear-gradient(#22130a, #3a2312 30%, #2c190c); box-shadow: inset 0 10px 18px #000000aa, inset 0 0 0 2px #1e1008; scrollbar-width: thin; scrollbar-color: #9a6533 transparent; }
+.shelf { height: 100%; overflow: auto; overscroll-behavior: contain; border-radius: 3px; background: repeating-linear-gradient(90deg, #ffffff05 0 2px, transparent 2px 9px), linear-gradient(#22130a, #3a2312 30%, #2c190c); box-shadow: inset 0 10px 18px #000000aa, inset 0 0 0 2px #1e1008; }
 .shelf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); padding: 0 6px; }
 .shelf-slot { position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 12px 7px 0; }
 .shelf-slot::after { content: ""; position: relative; z-index: 2; height: 10px; margin: 0 calc(-1 * 7px); background: linear-gradient(#b58049, #91602f 35%, #5f3717); box-shadow: 0 7px 9px #000000a0, inset 0 1px 0 #ffe2b860; }
@@ -255,7 +255,7 @@ svg { flex-shrink: 0; }
 .terminal-x { margin: 0 2px 6px auto; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 5px; color: #bbb; }
 .terminal-x:hover { background: #ffffff1a; color: #fff; }
 .terminal-x svg { width: 15px; height: 15px; }
-.terminal-output { flex: 1; overflow: auto; padding: 10px 16px 16px; font: 400 21px/1.18 var(--term); text-shadow: 0 0 1px #c7c7c7aa, 0 0 9px #c7c7c740; scrollbar-width: thin; scrollbar-color: #444 transparent; }
+.terminal-output { flex: 1; overflow: auto; padding: 10px 16px 16px; font: 400 21px/1.18 var(--term); text-shadow: 0 0 1px #c7c7c7aa, 0 0 9px #c7c7c740; }
 .terminal-output pre { margin: 0; font: inherit; white-space: pre-wrap; word-break: break-word; animation: line-in .18s steps(3) both; animation-delay: calc(var(--i, 0) * 28ms); }
 @keyframes line-in { from { opacity: 0; clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 .term-block + .term-block { margin-top: 2px; }
@@ -631,3 +631,30 @@ svg { flex-shrink: 0; }
 .setting-row:has(.file-input) { position: relative; cursor: pointer; }
 .setting-row:has(.file-input:focus-visible) { outline: 2px solid var(--ink); }
 .wall-fit { margin: 2px 4px 6px; }
+
+/* scrollbars: the classic Mac scroll bar in paper and ink. A dithered track, a paper scroll box outlined in ink
+   with a highlight bevel, inked while you drag it. No arrow buttons. Dark places get their own: the terminal
+   and the wooden shelf. (Chrome ignores these on any element that sets scrollbar-color, so that stays Firefox-only.) */
+::-webkit-scrollbar { width: 14px; height: 14px; }
+::-webkit-scrollbar-button { display: none; }
+::-webkit-scrollbar-track { background: repeating-conic-gradient(#1a1a1a24 0 25%, transparent 0 50%) 0 0 / 2px 2px, var(--paper-2); border-left: 1px solid var(--divider); }
+::-webkit-scrollbar-track:horizontal { border-left: 0; border-top: 1px solid var(--divider); }
+::-webkit-scrollbar-thumb { min-height: 28px; border: 2px solid transparent; border-radius: 5px; background: padding-box var(--paper); box-shadow: inset 0 0 0 1px var(--ink), inset 2px 2px 0 #fffdf6, inset -2px -2px 0 #c9c2aa; }
+::-webkit-scrollbar-thumb:hover { background-color: #fffdf6; }
+::-webkit-scrollbar-thumb:active { background-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+::-webkit-scrollbar-corner { background: var(--paper-2); }
+.terminal-output::-webkit-scrollbar-track { background: #0a0a0a; border-color: #222; }
+.terminal-output::-webkit-scrollbar-thumb { background-color: #2a2a2a; box-shadow: inset 0 0 0 1px #555, inset 2px 2px 0 #3a3a3a; }
+.terminal-output::-webkit-scrollbar-thumb:active { background-color: #c7c7c7; }
+.shelf::-webkit-scrollbar-track { background: transparent; border: 0; }
+.shelf::-webkit-scrollbar-thumb { background-color: #9a6533; box-shadow: inset 0 0 0 1px #1e1008, inset 2px 2px 0 #c08a52; }
+@media (pointer: coarse) {
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; border: 0; }
+  ::-webkit-scrollbar-thumb { min-height: 0; border: 0; border-radius: 3px; background: #1a1a1a66; box-shadow: none; }
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-color: var(--ink-soft) var(--paper-2); }
+  .terminal-output { scrollbar-width: thin; scrollbar-color: #444 transparent; }
+  .shelf { scrollbar-width: thin; scrollbar-color: #9a6533 transparent; }
+}
