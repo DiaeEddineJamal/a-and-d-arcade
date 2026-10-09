@@ -283,6 +283,19 @@ svg { flex-shrink: 0; }
 .setting-row b { margin-left: auto; font: 700 11px var(--ui); letter-spacing: .03em; }
 .setting-row[aria-checked="false"] b { color: #00000059; }
 .settings-foot { margin: 22px 0 0; font: 500 10px/1.6 var(--plex); color: var(--ink-muted); }
+.setting-row.is-static { margin: 0; cursor: default; }
+.setting-row.is-static:hover, .setting-row:disabled:hover { background: none; }
+.setting-row:disabled { cursor: default; }
+.setting-row .setting-hint { font: 500 10.5px var(--plex); color: var(--ink-muted); letter-spacing: 0; text-align: right; }
+.settings-note { margin: 4px 4px 0; font: 450 13px/1.5 var(--serif); color: var(--ink-soft); }
+.download-list { list-style: none; margin: 4px 0; padding: 0; }
+.download-list li { display: flex; align-items: center; gap: 12px; padding: 7px 4px; border-top: 1px solid #0000000f; }
+.download-list li span { display: grid; flex: 1; font: 450 14px var(--serif); }
+.download-list small { font: 500 10.5px var(--plex); color: var(--ink-muted); }
+.download-list button { padding: 4px 8px; border: 1px solid currentColor; border-radius: 4px; font: 700 10px var(--ui); letter-spacing: .03em; }
+.download-list button:hover { background: #0000000a; }
+/* the CRT power-on plays once per visit (layout.tsx marks later pages "warm") */
+[data-warm] .monitor.power-on:not(.is-booting) .screen { animation: none; }
 
 /* start menu */
 .start-menu { position: absolute; z-index: 8; left: var(--pad-x); top: var(--pad-top); bottom: calc(var(--pad-bottom) + var(--dock-h) + var(--gap)); width: min(320px, 34%); display: flex; flex-direction: column; padding: 18px 16px 14px; overflow: auto; background: var(--paper); border-radius: 10px; box-shadow: 0 1px 0 #ffffff80 inset, 0 2px 0 #00000022, 0 14px 30px #00262640; animation: menu-in .28s var(--ease) both; transform-origin: 0 100%; }

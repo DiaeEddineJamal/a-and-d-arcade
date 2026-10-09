@@ -22,6 +22,10 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, view
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${serif.variable} ${plex.variable} ${term.variable} ${pixel.variable}`}><body><ArcadeDesktop games={games} wallpaperArt={wallpaperArt} devicePhotos={devicePhotos()} deviceTracks={deviceTracks()}>{children}</ArcadeDesktop></body></html>
+    // suppressHydrationWarning: the head script below may mark <html data-warm> before React loads
+    <html lang="en" className={`${serif.variable} ${plex.variable} ${term.variable} ${pixel.variable}`} suppressHydrationWarning>
+      {/* runs before the first paint: the CRT power-on plays once per visit, never with startup animations off */}
+      <head><script dangerouslySetInnerHTML={{ __html: `try{if(sessionStorage.getItem("ad-warm")||JSON.parse(localStorage.getItem("ad-preferences")||"{}").startup===false)document.documentElement.dataset.warm="1"}catch(e){}` }} /></head>
+      <body><ArcadeDesktop games={games} wallpaperArt={wallpaperArt} devicePhotos={devicePhotos()} deviceTracks={deviceTracks()}>{children}</ArcadeDesktop></body></html>
   );
 }

@@ -10,7 +10,7 @@ import {
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
-import { canDownload, checkDownload, downloadsVersion, getDownload, megabytes, subscribe, totalBytes } from "./offline";
+import { canDownload, checkDownload, downloadsVersion, getDownload, megabytes, removeDownload, subscribe, totalBytes } from "./offline";
 import BootScreen from "./boot-screen";
 import BoxViewer from "./box-viewer";
 import CrtOverlay from "./crt-overlay";
@@ -67,16 +67,24 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   const router = useRouter();
   const [booting, setBooting] = useState(true);
   // offline: which games are on this PC, whether we are online, and the browser's "install app" prompt
-  useSyncExternalStore(subscribe, downloadsVersion, () => 0);
   const [online, setOnline] = useState(true);
   const [install, setInstall] = useState<(Event & { prompt: () => Promise<unknown> }) | null>(null);
+  const [installed, setInstalled] = useState(false);
+  const [startup, setStartup] = useState(true);
+  const [storage, setStorage] = useState<{ used: number; free: number; persisted: boolean } | null>(null);
+  const [persistAsked, setPersistAsked] = useState(false);
+  const downloads = useSyncExternalStore(subscribe, downloadsVersion, () => 0);
   useEffect(() => {
     games.forEach(game => void checkDownload(game.id));
     const network = () => setOnline(navigator.onLine);
     const offer = (event: Event) => { event.preventDefault(); setInstall(event as Event & { prompt: () => Promise<unknown> }); };
-    network();
-    addEventListener("online", network); addEventListener("offline", network); addEventListener("beforeinstallprompt", offer);
-    return () => { removeEventListener("online", network); removeEventListener("offline", network); removeEventListener("beforeinstallprompt", offer); };
+    const standalone = () => setInstalled(matchMedia("(display-mode: standalone)").matches);
+    const justInstalled = () => { setInstalled(true); setInstall(null); };
+    network(); standalone();
+    // the CRT power-on plays once per visit; later pages in the same visit open straight onto a warm screen
+    try { sessionStorage.setItem("ad-warm", "1"); } catch {}
+    addEventListener("online", network); addEventListener("offline", network); addEventListener("beforeinstallprompt", offer); addEventListener("appinstalled", justInstalled);
+    return () => { removeEventListener("online", network); removeEventListener("offline", network); removeEventListener("beforeinstallprompt", offer); removeEventListener("appinstalled", justInstalled); };
   }, [games]);
   const [bootRun, setBootRun] = useState(0);
   const [mobile, setMobile] = useState<boolean | null>(null);
@@ -190,10 +198,11 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         if (wallpapers.some(item => item.id === id)) setWallpaper(id);
         if (typeof saved.crt === "boolean") setCrt(saved.crt);
         if (saved.sound && typeof saved.sound === "object") setSound(value => ({ ...value, ...saved.sound }));
+        if (saved.startup === false) setStartup(false);
         // like the reference, only the front door boots; links straight to a window or game open directly
         const opened = JSON.parse(localStorage.getItem("ad-unlocked") || "[]");
         if (Array.isArray(opened)) setUnlocked(opened.filter(id => devices.some(device => device.id === id)));
-        if (sessionStorage.getItem("ad-booted") || location.pathname !== "/" || location.search.includes("game=")) setBooting(false);
+        if (saved.startup === false || sessionStorage.getItem("ad-booted") || location.pathname !== "/" || location.search.includes("game=")) setBooting(false);
       } catch {}
       const id = new URLSearchParams(location.search).get("game");
       const game = games.find(game => game.id === id);
@@ -210,14 +219,22 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     return () => { clearTimeout(timer); clearInterval(tick); query.removeEventListener("change", update); removeEventListener("resize", update); };
   }, [games]);
 
-  function preference(next: { wallpaper?: string; crt?: boolean; sound?: Partial<Sound> }) {
-    const value = { wallpaper, crt, ...next, sound: { ...sound, ...next.sound } };
-    setWallpaper(value.wallpaper); setCrt(value.crt); setSound(value.sound);
+  // Settings shows how much disk the downloads take and whether the browser promised to keep them
+  const readStorage = useCallback(() => {
+    void Promise.all([navigator.storage?.estimate?.(), navigator.storage?.persisted?.()])
+      .then(([estimate, persisted]) => setStorage({ used: estimate?.usage ?? 0, free: Math.max(0, (estimate?.quota ?? 0) - (estimate?.usage ?? 0)), persisted: !!persisted }))
+      .catch(() => {});
+  }, []);
+  useEffect(() => { if (pathname === "/settings") readStorage(); }, [pathname, downloads, readStorage]);
+
+  function preference(next: { wallpaper?: string; crt?: boolean; startup?: boolean; sound?: Partial<Sound> }) {
+    const value = { wallpaper, crt, startup, ...next, sound: { ...sound, ...next.sound } };
+    setWallpaper(value.wallpaper); setCrt(value.crt); setStartup(value.startup); setSound(value.sound);
     try { localStorage.setItem("ad-preferences", JSON.stringify(value)); } catch {}
   }
   const finishBoot = useCallback(() => { setBooting(false); try { sessionStorage.setItem("ad-booted", "1"); } catch {} }, []);
   const setupBoot = useCallback(() => { finishBoot(); router.push("/settings"); }, [finishBoot, router]);
-  const reboot = () => { setMenu(false); setPowered("on"); setBooting(true); setBootRun(value => value + 1); };
+  const reboot = () => { delete document.documentElement.dataset.warm; setMenu(false); setPowered("on"); setBooting(true); setBootRun(value => value + 1); };
   const shutdown = () => { setMenu(false); setPowered("shutting"); setTimeout(() => setPowered("off"), 1300); };
 
   function openDetail(game: Game | null) {
@@ -356,7 +373,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
             : <p className="device-line is-download"><Download /><span><b>Downloadable to your PC</b> · download it once ({megabytes(totalBytes(detail.id))}) and play it offline, no internet needed</span></p>)}
           {!online && !(canDownload(detail.id) && getDownload(detail.id).status === "done") && <p className="device-line is-offline"><span><b>You are offline</b> · this game needs an internet connection</span></p>}
           <p className="device-line">{gameSupport(detail).devices === "both" ? <Smartphone /> : <Laptop />}<span><b>{gameSupport(detail).label}</b> · {gameSupport(detail).note}</span></p>
-          <a className="play-button" href={detail.href} onClick={click}><Gamepad2 />{detail.cta}<ArrowRight className="nudge" /></a>
+          {detail.href.startsWith("/")
+            ? <Link className="play-button" href={detail.href} onClick={click}><Gamepad2 />{detail.cta}<ArrowRight className="nudge" /></Link>
+            : <a className="play-button" href={detail.href} onClick={click}><Gamepad2 />{detail.cta}<ArrowRight className="nudge" /></a>}
         </div>
       </div>
     </div>
@@ -473,11 +492,32 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     {([["boot", "Boot beep", Volume2], ["click", "Mouse click", MousePointerClick], ["hum", "Ambient hum", Radio]] as const).map(([key, label, Icon]) => <button className="setting-row" key={key} role="switch" aria-checked={sound[key]} onClick={() => preference({ sound: { [key]: !sound[key] } })}><Icon />{label}<b>{sound[key] ? "ON" : "OFF"}</b></button>)}
     <h2>Display</h2>
     <button className="setting-row" role="switch" aria-checked={crt} onClick={() => preference({ crt: !crt })}><Laptop />CRT phosphor &amp; grain<b>{crt ? "ON" : "OFF"}</b></button>
+    <button className="setting-row" role="switch" aria-checked={startup} onClick={() => preference({ startup: !startup })}><Power />Startup animations<b>{startup ? "ON" : "OFF"}</b></button>
+    <h2>Offline &amp; downloads</h2>
+    {installed
+      ? <p className="setting-row is-static"><Download />Installed as an app<b>YES</b></p>
+      : install
+        ? <button className="setting-row" onClick={() => { void install.prompt(); setInstall(null); }}><Download />Install as an app (opens offline)<b>RUN</b></button>
+        : <p className="setting-row is-static"><Download />Install as an app<b className="setting-hint">Chrome or Edge: install icon in the address bar</b></p>}
+    <button className="setting-row" role="switch" aria-checked={!!storage?.persisted} disabled={!!storage?.persisted}
+      onClick={() => { void navigator.storage?.persist?.().then(() => { setPersistAsked(true); readStorage(); }); }}><HardDrive />Protect downloads from browser cleanup<b>{storage?.persisted ? "ON" : persistAsked ? "NOT YET" : "ASK"}</b></button>
+    {persistAsked && !storage?.persisted && <p className="settings-note">The browser decides this on its own. Installing the arcade as an app, or visiting it regularly, usually makes it say yes.</p>}
+    {storage && <p className="setting-row is-static"><Save />Space used<b className="setting-hint">{megabytes(storage.used)} used · {megabytes(storage.free)} free</b></p>}
+    {(() => {
+      const saved = games.filter(game => canDownload(game.id) && getDownload(game.id).status !== "none");
+      if (!saved.length) return <p className="settings-note">No games downloaded yet. Open a game from the Collection and choose “Download to this device”.</p>;
+      return <>
+        <ul className="download-list" key={downloads}>{saved.map(game => { const state = getDownload(game.id); return <li key={game.id}>
+          <span>{title(game)}<small>{state.status === "done" ? `On this PC · ${megabytes(state.total)}` : `${state.status === "downloading" ? "Downloading" : "Paused"} · ${megabytes(state.done)} of ${megabytes(state.total)}`}</small></span>
+          <button onClick={() => { if (confirm(`Remove ${title(game)} from this device?`)) void removeDownload(game.id); }}>REMOVE</button>
+        </li>; })}</ul>
+        <button className="setting-row" onClick={() => { if (confirm(`Remove all ${saved.length} downloaded games from this device? You will need to download them again to play offline.`)) saved.forEach(game => void removeDownload(game.id)); }}><Trash2 />Remove all downloads<b>RUN</b></button>
+      </>;
+    })()}
     <h2>System</h2>
-    {install && <button className="setting-row" onClick={() => { void install.prompt(); setInstall(null); }}><Download />Install as an app (opens offline)<b>RUN</b></button>}
     <button className="setting-row" onClick={reboot}><RotateCcw />Replay startup<b>RUN</b></button>
-    <button className="setting-row" onClick={() => { try { localStorage.removeItem("ad-preferences"); sessionStorage.clear(); } catch {} window.history.replaceState(null, "", "/"); location.reload(); }}><Trash2 />Clear temp files<b>RUN</b></button>
-    <p className="settings-foot">A&amp;D ARCADE OS 1.0 · EST. 1996 / 2026<br />Animation follows your device’s reduced-motion setting.</p>
+    <button className="setting-row" onClick={() => { try { localStorage.removeItem("ad-preferences"); sessionStorage.clear(); } catch {} window.history.replaceState(null, "", "/"); location.reload(); }}><Trash2 />Clear temp files (keeps downloads)<b>RUN</b></button>
+    <p className="settings-foot">A&amp;D ARCADE OS 1.0 · EST. 1996 / 2026<br />Animation follows your device’s reduced-motion setting. Downloaded games stay on this device until you remove them or clear the browser’s site data.</p>
   </section>;
 
   const windowKey = detail ? `detail` : pathname;
