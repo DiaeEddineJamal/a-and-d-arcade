@@ -9,12 +9,12 @@
   --ink-hint: #a39a82;
   --divider: #cdc2a2;
   --link: #24508a;
-  /* the whole desktop speaks one pixel serif; the boot screen and the terminal keep their VT323 */
+  /* text faces carry everything people read; the pixel serif is a display face (see "display type" at the end) */
   --pixel-serif: "AD Pixel Serif", var(--font-serif), "Times New Roman", serif;
-  --serif: var(--pixel-serif);
-  --plex: var(--pixel-serif);
+  --serif: var(--font-serif), "Times New Roman", Georgia, serif;
+  --plex: var(--font-plex), Consolas, Menlo, monospace;
   --term: var(--font-term), Consolas, "Courier New", monospace;
-  --ui: var(--pixel-serif);
+  --ui: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --t-fg: #c7c7c7;
   --t-green: #5bd25b; --t-red: #ff5555; --t-yellow: #ffff55; --t-cyan: #55ffff; --t-blue: #7a7aff; --t-magenta: #ff55ff;
   --inset: clamp(8px, 1.6vmin, 22px);
@@ -29,7 +29,7 @@
 @font-face { font-family: "AD Pixel Serif"; src: url("/fonts/ad-pixel-serif.woff2") format("woff2"); font-display: swap; }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: #000; overscroll-behavior: none; }
-body { font-family: var(--serif); color: var(--ink); -webkit-font-smoothing: antialiased; font-synthesis: weight; }
+body { font-family: var(--serif); color: var(--ink); -webkit-font-smoothing: antialiased; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; background: none; border: 0; padding: 0; }
 a { color: inherit; text-decoration: none; }
@@ -613,3 +613,12 @@ svg { flex-shrink: 0; }
 .files-list td .row-tools button:hover { background: var(--ink); color: var(--paper); }
 .files-list td .row-tools svg { width: 15px; height: 15px; }
 @media (max-width: 700px), (max-height: 500px) and (pointer: coarse) { .files-list td .row-tools button { width: 40px; height: 40px; } }
+
+/* display type: the pixel serif only where text is big and short (window titles, clocks, the 404),
+   the way a display face is meant to be used. Paragraphs, tables, labels and forms stay in Fraunces,
+   IBM Plex Mono and Helvetica, which are built for reading at small sizes. One weight, no tracking,
+   no synthetic bold or italic, so the pixels stay square. */
+:is(.about-header h1, .collection-intro h1, .detail-header h2, .settings-window header h1, .note-view h2, .player-start h1, .not-found h1, .clock) {
+  font-family: var(--pixel-serif); font-weight: 400; font-style: normal; letter-spacing: 0; font-variation-settings: normal; font-synthesis: none;
+}
+@media (min-width: 701px) { .collection-intro h1 { font-size: 46px; } }
