@@ -21,6 +21,7 @@ import HomeGrid, { type HomeApp } from "./home-grid";
 import { listTapes, removeTape, saveCopy, subscribeTapes, type Tape } from "./tapes";
 import { devices, type Device } from "./devices";
 import { gameSupport } from "./game-support.mjs";
+import { thumb } from "./thumbs";
 
 const screens = ["/", "/collection", "/files", "/about", "/terminal", "/settings"];
 const dock = [
@@ -262,8 +263,8 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       setNow(new Date());
       // offline: keep every desktop screen and the scripts already loaded (before the worker took over) in the shell cache
       navigator.serviceWorker?.register("/sw.js").then(() => caches.open("shell")).then(cache => cache.addAll([...new Set([location.pathname, "/", "/collection", "/files", "/about", "/terminal", "/settings"]),
-        // every shelf cover at its smallest shelf size (~800 KB in all), so the collection looks right offline
-        ...games.map(game => new Request(`/_next/image?url=${encodeURIComponent(`${game.cover}?v=ad1996`)}&w=256&q=75`, { headers: { accept: "image/avif,image/webp,*/*" } })),
+        // every shelf cover at its shelf size (static WebP, ~3 MB in all), so the collection looks right offline
+        ...games.map(game => thumb(game.cover, 384)),
         ...performance.getEntriesByType("resource").map(entry => entry.name).filter(name => name.startsWith(`${location.origin}/_next/static/`))])).catch(() => {});
     }, 0);
     query.addEventListener("change", update);
@@ -462,7 +463,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       <p>It’s dressed like the computers we grew up loving: the BIOS beep, the glow of an old monitor, big cardboard boxes you could actually hold. Take your time, open a folder, pick up a box. Play alone, or bring your own player two. Want the short version? Type <Link href="/terminal">whoami</Link> in the terminal.</p>
       <p className="about-signature">Made with love by Diae, for A.</p>
     </div>
-    <Image className="about-portrait" src="/ad-about-cutout.png" alt="The two people behind A&D Arcade leaning on vintage desktop computers" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 70vw" priority />
+    <Image className="about-portrait" src="/ad-about-cutout.webp" alt="The two people behind A&D Arcade leaning on vintage desktop computers" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 70vw" priority />
   </section>;
 
   if (pathname === "/collection") windowContent = <section className={`window collection-window${intro ? " show-intro" : ""}`} aria-label="Big Box Collection">
@@ -486,7 +487,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         <div className="shelf-grid" ref={shelfGrid}>{visibleGames.map((game, index) => <div className="shelf-slot" key={game.id}>
           <button className="big-box" style={{ "--i": index } as React.CSSProperties} onClick={() => { click(); openDetail(game); }} aria-label={`Open ${title(game)}`}>
             <span className="big-box-spine" />
-            <span className="big-box-face"><Image src={`${game.cover}?v=ad1996`} alt="" width={240} height={360} sizes="(max-width: 700px) 30vw, 130px" draggable={false} /></span>
+            <span className="big-box-face"><Image src={thumb(game.cover, 384)} alt="" width={240} height={360} sizes="(max-width: 700px) 30vw, 130px" draggable={false} /></span>
             {canDownload(game.id) && (getDownload(game.id).status === "done"
               ? <span className="download-sticker is-saved" title="Downloaded: plays offline on this PC">✓ ON THIS PC</span>
               : <span className="download-sticker" title="Can be downloaded to your PC and played offline"><Download aria-hidden="true" />DOWNLOADABLE</span>)}

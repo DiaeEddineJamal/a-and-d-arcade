@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Box, Image as ImageIcon, Pause, Play, RotateCcw } from "lucide-react";
 import type { Game } from "./catalog";
 import { boxFaces } from "./box-faces";
+import { thumb } from "./thumbs";
 
 // Same scene as the reference's collection-3d viewer: a lit three.js big box,
 // camera fov 38 at z=3, auto-spin with a slow tilt wobble, drag to orbit with inertia, wheel to zoom.
@@ -50,7 +51,7 @@ export default function BoxViewer({ game, title }: { game: Game; title: string }
       const mesh = new THREE.Mesh(new RoundedBoxGeometry(1.4 / 1.5, 1.4, .3, 4, .014), Array(6).fill(cardboard));
       scene.add(mesh);
       const load = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => { const image = new window.Image(); image.onload = () => resolve(image); image.onerror = reject; image.src = url; });
-      const optimized = (src: string) => `/_next/image?url=${encodeURIComponent(src === cover ? `${src}?v=ad1996` : src)}&w=640&q=75`;
+      const optimized = (src: string) => src === cover ? thumb(cover, 640) : src;
       void Promise.all([
         load(optimized(cover)),
         game.back ? load(optimized(game.back)).catch(() => null) : null,
@@ -133,7 +134,7 @@ export default function BoxViewer({ game, title }: { game: Game; title: string }
 
   return <div className="box-viewer">
     {flat
-      ? <div className="box-flat"><Image src={`${cover}?v=ad1996`} alt={`${title} cover art`} width={400} height={600} sizes="320px" /></div>
+      ? <div className="box-flat"><Image src={thumb(cover, 640)} alt={`${title} cover art`} width={400} height={600} sizes="320px" /></div>
       : <div className={`box-stage${ready ? " is-ready" : ""}`} ref={host} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onWheel={wheel} role="img" aria-label={`${title} box in 3D, drag to rotate`}>
           {!ready && <div className="box-loading"><span>Loading 3D</span><i /></div>}
         </div>}
