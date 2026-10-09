@@ -101,7 +101,7 @@ export default function BoxViewer({ game, title }: { game: Game; title: string }
         scene.environment?.dispose(); pmrem.dispose();
         renderer.dispose(); renderer.domElement.remove();
       };
-    });
+    }).catch(() => { if (!disposed) setFlat(true); });   // 3D code unavailable (offline, flaky network): show the flat cover
     return () => { disposed = true; cleanup(); };
   }, [cover, flat, game, title]);
 

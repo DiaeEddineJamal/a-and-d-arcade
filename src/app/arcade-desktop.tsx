@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ import {
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
-import { canDownload, megabytes, totalBytes } from "./offline";
+import { canDownload, checkDownload, downloadsVersion, getDownload, megabytes, subscribe, totalBytes } from "./offline";
 import BootScreen from "./boot-screen";
 import BoxViewer from "./box-viewer";
 import CrtOverlay from "./crt-overlay";
@@ -66,6 +66,18 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   const pathname = usePathname();
   const router = useRouter();
   const [booting, setBooting] = useState(true);
+  // offline: which games are on this PC, whether we are online, and the browser's "install app" prompt
+  useSyncExternalStore(subscribe, downloadsVersion, () => 0);
+  const [online, setOnline] = useState(true);
+  const [install, setInstall] = useState<(Event & { prompt: () => Promise<unknown> }) | null>(null);
+  useEffect(() => {
+    games.forEach(game => void checkDownload(game.id));
+    const network = () => setOnline(navigator.onLine);
+    const offer = (event: Event) => { event.preventDefault(); setInstall(event as Event & { prompt: () => Promise<unknown> }); };
+    network();
+    addEventListener("online", network); addEventListener("offline", network); addEventListener("beforeinstallprompt", offer);
+    return () => { removeEventListener("online", network); removeEventListener("offline", network); removeEventListener("beforeinstallprompt", offer); };
+  }, [games]);
   const [bootRun, setBootRun] = useState(0);
   const [mobile, setMobile] = useState<boolean | null>(null);
   const [powered, setPowered] = useState<"on" | "shutting" | "off">("on");
@@ -187,8 +199,11 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       const game = games.find(game => game.id === id);
       if (game) setDetail(game);
       setNow(new Date());
-      // offline: keep this page and the scripts it already loaded (before the worker took over) in the shell cache
-      navigator.serviceWorker?.register("/sw.js").then(() => caches.open("shell")).then(cache => cache.addAll([location.pathname, ...performance.getEntriesByType("resource").map(entry => entry.name).filter(name => name.startsWith(`${location.origin}/_next/static/`))])).catch(() => {});
+      // offline: keep every desktop screen and the scripts already loaded (before the worker took over) in the shell cache
+      navigator.serviceWorker?.register("/sw.js").then(() => caches.open("shell")).then(cache => cache.addAll([...new Set([location.pathname, "/", "/collection", "/files", "/about", "/terminal", "/settings"]),
+        // every shelf cover at its smallest shelf size (~800 KB in all), so the collection looks right offline
+        ...games.map(game => new Request(`/_next/image?url=${encodeURIComponent(`${game.cover}?v=ad1996`)}&w=256&q=75`, { headers: { accept: "image/avif,image/webp,*/*" } })),
+        ...performance.getEntriesByType("resource").map(entry => entry.name).filter(name => name.startsWith(`${location.origin}/_next/static/`))])).catch(() => {});
     }, 0);
     query.addEventListener("change", update);
     const tick = setInterval(() => setNow(new Date()), 10_000);
@@ -336,7 +351,10 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         <ul className="feature-chips">{detail.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
         {!!detail.photos?.length && <div className="photo-strip">{detail.photos.map((src, index) => <button key={src} onClick={() => setPhoto(src)} aria-label={`Open box photo ${index + 1}`}><Image src={src} alt="" width={240} height={180} sizes="160px" /></button>)}</div>}
         <div className="detail-actions">
-          {canDownload(detail.id) && <p className="device-line is-download"><Download /><span><b>Downloadable to your PC</b> · download it once ({megabytes(totalBytes(detail.id))}) and play it offline, no internet needed</span></p>}
+          {canDownload(detail.id) && (getDownload(detail.id).status === "done"
+            ? <p className="device-line is-download"><Download /><span><b>On this PC</b> · downloaded, plays offline with no internet</span></p>
+            : <p className="device-line is-download"><Download /><span><b>Downloadable to your PC</b> · download it once ({megabytes(totalBytes(detail.id))}) and play it offline, no internet needed</span></p>)}
+          {!online && !(canDownload(detail.id) && getDownload(detail.id).status === "done") && <p className="device-line is-offline"><span><b>You are offline</b> · this game needs an internet connection</span></p>}
           <p className="device-line">{gameSupport(detail).devices === "both" ? <Smartphone /> : <Laptop />}<span><b>{gameSupport(detail).label}</b> · {gameSupport(detail).note}</span></p>
           <a className="play-button" href={detail.href} onClick={click}><Gamepad2 />{detail.cta}<ArrowRight className="nudge" /></a>
         </div>
@@ -378,7 +396,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
           <button className="big-box" style={{ "--i": index } as React.CSSProperties} onClick={() => { click(); openDetail(game); }} aria-label={`Open ${title(game)}`}>
             <span className="big-box-spine" />
             <span className="big-box-face"><Image src={`${game.cover}?v=ad1996`} alt="" width={240} height={360} sizes="(max-width: 700px) 30vw, 130px" draggable={false} /></span>
-            {canDownload(game.id) && <span className="download-sticker" title="Can be downloaded to your PC and played offline"><Download aria-hidden="true" />DOWNLOADABLE</span>}
+            {canDownload(game.id) && (getDownload(game.id).status === "done"
+              ? <span className="download-sticker is-saved" title="Downloaded: plays offline on this PC">✓ ON THIS PC</span>
+              : <span className="download-sticker" title="Can be downloaded to your PC and played offline"><Download aria-hidden="true" />DOWNLOADABLE</span>)}
           </button>
         </div>)}{Array.from({ length: (columns - visibleGames.length % columns) % columns + columns * Math.max(0, 4 - Math.ceil(visibleGames.length / columns)) }, (_, index) => <div className="shelf-slot is-empty" key={`empty-${index}`} aria-hidden="true" />)}</div>
         {!visibleGames.length && <p className="shelf-empty">No boxes match “{query}”.</p>}
@@ -454,6 +474,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     <h2>Display</h2>
     <button className="setting-row" role="switch" aria-checked={crt} onClick={() => preference({ crt: !crt })}><Laptop />CRT phosphor &amp; grain<b>{crt ? "ON" : "OFF"}</b></button>
     <h2>System</h2>
+    {install && <button className="setting-row" onClick={() => { void install.prompt(); setInstall(null); }}><Download />Install as an app (opens offline)<b>RUN</b></button>}
     <button className="setting-row" onClick={reboot}><RotateCcw />Replay startup<b>RUN</b></button>
     <button className="setting-row" onClick={() => { try { localStorage.removeItem("ad-preferences"); sessionStorage.clear(); } catch {} window.history.replaceState(null, "", "/"); location.reload(); }}><Trash2 />Clear temp files<b>RUN</b></button>
     <p className="settings-foot">A&amp;D ARCADE OS 1.0 · EST. 1996 / 2026<br />Animation follows your device’s reduced-motion setting.</p>

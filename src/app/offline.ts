@@ -10,6 +10,7 @@ const marker = (id: string) => `/offline-ready/${id}`;
 const states = new Map<string, Download>();
 const listeners = new Set<() => void>();
 const running = new Map<string, AbortController>();
+let version = 0;
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // jsDelivr refuses files it has not cached yet from repos over 50 MB (HTTP 403); GitHub's raw mirror has the same pinned commit
 const mirror = (url: string) => url.replace(/^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@/]+)@([^/]+)\//, "https://raw.githubusercontent.com/$1/$2/$3/");
@@ -19,12 +20,15 @@ export const canDownload = (id: string) => id in files;
 export const totalBytes = (id: string) => (files[id] ?? []).reduce((sum, [, bytes]) => sum + bytes, 0);
 export const megabytes = (bytes: number) => bytes >= 1e9 ? `${(bytes / 1e9).toFixed(2)} GB` : `${Math.round(bytes / 1e6)} MB`;
 export const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
+/** bumps on every download change: lets one component follow every game at once */
+export const downloadsVersion = () => version;
 export function getDownload(id: string) {
   if (!states.has(id)) states.set(id, { status: "none", done: 0, total: totalBytes(id) });
   return states.get(id)!;
 }
 function update(id: string, patch: Partial<Download>) {
   states.set(id, { ...getDownload(id), ...patch });
+  version++;
   listeners.forEach(listener => listener());
 }
 

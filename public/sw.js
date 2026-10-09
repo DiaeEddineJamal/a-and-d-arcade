@@ -31,8 +31,25 @@ async function page(request) {
     }
     return response;
   } catch (error) {
-    const cached = await caches.match(request, { ignoreVary: true }) || await caches.match(request, { ignoreVary: true, ignoreSearch: true });
+    const cached = await caches.match(request, { ignoreVary: true }) || await offlineStandIn(request);
     if (cached) return cached;
     throw error;
   }
+}
+
+// Offline and nothing saved under this exact address.
+async function offlineStandIn(request) {
+  const url = new URL(request.url);
+  // a resized image: any saved width of the same picture (the shelf saves every cover at 256px)
+  if (url.pathname === "/_next/image") {
+    const shell = await caches.open("shell");
+    const picture = url.searchParams.get("url");
+    for (const saved of await shell.keys()) {
+      const savedUrl = new URL(saved.url);
+      if (savedUrl.pathname === "/_next/image" && savedUrl.searchParams.get("url") === picture) return shell.match(saved, { ignoreVary: true });
+    }
+    return caches.match(picture, { ignoreVary: true });
+  }
+  // a page or its router data under another query string: the saved page itself
+  if (request.mode === "navigate" || request.headers.has("rsc")) return caches.match(url.pathname, { ignoreVary: true });
 }
