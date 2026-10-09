@@ -439,6 +439,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         <ul className="feature-chips">{detail.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
         {!!detail.photos?.length && <div className="photo-strip">{detail.photos.map((src, index) => <button key={src} onClick={() => setPhoto(src)} aria-label={`Open box photo ${index + 1}`}><Image src={src} alt="" width={240} height={180} sizes="160px" /></button>)}</div>}
         <div className="detail-actions">
+          {detail.source?.startsWith("http") && <p className="device-line is-offline"><span><b>Online only</b> · runs on its maker&rsquo;s site ({new URL(detail.source).host}), so it can&rsquo;t be downloaded</span></p>}
           {canDownload(detail.id) && (getDownload(detail.id).status === "done"
             ? <p className="device-line is-download"><Download /><span><b>On this PC</b> · downloaded, plays offline with no internet</span></p>
             : <p className="device-line is-download"><Download /><span><b>Downloadable to your PC</b> · download it once ({megabytes(totalBytes(detail.id))}) and play it offline, no internet needed</span></p>)}

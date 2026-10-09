@@ -343,6 +343,8 @@ svg { flex-shrink: 0; }
 .device-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid #548b76; border-radius: 5px; color: #285e48; font: 600 10.5px var(--plex); }
 .device-desktop { border-color: #9b734a; color: #775030; }
 .device-badge.is-download { margin-left: 6px; border-color: #b8901f; background: #f2c14e33; color: #6b4f00; }
+.device-badge.is-online { margin-left: 6px; border-color: #8a8270; background: #00000008; color: var(--ink-soft); }
+.player-start a.retro-button { text-decoration: none; }
 .device-note { font: 12px/1.5 var(--serif); opacity: .75; }
 .retro-button { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 22px; padding: 15px 18px; border-radius: 8px; background: var(--ink); color: var(--paper); font: 600 13px var(--plex); letter-spacing: .06em; box-shadow: 0 3px 0 #000; }
 .retro-button:hover { background: #2c2c28; }

@@ -1,4 +1,6 @@
-export const portedGames = [
+import { webGames } from "./web-games";
+
+const localPorts = [
   {
     id: "cuphead", number: "05", name: ["", "CUPHEAD"] as [string, string],
     genre: "Run-and-gun platformer", tagline: "Don't deal with the devil.",
@@ -380,3 +382,5 @@ export const portedGames = [
     features: ["Full original game", "Gross-out special moves", "Full-screen player"],
   },
 ];
+
+export const portedGames = [...localPorts, ...webGames];

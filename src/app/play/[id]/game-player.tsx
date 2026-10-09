@@ -5,7 +5,7 @@ import Link from "next/link";
 import { gameSupport } from "../../game-support.mjs";
 import { canDownload, checkDownload, getDownload, megabytes, pauseDownload, removeDownload, startDownload, subscribe } from "../../offline";
 
-type PlayerGame = { id: string; name: [string, string]; source: string; download: string; creator: string; notice?: string; specs: { label: string; value: string }[] };
+type PlayerGame = { id: string; name: [string, string]; source: string; download: string; creator: string; notice?: string; launch?: "embed" | "tab"; broken?: boolean; host?: string; specs: { label: string; value: string }[] };
 
 export default function GamePlayer({ game }: { game: PlayerGame }) {
   const frame = useRef<HTMLIFrameElement>(null);
@@ -14,6 +14,9 @@ export default function GamePlayer({ game }: { game: PlayerGame }) {
   const [message, setMessage] = useState("");
   const title = game.name.join(" ").trim();
   const support = gameSupport(game);
+  // a web port lives on its maker's site: shown in our player, or in its own tab when the site refuses to be embedded
+  const web = /^https?:/.test(game.source);
+  const newTab = web && game.launch === "tab";
 
   const [immersive, setImmersive] = useState(false);
   // a copy downloaded to this device plays without the network (src/app/offline.ts, public/sw.js)
@@ -51,21 +54,28 @@ export default function GamePlayer({ game }: { game: PlayerGame }) {
         <span>{title}</span>
         <button disabled={!started} onClick={() => { setAttempt(attempt + 1); setMessage(""); }}>RELOAD</button>
         <button disabled={!started} onClick={fullscreen}>FULL SCREEN ↗</button>
+        {web && <a href={game.source} target="_blank" rel="noopener noreferrer">NEW TAB ↗</a>}
       </nav>
       <p className="player-message" role="status">{message}</p>
       {started ? (
-        <iframe key={attempt} ref={frame} src={game.source} title={title} allow="autoplay; fullscreen; gamepad" allowFullScreen onLoad={() => frame.current?.focus()} />
+        <iframe key={attempt} ref={frame} src={game.source} title={title} allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write; cross-origin-isolated; xr-spatial-tracking" allowFullScreen onLoad={() => frame.current?.focus()} />
       ) : (
         <section className="player-start">
-          <p className="eyebrow">BROWSER EDITION · {game.creator}</p>
+          <p className="eyebrow">{web ? "WEB PORT" : "BROWSER EDITION"} · {game.creator}</p>
           <h1>{title}</h1>
           <div className={`device-badge device-${support.devices}`}>{support.label}</div>
           {canDownload(game.id) && <div className="device-badge is-download">↓ Downloadable to your PC · plays offline</div>}
+          {web && <div className="device-badge is-online">{game.broken ? "✕ Not working right now" : `● Online only · not downloadable`}</div>}
           <p className="device-note">{support.note}</p>
-          <p>{local.status === "done" ? "Installed on this device: it plays from the downloaded copy, no internet needed." : `${game.download}. The game downloads after you press play, or download it first and play it later from this device.`}</p>
+          <p>{web
+            ? `It runs on ${game.host}, the site of the people who ported it, so it needs an internet connection and cannot be downloaded to this device.${newTab ? " It opens in its own tab." : ""}`
+            : local.status === "done" ? "Installed on this device: it plays from the downloaded copy, no internet needed." : `${game.download}. The game downloads after you press play, or download it first and play it later from this device.`}</p>
           {game.notice && <p>{game.notice}</p>}
-          <p>Keyboard and mouse recommended. Use Full Screen after launch; Escape returns to this player.</p>
-          <button className="retro-button" onClick={() => setStarted(true)}>PLAY NOW <b>↗</b></button>
+          {!newTab && <p>Keyboard and mouse recommended. Use Full Screen after launch; Escape returns to this player.</p>}
+          {newTab
+            ? <a className="retro-button" href={game.source} target="_blank" rel="noopener noreferrer">{game.broken ? "TRY IT ANYWAY" : "PLAY IN A NEW TAB"} <b>↗</b></a>
+            : <button className="retro-button" onClick={() => setStarted(true)}>PLAY NOW <b>↗</b></button>}
+          {web && !newTab && <a className="retro-button is-quiet" href={game.source} target="_blank" rel="noopener noreferrer">OPEN IN ITS OWN TAB <b>↗</b></a>}
           {canDownload(game.id) && <div className="local-copy">
             {local.status === "done"
               ? <button className="retro-button is-quiet" onClick={() => { if (confirm(`Remove ${title} from this device? You will need to download ${megabytes(local.total)} again to play it offline.`)) void removeDownload(game.id); }}>INSTALLED ON THIS DEVICE · REMOVE <b>✓</b></button>
