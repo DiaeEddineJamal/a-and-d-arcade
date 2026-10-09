@@ -622,3 +622,5 @@ svg { flex-shrink: 0; }
   font-family: var(--pixel-serif); font-weight: 400; font-style: normal; letter-spacing: 0; font-variation-settings: normal; font-synthesis: none;
 }
 @media (min-width: 701px) { .collection-intro h1 { font-size: 46px; } }
+/* the pixel serif is 1.08em from ascender to descender: tighter leading makes descenders (g, y) hit the next line's ascenders */
+:is(.about-header h1, .collection-intro h1, .detail-header h2, .settings-window header h1, .note-view h2, .player-start h1, .not-found h1) { line-height: 1.2; }
