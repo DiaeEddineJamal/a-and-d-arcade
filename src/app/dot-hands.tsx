@@ -18,8 +18,11 @@ export default function DotHands({ color = "#ece6cf", className = "", step = 2 }
       sampler.drawImage(image, 0, 0);
       const data = sampler.getImageData(0, 0, image.width, image.height).data;
       const dots: { x: number; y: number; v: number; t: number }[] = [];
+      // average each step×step block; sampling one pixel per block loses the thin lines at coarse steps
       for (let y = 0; y < image.height; y += step) for (let x = 0; x < image.width; x += step) {
-        const v = data[(y * image.width + x) * 4] / 255;
+        let sum = 0, count = 0;
+        for (let dy = 0; dy < step && y + dy < image.height; dy++) for (let dx = 0; dx < step && x + dx < image.width; dx++, count++) sum += data[((y + dy) * image.width + x + dx) * 4];
+        const v = Math.min(1, sum / count / 255 * (step > 2 ? 1.6 : 1));
         if (v > .16) dots.push({ x: x / step, y: y / step, v, t: Math.random() });
       }
       const columns = Math.ceil(image.width / step), rows = Math.ceil(image.height / step);

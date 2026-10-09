@@ -119,7 +119,7 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
   const memory = Math.min(32768, Math.floor(Math.max(0, clock - 700) / 750 * 32768));
 
   if (mobile) return <section className={`boot lcd-boot${leaving ? " is-leaving" : ""}`} aria-label="A&D Arcade is starting" role="dialog" aria-modal="true">
-    <DotHands color="#1d2a16" step={4} />
+    <DotHands color="#1d2a16" step={3} />
     <div className="lcd-progress" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}><span style={{ transform: `scaleX(${progress})` }} /></div>
   </section>;
 
