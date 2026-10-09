@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   AppWindow, ArrowLeft, ArrowRight, ArrowUp, BookOpen, CassetteTape, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Gamepad2, HardDrive,
-  House, ImageIcon, Info, Laptop, ListPlus, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
+  House, ImageIcon, ImagePlus, Info, Laptop, ListPlus, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
@@ -32,7 +32,9 @@ const dock = [
 ];
 const gameIcons: Record<string, LucideIcon> = { pong: Columns2, kart: Flag, puck: CircleDot, chefs: ChefHat };
 const wallpapers = [{ id: "arcade", label: "A&D" }, { id: "paper", label: "Paper" }, { id: "blue", label: "BIOS" }, { id: "midnight", label: "Midnight" }, { id: "teal", label: "1996" }];
-const walls: Record<string, string> = { arcade: "#1a1a1a", teal: "#008080", paper: "#ddd9c8", blue: "#0000a8", midnight: "#141414" };
+type WallFit = "fill" | "fit" | "center" | "tile";
+const fits: Record<WallFit, React.CSSProperties> = { fill: { backgroundSize: "cover" }, fit: { backgroundSize: "contain" }, center: { backgroundSize: "auto" }, tile: { backgroundSize: "auto", backgroundRepeat: "repeat", backgroundPosition: "0 0" } };
+const walls: Record<string, string> = { custom: "#1a1a1a", arcade: "#1a1a1a", teal: "#008080", paper: "#ddd9c8", blue: "#0000a8", midnight: "#141414" };
 type Sound = { boot: boolean; click: boolean; hum: boolean };
 type Line = { text: ReactNode; tone?: string };
 
@@ -97,7 +99,11 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   };
   const openMusic = () => setPlayer(value => value ?? { key: null, n: 0, play: false });
   // the A&D picture wallpaper only shows up once its image is in public/wallpapers
-  const choices = wallpapers.filter(item => item.id !== "arcade" || wallpaperArt.arcade);
+  // her own picture as wallpaper: kept in this browser, placed the way she picks in Settings
+  const [customWall, setCustomWall] = useState<string | null>(null);
+  const [wallFit, setWallFit] = useState<WallFit>("fill");
+  const artOf = (id: string) => id === "custom" ? customWall : wallpaperArt[id];
+  const choices = [...wallpapers.filter(item => item.id !== "arcade" || wallpaperArt.arcade), ...(customWall ? [{ id: "custom", label: "Yours" }] : [])];
   const [photo, setPhoto] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -194,7 +200,8 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     // the colour under the screen edge, which the CRT shader paints itself (see crt-overlay)
     document.documentElement.dataset.wall = booting ? (mobile ? "#93a87f" : "#050505") : mobile && wallpaper === "teal" ? "#0e4c49" : walls[wallpaper];
     // a picture wallpaper: paint the rim with the average colour of the picture's own border, or the edge looks torn
-    const art = wallpaperArt[wallpaper];
+    // (a picture that does not fill the screen leaves the plain colour at the rim)
+    const art = wallpaper !== "custom" || wallFit === "fill" ? artOf(wallpaper) : null;
     if (booting || !art) return;
     let live = true;
     const image = new window.Image();
@@ -214,7 +221,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     };
     image.src = art;
     return () => { live = false; };
-  }, [booting, mobile, wallpaper, wallpaperArt]);
+  }, [booting, mobile, wallpaper, wallpaperArt, customWall, wallFit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---------- preferences, device class, clock, deep links
   useEffect(() => {
@@ -237,7 +244,10 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       try {
         const saved = JSON.parse(localStorage.getItem("ad-preferences") || "{}");
         const id = ({ cream: "paper", night: "midnight" } as Record<string, string>)[saved.wallpaper] ?? saved.wallpaper;
-        if (wallpapers.some(item => item.id === id)) setWallpaper(id);
+        const mine = localStorage.getItem("ad-wallpaper-custom");
+        if (mine) setCustomWall(mine);
+        if (["fill", "fit", "center", "tile"].includes(saved.wallFit)) setWallFit(saved.wallFit);
+        if (wallpapers.some(item => item.id === id) || (id === "custom" && mine)) setWallpaper(id);
         if (typeof saved.crt === "boolean") setCrt(saved.crt);
         if (saved.sound && typeof saved.sound === "object") setSound(value => ({ ...value, ...saved.sound }));
         if (saved.startup === false) setStartup(false);
@@ -269,10 +279,28 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   }, []);
   useEffect(() => { if (pathname === "/settings") readStorage(); }, [pathname, downloads, readStorage]);
 
-  function preference(next: { wallpaper?: string; crt?: boolean; startup?: boolean; sound?: Partial<Sound> }) {
-    const value = { wallpaper, crt, startup, ...next, sound: { ...sound, ...next.sound } };
-    setWallpaper(value.wallpaper); setCrt(value.crt); setStartup(value.startup); setSound(value.sound);
+  function preference(next: { wallpaper?: string; wallFit?: WallFit; crt?: boolean; startup?: boolean; sound?: Partial<Sound> }) {
+    const value = { wallpaper, wallFit, crt, startup, ...next, sound: { ...sound, ...next.sound } };
+    setWallpaper(value.wallpaper); setWallFit(value.wallFit); setCrt(value.crt); setStartup(value.startup); setSound(value.sound);
     try { localStorage.setItem("ad-preferences", JSON.stringify(value)); } catch {}
+  }
+  // shrunk to at most 2560px and saved as a JPEG, so it fits the browser's storage and loads fast
+  async function ownWallpaper(file: File | undefined) {
+    if (!file) return;
+    try {
+      const bitmap = await createImageBitmap(file), scale = Math.min(1, 2560 / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(bitmap.width * scale); canvas.height = Math.round(bitmap.height * scale);
+      canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      const url = canvas.toDataURL("image/jpeg", .85);
+      localStorage.setItem("ad-wallpaper-custom", url);
+      setCustomWall(url); preference({ wallpaper: "custom" });
+    } catch { alert("That picture could not be used as a wallpaper. Try another one (JPEG or PNG)."); }
+  }
+  function dropWallpaper() {
+    try { localStorage.removeItem("ad-wallpaper-custom"); } catch {}
+    setCustomWall(null);
+    if (wallpaper === "custom") preference({ wallpaper: "teal" });
   }
   const finishBoot = useCallback(() => { setBooting(false); try { sessionStorage.setItem("ad-booted", "1"); localStorage.setItem("ad-welcomed", "1"); } catch {} }, []);
   const setupBoot = useCallback(() => { finishBoot(); router.push("/settings"); }, [finishBoot, router]);
@@ -543,7 +571,12 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   if (pathname === "/settings") windowContent = <section className="window settings-window" aria-labelledby="settings-title">
     <header><h1 id="settings-title">Settings</h1><CloseButton /></header>
     <h2>Wallpaper</h2>
-    <div className="wallpaper-grid">{choices.map(item => <button key={item.id} aria-pressed={wallpaper === item.id} onClick={() => { click(); preference({ wallpaper: item.id }); }}><span className={`swatch wp-${item.id}`} style={wallpaperArt[item.id] ? { backgroundImage: `url(${wallpaperArt[item.id]})`, backgroundSize: "cover" } : undefined} />{item.label}</button>)}</div>
+    <div className="wallpaper-grid">{choices.map(item => <button key={item.id} aria-pressed={wallpaper === item.id} onClick={() => { click(); preference({ wallpaper: item.id }); }}><span className={`swatch wp-${item.id}`} style={artOf(item.id) ? { backgroundImage: `url(${artOf(item.id)})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined} />{item.label}</button>)}</div>
+    <label className="setting-row"><ImagePlus />{customWall ? "Change my picture" : "Use my own picture"}<b>PICK</b>
+      <input className="file-input" type="file" accept="image/*" onChange={event => { void ownWallpaper(event.target.files?.[0]); event.target.value = ""; }} /></label>
+    {wallpaper === "custom" && <div className="segmented wall-fit" role="group" aria-label="Picture position">{(["fill", "fit", "center", "tile"] as const).map(fit =>
+      <button key={fit} aria-pressed={wallFit === fit} onClick={() => preference({ wallFit: fit })}>{fit}</button>)}</div>}
+    {customWall && <button className="setting-row" onClick={dropWallpaper}><Trash2 />Remove my picture<b>RUN</b></button>}
     <h2>Sound</h2>
     {([["boot", "Boot beep", Volume2], ["click", "Mouse click", MousePointerClick], ["hum", "Ambient hum", Radio]] as const).map(([key, label, Icon]) => <button className="setting-row" key={key} role="switch" aria-checked={sound[key]} onClick={() => preference({ sound: { [key]: !sound[key] } })}><Icon />{label}<b>{sound[key] ? "ON" : "OFF"}</b></button>)}
     <h2>Display</h2>
@@ -582,8 +615,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     { id: "music", label: "Music", icon: Music, onOpen: openMusic, cell: 4 },
     { id: "terminal", label: "Terminal", icon: Terminal, href: "/terminal", cell: 7 },
     { id: "about", label: "About", icon: User, href: "/about", cell: 16 },
-    { id: "collection", label: "Collection", icon: BookOpen, href: "/collection", cell: 17 },
-    { id: "files", label: "Games", icon: Gamepad2, href: "/files", cell: 19 },
+    // Games opens the game library (the Big Box shelf); Files is the file explorer
+    { id: "collection", label: "Games", icon: Gamepad2, href: "/collection", cell: 17 },
+    { id: "files", label: "Files", icon: Folder, href: "/files", cell: 19 },
   ];
   const windowKey = detail ? `detail` : pathname;
   const showDesktop = pathname === "/" || pathname === "/settings";
@@ -591,7 +625,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   return <div className={`monitor wp-${wallpaper}${crt ? " crt-on" : ""}${booting ? " is-booting" : ""} power-${powered}`} onPointerDown={event => { if ((event.target as HTMLElement).closest("button, a")) click(); }}>
     <svg className="svg-defs" aria-hidden="true"><defs><filter id="crt-chroma" x="-2%" y="-2%" width="104%" height="104%"><feOffset in="SourceGraphic" dx=".7" result="r" /><feColorMatrix in="r" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="ro" /><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="go" /><feOffset in="SourceGraphic" dx="-.7" result="b" /><feColorMatrix in="b" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="bo" /><feBlend in="go" in2="ro" mode="screen" result="rg" /><feBlend in="rg" in2="bo" mode="screen" /></filter></defs></svg>
     <a className="skip-link" href="#desktop-content" hidden={booting}>Skip to content</a>
-    <div className="screen" inert={booting || powered !== "on"} style={wallpaperArt[wallpaper] ? { backgroundImage: `url(${wallpaperArt[wallpaper]})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}>
+    <div className="screen" inert={booting || powered !== "on"} style={artOf(wallpaper) ? { backgroundImage: `url(${artOf(wallpaper)})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: walls.custom, ...(wallpaper === "custom" && fits[wallFit]) } : undefined}>
       <main id="desktop-content" className="desktop">
         {showDesktop && <section className="home" aria-label="Desktop">
           <div className="home-clock">{clock}</div>

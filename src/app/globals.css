@@ -309,9 +309,10 @@ svg { flex-shrink: 0; }
 .date { display: block; margin-top: 4px; font: 500 11px var(--ui); color: var(--ink-muted); }
 .start-menu p { margin: 14px 4px 4px; font: 700 10px var(--ui); text-transform: uppercase; letter-spacing: .03em; color: var(--ink-soft); }
 .start-menu .menu-system { margin-top: auto; padding-top: 16px; }
-.start-menu a, .start-menu button { display: flex; align-items: center; gap: 12px; padding: 7px 6px; border-radius: 6px; font: 500 14.5px var(--serif); text-align: left; transition: background .12s, padding .2s var(--ease); }
-.start-menu a:hover, .start-menu button:hover { background: #0000000c; padding-left: 10px; }
+.start-menu a, .start-menu button:not(.win-btn) { display: flex; align-items: center; gap: 12px; padding: 7px 6px; border-radius: 6px; font: 500 14.5px var(--serif); text-align: left; transition: background .12s, padding .2s var(--ease); }
+.start-menu a:hover, .start-menu button:not(.win-btn):hover { background: #0000000c; padding-left: 10px; }
 .start-menu svg { width: 16px; height: 16px; stroke-width: 2; }
+.start-menu .win-btn svg { width: 15px; height: 15px; stroke-width: 2.6; }
 
 /* routed pages (ported game player, 404) */
 .layer-page > * { width: 100%; }
@@ -501,7 +502,7 @@ svg { flex-shrink: 0; }
 
   .start-menu { width: auto; right: var(--pad-x); padding: 20px 18px; border-radius: 16px; }
   .start-menu .clock { font-size: 44px; }
-  .start-menu a, .start-menu button { min-height: 42px; font-size: 16px; }
+  .start-menu a, .start-menu button:not(.win-btn) { min-height: 42px; font-size: 16px; }
 
   .player-toolbar { gap: 8px; font-size: 10px; padding: 10px 12px; }
   .player-toolbar > span { flex-basis: calc(100% - 110px); }
@@ -624,3 +625,9 @@ svg { flex-shrink: 0; }
 @media (min-width: 701px) { .collection-intro h1 { font-size: 46px; } }
 /* the pixel serif is 1.08em from ascender to descender: tighter leading makes descenders (g, y) hit the next line's ascenders */
 :is(.about-header h1, .collection-intro h1, .detail-header h2, .settings-window header h1, .note-view h2, .player-start h1, .not-found h1) { line-height: 1.2; }
+
+/* Settings: her own wallpaper picture */
+.file-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.setting-row:has(.file-input) { position: relative; cursor: pointer; }
+.setting-row:has(.file-input:focus-visible) { outline: 2px solid var(--ink); }
+.wall-fit { margin: 2px 4px 6px; }
