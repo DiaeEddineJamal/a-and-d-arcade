@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Gamepad2, HardDrive,
-  House, ImageIcon, Info, Laptop, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
+  AppWindow, ArrowLeft, ArrowRight, ArrowUp, BookOpen, CassetteTape, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Gamepad2, HardDrive,
+  House, ImageIcon, Info, Laptop, ListPlus, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
@@ -15,7 +15,10 @@ import BootScreen from "./boot-screen";
 import BoxViewer from "./box-viewer";
 import CrtOverlay from "./crt-overlay";
 import DeviceLock from "./device-lock";
-import MusicPlayer, { trackName } from "./music-player";
+import MusicPlayer, { trackName, type PlayRequest, type Track } from "./music-player";
+import TapeDeck from "./tape-deck";
+import HomeGrid, { type HomeApp } from "./home-grid";
+import { listTapes, removeTape, saveCopy, subscribeTapes, type Tape } from "./tapes";
 import { devices, type Device } from "./devices";
 import { gameSupport } from "./game-support.mjs";
 
@@ -50,8 +53,13 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   const [locking, setLocking] = useState<Device | null>(null);
   const [unlocked, setUnlocked] = useState<string[]>([]);
   const [note, setNote] = useState<Device | null>(null);
-  // the Walkman floats above every window, so a song keeps playing while she browses
-  const [song, setSong] = useState<{ device: Device; index: number } | null>(null);
+  // the Tape Deck player floats above every window, so a song keeps playing while she browses; the playlist is remembered
+  const [player, setPlayer] = useState<PlayRequest | null>(null);
+  const [playlist, setPlaylistState] = useState<string[]>([]);
+  const [tapes, setTapes] = useState<{ tape: Tape; src: string }[]>([]);
+  const [deck, setDeck] = useState(false);
+  const [flash, setFlash] = useState("");
+  const [welcomed, setWelcomed] = useState(true);
   const deviceIcons = { drive: HardDrive, disc: Disc3, floppy: Save };
   const openDevice = (device: Device) => { setNote(null); if (unlocked.includes(device.id)) setDrive(device); else setLocking(device); };
   const unlock = (device: Device) => {
@@ -60,6 +68,34 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     try { localStorage.setItem("ad-unlocked", JSON.stringify(next)); } catch {}
   };
   const browse = (filter: string) => { setCategory(filter); setDrive(null); setNote(null); };
+  // songs recorded on this PC: one object URL per tape for as long as it exists, so a playing song never reloads
+  useEffect(() => {
+    const urls = new Map<string, string>();
+    const load = () => void listTapes().then(list => {
+      for (const [id, url] of urls) if (!list.some(tape => tape.id === id)) { URL.revokeObjectURL(url); urls.delete(id); }
+      setTapes(list.map(tape => { if (!urls.has(tape.id)) urls.set(tape.id, URL.createObjectURL(tape.blob)); return { tape, src: urls.get(tape.id)! }; }));
+    });
+    load();
+    const off = subscribeTapes(load);
+    return () => { off(); urls.forEach(url => URL.revokeObjectURL(url)); };
+  }, []);
+  // every song she can reach: the unlocked drives, plus the tapes, which live on the CD-ROM
+  const library = useMemo<Track[]>(() => [
+    ...devices.filter(device => unlocked.includes(device.id)).flatMap(device => (deviceTracks[device.id] ?? []).map(src => ({ key: src, src, ...trackName(src), from: device.label }))),
+    ...(unlocked.includes("cdrom") ? tapes.map(({ tape, src }) => ({ key: `tape:${tape.id}`, src, title: tape.title, artist: tape.artist, from: "Tape Deck" })) : []),
+  ], [unlocked, deviceTracks, tapes]);
+  const setPlaylist = (keys: string[]) => { setPlaylistState(keys); try { localStorage.setItem("ad-playlist", JSON.stringify(keys)); } catch {} };
+  const say = (text: string) => { setFlash(text); setTimeout(() => setFlash(value => value === text ? "" : value), 1800); };
+  const playTrack = (key: string) => {
+    if (!playlist.includes(key)) setPlaylist([...playlist, key]);
+    setPlayer(value => ({ key, n: (value?.n ?? 0) + 1, play: true }));
+  };
+  const queueTrack = (key: string, name: string) => {
+    if (!playlist.includes(key)) setPlaylist([...playlist, key]);
+    setPlayer(value => value ?? { key, n: 1, play: false });
+    say(`Added “${name}” to the playlist`);
+  };
+  const openMusic = () => setPlayer(value => value ?? { key: null, n: 0, play: false });
   // the A&D picture wallpaper only shows up once its image is in public/wallpapers
   const choices = wallpapers.filter(item => item.id !== "arcade" || wallpaperArt.arcade);
   const [photo, setPhoto] = useState<string | null>(null);
@@ -191,6 +227,12 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     };
     addEventListener("resize", update);
     const timer = setTimeout(() => {
+      // phones show the terminal boot to new players only; everyone after that gets the quick handheld splash
+      try {
+        setWelcomed(!!localStorage.getItem("ad-welcomed"));
+        const list = JSON.parse(localStorage.getItem("ad-playlist") || "[]");
+        if (Array.isArray(list)) setPlaylistState(list.filter(item => typeof item === "string"));
+      } catch {}
       update();
       try {
         const saved = JSON.parse(localStorage.getItem("ad-preferences") || "{}");
@@ -232,7 +274,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     setWallpaper(value.wallpaper); setCrt(value.crt); setStartup(value.startup); setSound(value.sound);
     try { localStorage.setItem("ad-preferences", JSON.stringify(value)); } catch {}
   }
-  const finishBoot = useCallback(() => { setBooting(false); try { sessionStorage.setItem("ad-booted", "1"); } catch {} }, []);
+  const finishBoot = useCallback(() => { setBooting(false); try { sessionStorage.setItem("ad-booted", "1"); localStorage.setItem("ad-welcomed", "1"); } catch {} }, []);
   const setupBoot = useCallback(() => { finishBoot(); router.push("/settings"); }, [finishBoot, router]);
   const reboot = () => { delete document.documentElement.dataset.warm; setMenu(false); setPowered("on"); setBooting(true); setBootRun(value => value + 1); };
   const shutdown = () => { setMenu(false); setPowered("shutting"); setTimeout(() => setPowered("off"), 1300); };
@@ -260,6 +302,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       // games use Escape themselves (pause menus, leaving full screen), so leave it alone there
       if (booting || event.key !== "Escape" || pathname.startsWith("/play/")) return;
       if (photo) setPhoto(null);
+      else if (deck) setDeck(false);
       else if (note) setNote(null);
       else if (drive) setDrive(null);
       else if (detail) openDetail(null);
@@ -448,11 +491,23 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
           <thead><tr><th>Name</th><th className="col-date">Date Modified</th><th className="col-type">Type</th><th className="col-size">Size</th></tr></thead>
           <tbody>
             <tr onClick={() => setNote(drive)}><td><button onClick={event => { event.stopPropagation(); setNote(drive); }}><FileText />{drive.note.name}</button></td><td className="col-date">for A, always</td><td className="col-type">Text Document</td><td className="col-size">♥ KB</td></tr>
-            {deviceTracks[drive.id]?.map((src, index) => <tr key={src} onClick={() => setSong({ device: drive, index })}><td><button onClick={event => { event.stopPropagation(); setSong({ device: drive, index }); }}><Music />{trackName(src).title}</button></td><td className="col-date">{trackName(src).artist || "her favourites"}</td><td className="col-type">Audio</td><td className="col-size">♪</td></tr>)}
+            {drive.id === "cdrom" && <tr className="is-app" title="Double-click to open" onClick={() => { if (mobile) setDeck(true); }} onDoubleClick={() => setDeck(true)}>
+              <td><button onClick={event => { event.stopPropagation(); if (mobile) setDeck(true); }} onDoubleClick={event => { event.stopPropagation(); setDeck(true); }}><AppWindow />TapeDeck.exe</button></td>
+              <td className="col-date">YouTube to tape</td><td className="col-type">Application</td><td className="col-size">64 KB</td></tr>}
+            {deviceTracks[drive.id]?.map(src => <tr key={src} onClick={() => playTrack(src)}><td><button onClick={event => { event.stopPropagation(); playTrack(src); }}><Music />{trackName(src).title}</button></td><td className="col-date">{trackName(src).artist || "her favourites"}</td><td className="col-type">Audio</td>
+              <td className="col-size"><span className="row-tools" onClick={event => event.stopPropagation()}><button onClick={() => queueTrack(src, trackName(src).title)} aria-label={`Add ${trackName(src).title} to the playlist`} title="Add to playlist"><ListPlus /></button></span></td></tr>)}
+            {drive.id === "cdrom" && tapes.map(({ tape }) => { const key = `tape:${tape.id}`; return <tr key={key} onClick={() => playTrack(key)}>
+              <td><button onClick={event => { event.stopPropagation(); playTrack(key); }}><CassetteTape />{tape.title}</button></td>
+              <td className="col-date">{tape.artist || `recorded ${new Date(tape.added).toLocaleDateString()}`}</td><td className="col-type">Tape · {(tape.blob.size / 1e6).toFixed(1)} MB</td>
+              <td className="col-size"><span className="row-tools" onClick={event => event.stopPropagation()}>
+                <button onClick={() => queueTrack(key, tape.title)} aria-label={`Add ${tape.title} to the playlist`} title="Add to playlist"><ListPlus /></button>
+                <button onClick={() => saveCopy(tape)} aria-label={`Save a copy of ${tape.title} to Downloads`} title="Save a copy to Downloads"><Download /></button>
+                <button onClick={() => { if (confirm(`Erase “${tape.title}” from this PC?`)) { void removeTape(tape.id); setPlaylist(playlist.filter(item => item !== key)); } }} aria-label={`Erase ${tape.title}`} title="Erase"><Trash2 /></button>
+              </span></td></tr>; })}
             {devicePhotos[drive.id]?.map(src => <tr key={src} onClick={() => setPhoto(src)}><td><button onClick={event => { event.stopPropagation(); setPhoto(src); }}><ImageIcon />{decodeURIComponent(src.split("/").pop() ?? "")}</button></td><td className="col-date">our camera roll</td><td className="col-type">Image</td><td className="col-size">—</td></tr>)}
           </tbody>
         </table>
-        {!devicePhotos[drive.id]?.length && !deviceTracks[drive.id]?.length && <p className="files-empty">No photos or songs on this drive yet.</p>}
+        {drive.id !== "cdrom" && !devicePhotos[drive.id]?.length && !deviceTracks[drive.id]?.length && <p className="files-empty">No photos or songs on this drive yet.</p>}
       </div> : <div className="files-list">
         <label className="field files-search"><Search /><input aria-label="Search files" placeholder="Search" value={query} onChange={event => setQuery(event.target.value)} /></label>
         <table>
@@ -467,8 +522,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     </div>
     {note && <article className="note-view" aria-labelledby="note-title"><header><FileText /><span>{note.note.name} — Notepad</span><button className="win-btn" onClick={() => setNote(null)} aria-label="Close note"><X /></button></header><div><h2 id="note-title">{note.note.title}</h2>{note.note.body.map((line, index) => <p key={index}>{line}</p>)}</div></article>}
     {photo && pathname === "/files" && <div className="photo-view" onClick={() => setPhoto(null)}><Image src={photo} alt="A photo from our drive" width={1600} height={1200} sizes="80vw" /><button className="win-btn" aria-label="Close photo"><X /></button></div>}
+    {deck && <TapeDeck onPlay={tape => { playTrack(`tape:${tape.id}`); setDeck(false); }} onQueue={tape => queueTrack(`tape:${tape.id}`, tape.title)} onClose={() => setDeck(false)} />}
     {locking && <DeviceLock device={locking} onUnlock={() => unlock(locking)} onClose={() => setLocking(null)} />}
-    <footer className="files-status"><span>{drive ? `${1 + (devicePhotos[drive.id]?.length ?? 0) + (deviceTracks[drive.id]?.length ?? 0)} items` : `${visibleGames.length} items`}</span><span>{drive ? `${drive.label} · ${drive.path}` : "A&D GAME ARCHIVE · 2.1 GB free"}</span></footer>
+    <footer className="files-status"><span role="status">{flash || (drive ? `${1 + (devicePhotos[drive.id]?.length ?? 0) + (deviceTracks[drive.id]?.length ?? 0) + (drive.id === "cdrom" ? 1 + tapes.length : 0)} items` : `${visibleGames.length} items`)}</span><span>{drive ? `${drive.label} · ${drive.path}` : "A&D GAME ARCHIVE · 2.1 GB free"}</span></footer>
   </section>;
 
   if (pathname === "/terminal") windowContent = <section className="window terminal-window" aria-label="Terminal" onClick={() => { if (!getSelection()?.toString()) terminalInput.current?.focus({ preventScroll: true }); }}>
@@ -520,6 +576,15 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     <p className="settings-foot">A&amp;D ARCADE OS 1.0 · EST. 1996 / 2026<br />Animation follows your device’s reduced-motion setting. Downloaded games stay on this device until you remove them or clear the browser’s site data.</p>
   </section>;
 
+  // the phone home screen; the cells are where each icon starts before she moves it
+  const homeApps: HomeApp[] = [
+    ...games.filter(game => gameIcons[game.id]).map((game, n) => ({ id: game.id, label: game.name[1].charAt(0) + game.name[1].slice(1).toLowerCase(), icon: gameIcons[game.id], href: game.href, external: true, cell: n })),
+    { id: "music", label: "Music", icon: Music, onOpen: openMusic, cell: 4 },
+    { id: "terminal", label: "Terminal", icon: Terminal, href: "/terminal", cell: 7 },
+    { id: "about", label: "About", icon: User, href: "/about", cell: 16 },
+    { id: "collection", label: "Collection", icon: BookOpen, href: "/collection", cell: 17 },
+    { id: "files", label: "Games", icon: Gamepad2, href: "/files", cell: 19 },
+  ];
   const windowKey = detail ? `detail` : pathname;
   const showDesktop = pathname === "/" || pathname === "/settings";
 
@@ -532,6 +597,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
           <div className="home-clock">{clock}</div>
           <Link className="home-terminal" href="/terminal" aria-label="Terminal"><Terminal /></Link>
           <nav className="shortcuts" aria-label="Games">{games.filter(game => gameIcons[game.id]).map(game => { const Icon = gameIcons[game.id]; return <a key={game.id} href={game.href} className="shortcut"><span><Icon /></span>{game.name[1].charAt(0) + game.name[1].slice(1).toLowerCase()}</a>; })}</nav>
+          {mobile && <HomeGrid apps={homeApps} />}
           <nav className="home-apps" aria-label="Apps">
             <Link href="/about" className="app-tile"><span><User /></span>About</Link>
             <Link href="/collection" className="app-tile"><span><BookOpen /></span>Collection</Link>
@@ -541,11 +607,12 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         {(detail || (windowContent && pathname !== "/")) && <div className={`window-layer layer-${detail ? "detail" : pathname.slice(1)}`} key={windowKey}>{detailWindow ?? windowContent}</div>}
         {!screens.includes(pathname) && <div className="window-layer layer-page">{children}</div>}
       </main>
-      {song && <MusicPlayer key={`${song.device.id}:${song.index}`} tracks={deviceTracks[song.device.id]} start={song.index} label={song.device.label} onClose={() => setSong(null)} />}
+      {player && <MusicPlayer library={library} playlist={playlist} onPlaylist={setPlaylist} request={player} onClose={() => setPlayer(null)} />}
       {menu && <nav className="start-menu" aria-label="Start menu">
         <div className="menu-head"><div>{clock}</div><button className="win-btn win-close" onClick={() => setMenu(false)} aria-label="Close menu"><X /></button></div>
         <p>Apps</p>
         {[{ href: "/files", icon: Folder, label: "Files" }, { href: "/collection", icon: BookOpen, label: "Collection" }, { href: "/about", icon: User, label: "About" }, { href: "/terminal", icon: Terminal, label: "Terminal" }].map(item => <Link key={item.href} href={item.href} onClick={() => { setMenu(false); openDetail(null); }}><item.icon />{item.label}</Link>)}
+        <button onClick={() => { setMenu(false); openMusic(); }}><Music />Music</button>
         <p>Games</p>
         {games.filter(game => gameIcons[game.id]).map(game => { const Icon = gameIcons[game.id]; return <a key={game.id} href={game.href}><Icon />{title(game).replace("A&D ", "").toLowerCase().replace(/^\w/, letter => letter.toUpperCase())}</a>; })}
         <p className="menu-system">System</p>
@@ -559,7 +626,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       </nav>
     </div>
     {powered === "off" && <button className="power-off" onClick={reboot}><span>It’s now safe to turn off<br />your computer.</span><small>Press any key to power on</small></button>}
-    {booting && (mobile === null ? <div className="boot" /> : <BootScreen key={bootRun} mobile={mobile} onFinish={finishBoot} onSetup={setupBoot} onBeep={beep} />)}
+    {booting && (mobile === null ? <div className="boot" /> : <BootScreen key={bootRun} mobile={mobile} terminal={!mobile || !welcomed || bootRun > 0} onFinish={finishBoot} onSetup={setupBoot} onBeep={beep} />)}
     <CrtOverlay enabled={crt} />
   </div>;
 }

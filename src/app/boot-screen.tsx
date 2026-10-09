@@ -18,8 +18,9 @@ const resources = ["/ad-hands-dots.png", "/ad-about-cutout.png", "/_next/image?u
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const H = ({ children }: { children: ReactNode }) => <b className="t-cyan">{children}</b>;
 
-export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobile: boolean; onFinish: () => void; onSetup: () => void; onBeep: () => void }) {
-  const [stage, setStage] = useState<Stage>(mobile ? "loading" : "bios");
+/** `terminal`: play the BIOS, kernel and shell first (always on desktop; on phones for new players and replays) */
+export default function BootScreen({ mobile, terminal, onFinish, onSetup, onBeep }: { mobile: boolean; terminal: boolean; onFinish: () => void; onSetup: () => void; onBeep: () => void }) {
+  const [stage, setStage] = useState<Stage>(terminal ? "bios" : "loading");
   const [clock, setClock] = useState(0);
   const [kernelCount, setKernelCount] = useState(0);
   const [serviceCount, setServiceCount] = useState(0);
@@ -33,7 +34,7 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
   const fast = (ms: number) => reduced.current ? 0 : ms;
 
   useEffect(() => {
-    document.documentElement.dataset.crt = mobile ? "handheld-boot" : { bios: "post", kernel: "tty", init: "tty", shell: "tty", loading: "splash" }[stage];
+    document.documentElement.dataset.crt = mobile && stage === "loading" ? "handheld-boot" : { bios: "post", kernel: "tty", init: "tty", shell: "tty", loading: "splash" }[stage];
   }, [stage, mobile]);
 
   // BIOS clock drives the staggered POST lines and the memory counter
@@ -42,8 +43,10 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
     if (stage !== "bios") return;
     const start = performance.now();
     let frame = requestAnimationFrame(function tick(now) { setClock(reduced.current ? 9999 : now - start); if (now - start < 3400) frame = requestAnimationFrame(tick); });
-    return () => cancelAnimationFrame(frame);
-  }, [stage]);
+    // a phone has no "any key": boot by itself if nobody taps
+    const auto = mobile ? setTimeout(() => setStage("kernel"), fast(5200)) : undefined;
+    return () => { cancelAnimationFrame(frame); clearTimeout(auto); };
+  }, [stage, mobile]);
 
   useEffect(() => {
     let cancelled = false;
@@ -59,7 +62,8 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
       if (!cancelled) setStage("shell");
     })();
     if (stage === "shell") {
-      input.current?.focus({ preventScroll: true });
+      // phones: no keyboard popping up unasked, the machine types startx anyway
+      if (!mobile) input.current?.focus({ preventScroll: true });
       // nobody typing? the machine types startx for them
       const auto = setTimeout(async () => {
         if (typed.current || cancelled) return;
@@ -118,7 +122,7 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
   const lastLogin = `${now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} ${now.toTimeString().slice(0, 8)} 1996 on tty1`;
   const memory = Math.min(32768, Math.floor(Math.max(0, clock - 700) / 750 * 32768));
 
-  if (mobile) return <section className={`boot lcd-boot${leaving ? " is-leaving" : ""}`} aria-label="A&D Arcade is starting" role="dialog" aria-modal="true">
+  if (mobile && stage === "loading") return <section className={`boot lcd-boot${leaving ? " is-leaving" : ""}`} aria-label="A&D Arcade is starting" role="dialog" aria-modal="true">
     <DotHands color="#1d2a16" step={3} />
     <div className="lcd-progress" role="progressbar" aria-label="Loading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}><span style={{ transform: `scaleX(${progress})` }} /></div>
   </section>;
@@ -128,15 +132,15 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
       {stage === "bios" && <>
         <span className="bios-cursor" aria-hidden="true" />
         <div className="bios-badge"><RetroBadge /></div>
-        <pre className="bios-lines">{bios.filter(([at]) => clock >= at).map(([, line], index) => <span key={index} className={index < 2 ? "hot" : undefined}>{line.replace("{mem}", memory < 32768 ? `${memory}K` : "32768K OK")}{"\n"}</span>)}{clock > 3200 && <span className="bios-press">{"\n"}&gt; Press any key to boot ...</span>}</pre>
+        <pre className="bios-lines">{bios.filter(([at]) => clock >= at).map(([, line], index) => <span key={index} className={index < 2 ? "hot" : undefined}>{line.replace("{mem}", memory < 32768 ? `${memory}K` : "32768K OK")}{"\n"}</span>)}{clock > 3200 && <span className="bios-press">{"\n"}&gt; {mobile ? "Tap" : "Press any key"} to boot ...</span>}</pre>
         <footer className="bios-footer"><span>Press <b>DEL</b> to enter SETUP</span><span>10/06/1996-i430TX-A&amp;D-2A59IG29C-00 <u>@a&amp;darcade</u></span></footer>
       </>}
       {stage === "kernel" && <pre className="kernel-lines">{"LILO loading linux ....\n"}{kernel.slice(0, kernelCount).join("\n")}</pre>}
-      {stage === "init" && <pre className="init-lines"><span className="hot">A&amp;D OS 1.0  (Arcade Station)</span>{"\n\n"}{services.slice(0, serviceCount).map(line => <span key={line}>{`${line}:`.padEnd(46)}[  <span className="t-green">OK</span>  ]{"\n"}</span>)}</pre>}
+      {stage === "init" && <pre className="init-lines"><span className="hot">A&amp;D OS 1.0  (Arcade Station)</span>{"\n\n"}{services.slice(0, serviceCount).map(line => <span key={line}>{`${line}:`.padEnd(mobile ? 37 : 46)}[  <span className="t-green">OK</span>  ]{"\n"}</span>)}</pre>}
       {stage === "shell" && <div className="shell">
         <div className="login-box"><DotHands step={2} /><p>A&amp;D OS release 1.0<br /><span>(Arcade-derived)</span><br />Kernel 2.2.14 on an i586</p></div>
         <p>Last login: <b>{lastLogin}</b></p>
-        <p>Type <H>help</H> for commands · <H>startx</H> or <H>F11</H> launches the UI · <H>F12</H> reboots</p>
+        <p>Type <H>help</H> for commands · <H>startx</H>{mobile ? "" : <> or <H>F11</H></>} launches the UI{mobile ? "" : <> · <H>F12</H> reboots</>}</p>
         <div className="shell-log" role="log">{shell.map((line, index) => <p key={index}>{line}</p>)}</div>
         <form onSubmit={submit} className="shell-prompt">
           <label htmlFor="boot-shell"><span className="t-cyan">/home/a&amp;d-arcade</span><span className="t-yellow">(main)</span> <span className="t-magenta">»</span></label>
@@ -150,7 +154,7 @@ export default function BootScreen({ mobile, onFinish, onSetup, onBeep }: { mobi
         <div className="boot-progress" role="progressbar" aria-label="Loading arcade" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}><span style={{ transform: `scaleX(${progress})` }} /></div>
       </div>}
     </div>
-    {stage === "shell" && <footer className="shell-hint">`help` for commands · `startx` or F11 launches UI · F12 reboots</footer>}
+    {stage === "shell" && !mobile && <footer className="shell-hint">`help` for commands · `startx` or F11 launches UI · F12 reboots</footer>}
     <button className="boot-skip" onClick={onFinish}>Skip intro <kbd>Esc</kbd></button>
   </section>;
 }
