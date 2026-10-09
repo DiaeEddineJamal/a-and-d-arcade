@@ -72,7 +72,7 @@ export default function GamePlayer({ game }: { game: PlayerGame }) {
               : local.status === "downloading"
                 ? <button className="retro-button is-quiet" onClick={() => pauseDownload(game.id)}>PAUSE DOWNLOAD <b>❚❚</b></button>
                 : <button className="retro-button is-quiet" onClick={() => startDownload(game.id, [`/play/${game.id}`, game.source, "/retro-player.css", "/ad-boot-logo.svg"])}>
-                    {local.status === "paused" ? "RESUME DOWNLOAD" : `DOWNLOAD TO THIS DEVICE · ${megabytes(local.total)}`} <b>↓</b>
+                    {local.status === "paused" ? `${local.message ? "RETRY" : "RESUME"} FROM ${megabytes(local.done)} OF ${megabytes(local.total)}` : `DOWNLOAD TO THIS DEVICE · ${megabytes(local.total)}`} <b>{local.status === "paused" && local.message ? "↻" : "↓"}</b>
                   </button>}
             {(local.status === "downloading" || local.status === "paused") && <>
               <progress value={local.done} max={local.total} aria-label="Download progress" />
