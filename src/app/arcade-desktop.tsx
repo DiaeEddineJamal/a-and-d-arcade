@@ -113,6 +113,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   const [online, setOnline] = useState(true);
   const [install, setInstall] = useState<(Event & { prompt: () => Promise<unknown> }) | null>(null);
   const [installed, setInstalled] = useState(false);
+  const [ios, setIos] = useState(false);
   const [startup, setStartup] = useState(true);
   const [storage, setStorage] = useState<{ used: number; free: number; persisted: boolean } | null>(null);
   const [persistAsked, setPersistAsked] = useState(false);
@@ -121,9 +122,11 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
     games.forEach(game => void checkDownload(game.id));
     const network = () => setOnline(navigator.onLine);
     const offer = (event: Event) => { event.preventDefault(); setInstall(event as Event & { prompt: () => Promise<unknown> }); };
-    const standalone = () => setInstalled(matchMedia("(display-mode: standalone)").matches);
+    const standalone = () => setInstalled(matchMedia("(display-mode: standalone)").matches || (navigator as Navigator & { standalone?: boolean }).standalone === true);
+    // iPhone/iPad never fire beforeinstallprompt; Safari installs through Share → Add to Home Screen
+    const apple = () => setIos(/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
     const justInstalled = () => { setInstalled(true); setInstall(null); };
-    network(); standalone();
+    network(); standalone(); apple();
     // the CRT power-on plays once per visit; later pages in the same visit open straight onto a warm screen
     try { sessionStorage.setItem("ad-warm", "1"); } catch {}
     addEventListener("online", network); addEventListener("offline", network); addEventListener("beforeinstallprompt", offer); addEventListener("appinstalled", justInstalled);
@@ -589,7 +592,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       ? <p className="setting-row is-static"><Download />Installed as an app<b>YES</b></p>
       : install
         ? <button className="setting-row" onClick={() => { void install.prompt(); setInstall(null); }}><Download />Install as an app (opens offline)<b>RUN</b></button>
-        : <p className="setting-row is-static"><Download />Install as an app<b className="setting-hint">Chrome or Edge: install icon in the address bar</b></p>}
+        : ios
+          ? <button className="setting-row" onClick={() => { void navigator.share?.({ title: "A&D Arcade", url: location.origin }).catch(() => {}); }}><Download />Install as an app: tap Share, then “Add to Home Screen”<b>SHARE</b></button>
+          : <p className="setting-row is-static"><Download />Install as an app<b className="setting-hint">Chrome or Edge: install icon in the address bar</b></p>}
     <button className="setting-row" role="switch" aria-checked={!!storage?.persisted} disabled={!!storage?.persisted}
       onClick={() => { void navigator.storage?.persist?.().then(() => { setPersistAsked(true); readStorage(); }); }}><HardDrive />Protect downloads from browser cleanup<b>{storage?.persisted ? "ON" : persistAsked ? "NOT YET" : "ASK"}</b></button>
     {persistAsked && !storage?.persisted && <p className="settings-note">The browser decides this on its own. Installing the arcade as an app, or visiting it regularly, usually makes it say yes.</p>}
