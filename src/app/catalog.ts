@@ -22,6 +22,8 @@ export type Game = {
   features: string[];
   source?: string;
   notice?: string;
+  /** Shelf library beyond Originals / Classics: runners, cooking, girl games */
+  collection?: "runners" | "cooking" | "girls";
   /** Optional real box photography; the 3D viewer generates these faces from the cover otherwise. */
   back?: string;
   spine?: string;

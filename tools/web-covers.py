@@ -13,6 +13,12 @@ FONTS = Path("C:/Windows/Fonts")
 W, H = 768, 1152
 font = lambda name, size: ImageFont.truetype(str(FONTS / name), size)
 games = re.findall(r'\{ id: "([^"]+)", title: \["([^"]*)", "([^"]*)"\], url: "([^"]+)", genre: "([^"]+)", tagline: "([^"]+)"', (ROOT / "src/app/web-games.ts").read_text(encoding="utf8"))
+# the runner / cooking / girl-game library (src/app/library-games.ts): its helper calls, then its plain entries
+library = (ROOT / "src/app/library-games.ts").read_text(encoding="utf8")
+games += [(i, "TEMPLE RUN 2", e, "classic", "Endless runner", "Take the idol, if you dare.") for i, e in re.findall(r'temple\("([^"]+)", "([^"]*)"', library)]
+games += [(i, "SUBWAY SURFERS", c, "classic", "Endless runner", t) for i, c, t in re.findall(r'subway\("([^"]+)", "([^"]+)", "([^"]+)"\)', library)]
+games += [(i, "PAPA'S", n, "classic", "Restaurant time management", t) for i, n, t in re.findall(r'papas\("([^"]+)", "([^"]+)", "[^"]+", "[^"]+", "([^"]+)"\)', library)]
+games += [(i, a, b, "classic", g, t) for i, a, b, g, t in re.findall(r'\{ id: "([^"]+)", title: \["([^"]*)", "([^"]*)"\],[^\n]*? genre: "([^"]+)", tagline: "([^"]+)"', library)]
 
 def fill(image, width, height):
     scale = max(width / image.width, height / image.height)
@@ -25,7 +31,9 @@ def fit(draw, text, name, size, width):
     return font(name, size)
 
 def cover(game_id, top, bottom, url, genre, tagline):
-    art = Image.open(next(ART.glob(f"{game_id}.*"))).convert("RGB")
+    found = [file for file in ART.glob(f"{game_id}.*") if file.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")]
+    if not found: return print("no art yet:", game_id)
+    art = Image.open(found[0]).convert("RGB")
     if art.height / art.width >= 1.05:   # a real box cover: let it be the box
         canvas = fill(art, W, H)
     else:
@@ -48,7 +56,7 @@ def cover(game_id, top, bottom, url, genre, tagline):
         d.text((34, ty + 8), tagline, font=fit(d, tagline, "georgiai.ttf", 34, W - 68), fill=(236, 232, 218))
         d.rectangle([0, 0, W, 64], fill=(236, 232, 218))
         d.text((32, 18), "A&D ARCADE", font=font("ariblk.ttf", 24), fill=(26, 26, 26))
-        d.text((W - 32, 20), "WEB PORT", font=font("consolab.ttf", 22), fill=(26, 26, 26), anchor="ra")
+        d.text((W - 32, 20), "WEB PORT" if url != "classic" else "CLASSIC", font=font("consolab.ttf", 22), fill=(26, 26, 26), anchor="ra")
     canvas.save(ROOT / "public" / f"{game_id}-cover-box-art.png", optimize=True)
 
 for game in games: cover(*game)

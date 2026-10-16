@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  AppWindow, ArrowLeft, ArrowRight, ArrowUp, BookOpen, CassetteTape, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Gamepad2, HardDrive,
-  House, ImageIcon, ImagePlus, Info, Laptop, ListPlus, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Terminal,
+  AppWindow, ArrowLeft, ArrowRight, ArrowUp, BookOpen, CassetteTape, ChefHat, CircleDot, Columns2, Disc3, Download, FileText, Flag, Folder, Footprints, Gamepad2, HardDrive,
+  House, ImageIcon, ImagePlus, Info, Laptop, ListPlus, Menu, Music, MousePointerClick, Power, Radio, RotateCcw, Save, Search, Settings, Share2, Smartphone, Sparkles, Terminal,
   Trash2, User, Volume2, X, type LucideIcon,
 } from "lucide-react";
 import type { Game } from "./catalog";
@@ -40,6 +40,9 @@ type Sound = { boot: boolean; click: boolean; hum: boolean };
 type Line = { text: ReactNode; tone?: string };
 
 const title = (game: Game) => game.name.join(" ").trim();
+// shelf filters: Originals / Classics, plus the libraries in src/app/library-games.ts
+const shelves: Record<string, string> = { all: "Collection", originals: "Originals", classics: "Classics", runners: "Runners", cooking: "Cooking", girls: "Girl games" };
+const onShelf = (game: Game, category: string) => category === "all" || (category === "originals" ? !game.source : category === "classics" ? !!game.source : game.collection === category);
 const modified = (game: Game) => {
   const n = Number(game.number);
   const date = new Date(1996 + (n % 4), (n * 5) % 12, (n * 7) % 27 + 1, (n * 3) % 12 + 8, (n * 13) % 60);
@@ -350,7 +353,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   useEffect(() => { document.querySelector(".files-sidebar [aria-pressed=\"true\"]")?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }, [drive, category, pathname]);
   useEffect(() => { if (pathname === "/terminal" && !mobile) terminalInput.current?.focus({ preventScroll: true }); }, [pathname, mobile, booting]);
 
-  const visibleGames = games.filter(game => (category === "all" || (category === "originals" ? !game.source : !!game.source)) && `${title(game)} ${game.genre}`.toLowerCase().includes(query.toLowerCase()));
+  const visibleGames = games.filter(game => onShelf(game, category) && `${title(game)} ${game.genre}`.toLowerCase().includes(query.toLowerCase()));
 
   // ---------- terminal
   const commands = ["help", "ls", "open", "play", "info", "whoami", "neofetch", "date", "echo", "history", "clear", "reboot", "shutdown", "exit", "sudo"];
@@ -480,7 +483,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
       <p>Pick one up. Turn it around. Then press play.</p>
       <div className="collection-tools">
         <label className="field"><Search /><input aria-label="Search games" placeholder="Search the shelf" value={query} onChange={event => setQuery(event.target.value)} /></label>
-        <div className="segmented" role="group" aria-label="Filter">{["all", "originals", "classics"].map(filter => <button key={filter} aria-pressed={category === filter} onClick={() => setCategory(filter)}>{filter}</button>)}</div>
+        <div className="segmented" role="group" aria-label="Filter">{Object.keys(shelves).map(filter => <button key={filter} aria-pressed={category === filter} onClick={() => setCategory(filter)}>{filter === "all" ? "all" : shelves[filter]}</button>)}</div>
         <span className="count" role="status">{visibleGames.length} of {games.length} boxes</span>
       </div>
     </aside>
@@ -504,7 +507,7 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
   if (pathname === "/files") windowContent = <section className="window files-window" aria-label="Files">
     <header className="files-toolbar">
       <div className="nav-buttons"><button className="win-btn ghost" onClick={() => router.back()} aria-label="Back"><ArrowLeft /></button><button className="win-btn ghost" onClick={() => router.forward()} aria-label="Forward"><ArrowRight /></button><Link className="win-btn ghost" href="/" aria-label="Up to desktop"><ArrowUp /></Link><button className="win-btn ghost is-on" onClick={() => browse("all")} aria-label="Home"><House /></button></div>
-      <nav className="crumbs" aria-label="Path">{drive ? <><span>/</span><span>dev</span><b>{drive.path.replace("dev://", "")}</b></> : <><span>/</span><span>home</span><span>a&amp;d-arcade</span><b>{category === "all" ? "Collection" : category === "originals" ? "Originals" : "Classics"}</b></>}</nav>
+      <nav className="crumbs" aria-label="Path">{drive ? <><span>/</span><span>dev</span><b>{drive.path.replace("dev://", "")}</b></> : <><span>/</span><span>home</span><span>a&amp;d-arcade</span><b>{shelves[category]}</b></>}</nav>
       <CloseButton />
     </header>
     <div className="files-body">
@@ -516,6 +519,9 @@ export default function ArcadeDesktop({ games, wallpaperArt, devicePhotos, devic
         <p>Libraries</p>
         <button aria-pressed={!drive && category === "originals"} onClick={() => browse("originals")}><Gamepad2 />A&amp;D Originals</button>
         <button aria-pressed={!drive && category === "classics"} onClick={() => browse("classics")}><Disc3 />Browser classics</button>
+        <button aria-pressed={!drive && category === "runners"} onClick={() => browse("runners")}><Footprints />Endless runners</button>
+        <button aria-pressed={!drive && category === "cooking"} onClick={() => browse("cooking")}><ChefHat />Papa&apos;s &amp; cooking</button>
+        <button aria-pressed={!drive && category === "girls"} onClick={() => browse("girls")}><Sparkles />Girl games</button>
         <p>Devices</p>
         {devices.map(device => { const Icon = deviceIcons[device.icon]; const open = unlocked.includes(device.id); return <button key={device.id} className={`device${open ? " is-open" : ""}`} aria-pressed={drive?.id === device.id} onClick={() => openDevice(device)} aria-label={`${device.label}${open ? "" : ", locked"}`}><Icon />{device.label}</button>; })}
       </aside>

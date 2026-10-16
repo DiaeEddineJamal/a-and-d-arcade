@@ -20,6 +20,7 @@
     </div>
     <script>
     const SWF_BASE = "https://cdn.jsdelivr.net/gh/angrybirdsswf/Angry-Birds-Chrome@2c616f2ccff5395297e015e0beeedae5459a21af/";
+    const SWFS = "https://cdn.jsdelivr.net/gh/DaniezOnSFUSD/SWFs@88fd2cdddac9cadd39af0e43b50e66388d72c287/";
     const GAMES = {
       "angry-birds-space": ["ANGRY BIRDS SPACE", SWF_BASE + "angry-birds-space.swf"],
       "angry-birds-halloween": ["ANGRY BIRDS HALLOWEEN", SWF_BASE + "angry-birds-halloween-hd.swf"],
@@ -32,9 +33,32 @@
       "hobo-5": ["HOBO 5: SPACE BRAWLS", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo5@f5a679caaa0087ab87203c0a68598be047ccbd1a/Hobo5.swf"],
       "hobo-6": ["HOBO 6: HELL", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo6@c749e1fcae013cdb233192828f105c3dec971010/Hobo6.swf"],
       "hobo-7": ["HOBO 7: HEAVEN", "https://cdn.jsdelivr.net/gh/zerrocredit/Hobo7@89acbff5567a3c489f4af88bb31deb9881fc6b2a/Hobo7.swf"],
+      // Flipline Studios' Papa's games, Papa Louie and Run 1-3 (Player 03), pinned SWFs from DaniezOnSFUSD/SWFs.
+      "papas-pizzeria": ["PAPA'S PIZZERIA", SWFS + "papaspizzeria.swf"],
+      "papas-burgeria": ["PAPA'S BURGERIA", SWFS + "papasburgeria.swf"],
+      "papas-taco-mia": ["PAPA'S TACO MIA!", SWFS + "papastacomia.swf"],
+      "papas-freezeria": ["PAPA'S FREEZERIA", SWFS + "papasfreezeria.swf"],
+      "papas-pancakeria": ["PAPA'S PANCAKERIA", SWFS + "papaspancakeria.swf"],
+      "papas-wingeria": ["PAPA'S WINGERIA", SWFS + "papaswingeria.swf"],
+      "papas-hot-doggeria": ["PAPA'S HOT DOGGERIA", SWFS + "papashotdoggeria.swf"],
+      "papas-cupcakeria": ["PAPA'S CUPCAKERIA", SWFS + "papascupcakeria.swf"],
+      "papas-pastaria": ["PAPA'S PASTARIA", SWFS + "papaspastaria.swf"],
+      "papas-donuteria": ["PAPA'S DONUTERIA", SWFS + "papasdonuteria.swf"],
+      "papas-cheeseria": ["PAPA'S CHEESERIA", SWFS + "papascheeseria_102.swf"],
+      "papas-bakeria": ["PAPA'S BAKERIA", SWFS + "papasbakeria.swf"],
+      "papas-sushiria": ["PAPA'S SUSHIRIA", SWFS + "papassushiria.swf"],
+      "papas-scooperia": ["PAPA'S SCOOPERIA", SWFS + "papasscooperia_v102.swf"],
+      "papa-louie": ["PAPA LOUIE: WHEN PIZZAS ATTACK!", SWFS + "papalouie_v2.swf"],
+      "papa-louie-2": ["PAPA LOUIE 2: WHEN BURGERS ATTACK!", SWFS + "PapaLouie2.swf"],
+      "papa-louie-3": ["PAPA LOUIE 3: WHEN SUNDAES ATTACK!", SWFS + "PapaLouie3.swf"],
+      "run": ["RUN", SWFS + "run.swf"],
+      "run-2": ["RUN 2", SWFS + "run2.swf"],
+      "run-3": ["RUN 3", SWFS + "run3.swf"],
+      "penguin-diner": ["PENGUIN DINER", "https://cdn.jsdelivr.net/gh/ahrdevelopers/penguin-diner@e49982d4d9ff57ecf7b36305c368a314e02c055b/penguin_diner.swf"],
       // Proxied through src/app/swf/[file]/route.ts: the Internet Archive serves this file without CORS.
       "zuma-the-lost-treasure": ["ZUMA: THE LOST TREASURE", "/swf/zuma-the-lost-treasure.swf"],
     };
+    // openUrlMode deny: sponsor and site-lock links (Flipline, Armor Games) would otherwise navigate the player away
     const loadingText = document.querySelector("#loading-text");
     const loadingStatus = document.querySelector("#loading-status");
     const game = GAMES[new URLSearchParams(location.search).get("game")];
@@ -51,7 +75,7 @@
         const player = window.RufflePlayer.newest().createPlayer();
         document.body.append(player);
         player.addEventListener("loadeddata", () => { loadingText.remove(); player.focus(); });
-        player.ruffle().load({ url: game[1], autoplay: "on", unmuteOverlay: "hidden", splashScreen: false, letterbox: "on", contextMenu: "rightClickOnly" }).catch(showLoadError);
+        player.ruffle().load({ url: game[1], autoplay: "on", unmuteOverlay: "hidden", splashScreen: false, letterbox: "on", contextMenu: "rightClickOnly", openUrlMode: "deny" }).catch(showLoadError);
       };
       script.onerror = () => showLoadError(new Error("The Flash player could not be downloaded."));
       document.body.append(script);

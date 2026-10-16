@@ -1,4 +1,5 @@
 import { webGames } from "./web-games";
+import { libraryGames } from "./library-games";
 
 const localPorts = [
   {
@@ -383,4 +384,4 @@ const localPorts = [
   },
 ];
 
-export const portedGames = [...localPorts, ...webGames];
+export const portedGames = [...localPorts, ...webGames, ...libraryGames(29 + webGames.length)];

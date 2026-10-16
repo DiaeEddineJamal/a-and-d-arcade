@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML5 Player</title>
+    <!-- HTML5 wrapper: /ports/html5/<game> (next.config.ts rewrites it here). Loads the game's own index.html from a pinned
+         jsDelivr commit and runs it on this origin, so its saves (localStorage, IndexedDB) stay on this site and a downloaded
+         copy plays offline (public/sw.js). The mirrors add ad and analytics scripts from other hosts: the CSP below lets
+         only this site and jsDelivr run code or be fetched, so those never load. -->
+    <style>html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }</style>
+    <script>const arcadeStyle = document.createElement("link"); arcadeStyle.rel = "stylesheet"; arcadeStyle.href = location.origin + "/retro-player.css"; document.head.append(arcadeStyle);</script>
+  </head>
+  <body>
+    <div id="loading-text" role="status">
+      <p>A&D ARCADE · BROWSER EDITION</p>
+      <h1></h1>
+      <progress id="loading-bar"></progress>
+      <p id="loading-status">LOADING</p>
+    </div>
+    <script>
+    const CDN = "https://cdn.jsdelivr.net/gh/";
+    // id: [title, pinned folder on GitHub, files over jsDelivr's 20 MiB limit (GitHub's raw host serves those)]
+    const GAMES = {
+      "temple-run-2": ["TEMPLE RUN 2", "hsinidev/temple-run-2-unblocked@152417dd517a30c9512945c94618887efbe14584/"],
+      "temple-run-2-frozen-shadows": ["TEMPLE RUN 2: FROZEN SHADOWS", "ahrdevelopers/temple-run-2-frozen-shadows@fc2f84032bc1eb3f4586e0fecef496ca25293dab/"],
+      "temple-run-2-jungle-fall": ["TEMPLE RUN 2: JUNGLE FALL", "ahrdevelopers/temple-run-2-jungle-fall@2a4ac0fcd021ea3bd2dcabbbef39f3e1bd1f3f91/"],
+      "temple-run-2-holi-festival": ["TEMPLE RUN 2: HOLI FESTIVAL", "ahrdevelopers/temple-run-2-holi-festival@8aeec0bd001b237cb2e535130a4774fae45cc206/"],
+      "subway-surfers": ["SUBWAY SURFERS: SAINT PETERSBURG", "ahrdevelopers/subway-surf@9f822c2b9e4d4aa9a16b0e091193ef934a80a26f/", ["Build/StPetersburg.data.unityweb", "Build/StPetersburg.wasm.code.unityweb"]],
+      "subway-surfers-bali": ["SUBWAY SURFERS: BALI", "ahrdevelopers/subway-surfers-bali@c9fd29793dc6a4fc73aa6e59c299d96eac6d0172/"],
+      "subway-surfers-hawaii": ["SUBWAY SURFERS: HAWAII", "ahrdevelopers/subway-surfers-hawaii@a45f485ecf0aabbaad8afd810431e9873e8384fe/"],
+      "subway-surfers-houston": ["SUBWAY SURFERS: HOUSTON", "ahrdevelopers/subway-surfers-houston@5acd83356e62c40e4390b0989742b3b40e1533d6/", ["Build/Houston.data.unityweb", "Build/Houston.wasm.code.unityweb"]],
+      "subway-surfers-mumbai": ["SUBWAY SURFERS: MUMBAI", "ahrdevelopers/subway-surfers-mumbai@b8dfdef55df34a89a078ce02f2c3130a63554db9/"],
+      "subway-surfers-new-orleans": ["SUBWAY SURFERS: NEW ORLEANS", "ahrdevelopers/subway-surfers-new-orleans@b454eea5ee76ecee4cceefce39d45c2794ed7af9/", ["Build/NewOrleans.data.unityweb", "Build/NewOrleans.wasm.code.unityweb"]],
+      "subway-surfers-new-york": ["SUBWAY SURFERS: NEW YORK", "ahrdevelopers/subway-surfers-new-york@764e67fd7a9614cf823a70611b1cc82088de5e80/"],
+      "subway-surfers-singapore": ["SUBWAY SURFERS: SINGAPORE", "ahrdevelopers/subway-surfers-singapore@312b2a125aea5b6eef8ce25afc6524e6551c829c/"],
+      "subway-surfers-zurich": ["SUBWAY SURFERS: ZURICH", "ahrdevelopers/subway-surfers-zurich-2024@487cd00d5200153502b83165d6f51e4d88db1c78/", ["Build/ZurichNewPrivacy.data.unityweb", "Build/ZurichNewPrivacy.wasm.code.unityweb"]],
+      "jetpack-joyride": ["JETPACK JOYRIDE", "ahrdevelopers/jetpack-joyride@8e1e1dbd3432bfab8842b4b3cfd9023998fb3d23/"],
+      "tunnel-rush": ["TUNNEL RUSH", "ahrdevelopers/tunnel-rush@19138605fa72f2a593ff174d309845fa0774e279/"],
+      "slope": ["SLOPE", "ahrdevelopers/slope@15f5ebdd743432c073d7be152a13f9bbec535342/"],
+      "penguin-diner-2": ["PENGUIN DINER 2", "ahrdevelopers/penguin-diner-2@61c39a58551068744f9785f69e82a6f79ded2022/"],
+      "top-burger": ["TOP BURGER", "ahrdevelopers/cooking-fever@1ac179574be1a1b2a0814f471561e50fa8986357/", ["Build/Burgerfever.data.unityweb"]],
+      "dream-chefs": ["DREAM CHEFS", "ahrdevelopers/dream-chefs@18249e011508e72664bd8f4e38c12146c1dd064a/"],
+      "cooking-mania": ["COOKING MANIA", "ahrdevelopers/cooking-mania@4bda32350dfe5dcaf772ce77e6b3b27c1449632c/"],
+      "cook-and-match": ["COOK & MATCH: SARA'S ADVENTURE", "ahrdevelopers/cook-and-match-saras-adventure@72b335748d4ad4c560bfced2d4dd595f72fc8913/"],
+      "fashion-queen": ["FASHION QUEEN", "ahrdevelopers/fashion-princess-dress-up-for-girls@b41d4c04a6125b65569cd0cb7b1b04efff5a34c8/", ["Build/fashion-queen-playgama.data.unityweb"]],
+      "celebrity-fashion-battle": ["CELEBRITY FASHION BATTLE", "ahrdevelopers/celebrity-fashion-battle@4aaa66f9e50889405102471e9f4655cd1cd8acfb/"],
+      "bffs-e-girl-vs-soft-girl": ["BFFS: E-GIRL VS SOFT GIRL", "ahrdevelopers/bffs-e-girl-vs-soft-girl@00a0bd8c740d1b21eb3d9e214897c29c1043a1ed/"],
+      "wedding-beauty-salon": ["WEDDING BEAUTY SALON", "ahrdevelopers/wedding-beauty-salon@181caf9d78910ee578caaf95a2502b3f42367875/"],
+      "unicorn-beauty-salon": ["UNICORN BEAUTY SALON", "ahrdevelopers/unicorn-beauty-salon@454f2ccb643cb54b6f38e8f00b4cb2c04da930c1/"],
+      "witch-beauty-salon": ["WITCH BEAUTY SALON", "ahrdevelopers/witch-beauty-salon@40e439079c1ad24a12ee7b2d30b679133f5d5ea7/"],
+      "spring-nail-art": ["SPRING NAIL ART", "ahrdevelopers/spring-nail-art@89d106db853920e1d2883c88429a669a3b1003ab/"],
+      "school-girl-makeover": ["SCHOOL GIRL MAKEOVER", "ahrdevelopers/school-girl-makeover@78754225333659f9291195dfefdc87dd6dc7faa4/"],
+      "baby-hazel-bed-time": ["BABY HAZEL: BED TIME", "ahrdevelopers/baby-hazel-bed-time@02cc363a0141f868c7f8d34bb048c6ea7084b5e2/"],
+      "pajama-party": ["PAJAMA PARTY", "ahrdevelopers/barbie-pajama-party@aa5973be2a0887036d26407fba1262a53ba995c5/"],
+    };
+    const RAW = "https://raw.githubusercontent.com/";
+    const CSP = `script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdn.jsdelivr.net; connect-src 'self' blob: data: https://cdn.jsdelivr.net ${RAW}; worker-src 'self' blob:`;
+    // Babylon's Draco decoder: the Temple Run 2 editions fetch it from cdn.babylonjs.com; the base Temple Run 2 mirror pins a copy
+    const DRACO = CDN + GAMES["temple-run-2"][1] + "assets/babylonjs/";
+    const ELSEWHERE = Object.fromEntries(["draco_decoder_gltf.wasm", "draco_wasm_wrapper_gltf.js"].map(file => ["https://cdn.babylonjs.com/" + file, DRACO + file]));
+    // runs first in the game page: oversized files go to GitHub's raw host, the decoder to its pinned copy
+    // (tools/offline-manifests.mjs saves them under those same addresses for offline play)
+    const redirect = moved => `<script>(() => {
+      const moved = new Map(${JSON.stringify(Object.entries(moved))});
+      // some games build addresses from the page's own folder instead of <base>: send those to the game's folder too
+      const page = location.origin + "/ports/html5/", base = document.baseURI;
+      // and npm packages from unpkg come from the same pinned versions on jsDelivr
+      const fix = url => {
+        const href = new URL(url, base).href;
+        return moved.get(href) || (href.startsWith(page) ? base + href.slice(page.length) : href.startsWith("https://unpkg.com/") ? "https://cdn.jsdelivr.net/npm/" + href.slice(18) : url);
+      };
+      const fetchFile = window.fetch, open = XMLHttpRequest.prototype.open;
+      window.fetch = (input, init) => fetchFile(typeof input === "string" || input instanceof URL ? fix(input) : input, init);
+      XMLHttpRequest.prototype.open = function (method, url, ...rest) { return open.call(this, method, fix(url), ...rest); };
+      // Workers: a script on jsDelivr is cross-origin, which browsers refuse, so it starts from a same-origin blob instead; a
+      // game's own blob worker gets the same prelude in front. In there, addresses resolve against the script's real address
+      // (or the game folder) and scripts load with a synchronous request (importScripts from a blob worker fails behind our
+      // service worker), so they run before any message arrives.
+      function inWorker(page, base, script) {
+        const fix = url => { const href = new URL(url, script || base).href; return href.startsWith(page) ? base + href.slice(page.length) : href; };
+        const load = url => { const request = new XMLHttpRequest(); request.open("GET", fix(url), false); request.send(); (0, eval)(request.responseText); };
+        const fetchFile = self.fetch, open = XMLHttpRequest.prototype.open;
+        self.fetch = (input, init) => fetchFile(typeof input === "string" || input instanceof URL ? fix(input) : input, init);
+        XMLHttpRequest.prototype.open = function (method, url, ...rest) { return open.call(this, method, fix(url), ...rest); };
+        self.importScripts = (...urls) => urls.forEach(load);
+        if (script) load(script);
+      }
+      const prelude = script => "(" + inWorker + ")(" + [page, base, script].map(text => JSON.stringify(text)).join(", ") + ");";
+      const blobs = new Map(), objectURL = URL.createObjectURL;
+      const revoke = URL.revokeObjectURL;
+      URL.createObjectURL = object => { const url = objectURL(object); if (object instanceof Blob && /^$|javascript/.test(object.type)) blobs.set(url, object); return url; };
+      URL.revokeObjectURL = url => { blobs.delete(url); revoke(url); };
+      const Native = window.Worker;
+      window.Worker = function (url, options) {
+        const href = new URL(fix(url), document.baseURI);
+        const classic = options?.type !== "module";
+        if (href.protocol === "blob:" && classic && blobs.has(href.href)) return new Native(objectURL(new Blob([prelude(""), blobs.get(href.href)], { type: "text/javascript" })), options);
+        if (href.origin === location.origin || /^(blob|data):/.test(href.protocol)) return new Native(url, options);
+        const code = classic ? prelude(href.href) : "import " + JSON.stringify(href.href) + ";";
+        return new Native(objectURL(new Blob([code], { type: "text/javascript" })), options);
+      };
+      window.Worker.prototype = Native.prototype;
+      // Babylon hands its Draco worker the decoder's address to importScripts()
+      const post = Worker.prototype.postMessage;
+      Worker.prototype.postMessage = function (message, ...rest) { if (message?.decoder?.url) message.decoder.url = fix(message.decoder.url); return post.call(this, message, ...rest); };
+    })();<\/script>`;
+    const loadingText = document.querySelector("#loading-text");
+    const loadingStatus = document.querySelector("#loading-status");
+    const game = GAMES[location.pathname.split("/").filter(Boolean).pop()];
+    function showLoadError(error) {
+      loadingText.className = "failed";
+      loadingStatus.textContent = "Game could not load. Use Reload to try again. " + (error.message || error);
+    }
+    if (!game) showLoadError(new Error("Unknown game."));
+    else {
+      const base = CDN + game[1];
+      document.title = document.querySelector("h1").textContent = game[0];
+      fetch(base + "index.html").then(response => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.text();
+      }).then(html => {
+        const head = `<base href="${base}"><meta http-equiv="Content-Security-Policy" content="${CSP}">` + redirect({ ...ELSEWHERE, ...Object.fromEntries((game[2] ?? []).map(file => [base + file, RAW + game[1].replace("@", "/") + file])) });
+        document.open();
+        document.write(/<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, tag => tag + head) : head + html);
+        document.close();
+      }).catch(showLoadError);
+    }
+    </script>
+  </body>
+</html>
